@@ -1,0 +1,39 @@
+:root {
+    --color-link: red;
+    --color-ice: #f1f1f1;
+    --color-darkred: darkred;
+    --color-gold: gold;
+    --color-gold-opacity: rgba(255, 217, 0, .8);
+    --color-red: red;
+    --color-brown: #110602;
+    --color-darkbrown: #161213;
+    --color-white: white;
+    --color-black: black;
+    --color-darkgray: #111;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-link);
+}
+
+ul {
+    list-style: none;
+}
+
