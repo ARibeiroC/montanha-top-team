@@ -4,8 +4,8 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 13vh;
-    background: var(--color-black);
+    height: 10vh;
+    background: rgba(0,0,0,.8);
     padding: .6rem 1rem;
 
     .logo {

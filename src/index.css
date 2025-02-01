@@ -19,8 +19,13 @@
     font-family: 'Roboto', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     min-height: 100vh;
+    background-color: var(--color-black);
 }
 
 h1 {

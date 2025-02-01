@@ -5,7 +5,7 @@ export const Container = styled.div`
     
     padding: 1rem;
 
-    height: 85vh;
+    height: 80vh;
     background-image: url('${background}');
     background-repeat: no-repeat;
     background-position: center;
@@ -40,7 +40,7 @@ export const Container = styled.div`
                 // justify-content: space-around;
                 gap: 5rem;
 
-                z-index: 1;
+                z-index: 0;
 
                 .content-header {
                     .title {
@@ -63,6 +63,15 @@ export const Container = styled.div`
                         font-size: 2rem;
                         font-style: italic;
                         color: var(--color-white);
+                        padding: 2.5rem 0;
+                        padding-bottom: 0;
+                        text-align: center;
+                    }
+
+                    .services {
+                        font-size: 1.5rem;
+                        font-style: italic;
+                        color: var(--color-gold);
                         padding: 2.5rem 0;
                         padding-bottom: 0;
                         text-align: center;
@@ -130,9 +139,19 @@ export const Container = styled.div`
                 
                 animation: translateVert 1s linear 2s infinite alternate;
 
-                &:hover{
+                &:hover {
                     background: var(--color-white);
-                    color: var(--color-black);
+                }
+
+                a { 
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: var(--color-ice);
+
+                    &:hover{
+                        color: var(--color-black);
+                    }
                 }
             }
 

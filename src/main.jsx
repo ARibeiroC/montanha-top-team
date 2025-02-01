@@ -12,6 +12,7 @@ import App from './components/App/App'
 
 // ROUTES COMPONENTS IMPORTS
 import { Panel } from './routes/Panel/Panel'
+import { Home } from './routes/Home/Home'
 
 // CREATING BROWSER ROUTER
 const router = createBrowserRouter(
@@ -27,7 +28,7 @@ const router = createBrowserRouter(
         },
         {
           path: '/Panel',
-          element: <Panel />,
+          element: <Panel />
         },
       ]
     }

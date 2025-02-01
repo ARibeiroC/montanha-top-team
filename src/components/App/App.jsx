@@ -12,10 +12,7 @@ import { Container } from './AppCSS.js'
 function App() {
   return (
     <Container>
-      <Header />
-      <Home />
-      <About />
-      <Footer />
+      <Outlet />
     </Container>
   )
 }

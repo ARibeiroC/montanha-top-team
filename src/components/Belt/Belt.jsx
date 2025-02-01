@@ -4,7 +4,7 @@ import { Container } from './BeltCSS.js'
 
 export function Belt(){
     return (
-        <Container>
+        <Container id='home'>
             <div className="contact">
                 <div className="phone">
                     <span>Ligue: </span>
