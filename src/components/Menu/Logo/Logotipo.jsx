@@ -1,7 +1,9 @@
+import { Container } from "./LogotipoCSS"
+
 export function Logotipo({logotipo}){
     return (
-        <div className="logo">
+        <Container>
             <img src={logotipo} alt="" />
-        </div>
+        </Container>
     )
 }

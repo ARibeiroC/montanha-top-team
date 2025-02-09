@@ -4,11 +4,10 @@ import { Container } from './BeltCSS.js'
 
 export function Belt(){
     return (
-        <Container id='home'>
+        <Container id='belt'>
             <div className="contact">
                 <div className="phone">
-                    <span>Ligue: </span>
-                    <i className='fa-solid fa-mobile-screen-button'></i>
+                    <i className='fa-brands fa-whatsapp'></i>
                     <p>(11) 9999-9999</p>
                 </div>
                 <div className="email">
@@ -26,7 +25,7 @@ export function Belt(){
             </div>
             <div className="services">
                 <a href='#'>
-                    <i className='fa-solid fa-cart-shopping'></i>
+                    <i className='fa-solid fa-shop'></i>
                     <p>Loja</p>
                 </a>
                 <a href='#'>

@@ -8,7 +8,7 @@ export const Container = styled.div`
     padding: .4rem;
 
     width: 100%;
-    height: 4vh;
+    height: 6vh;
     background: var(--color-darkgray);
     color: var(--color-ice);
 
@@ -22,6 +22,8 @@ export const Container = styled.div`
 
         a {  
             display: flex;
+            align-items: center;
+            justify-content: center;
             gap: .4rem;
             border: 1px solid transparent;
             border-radius: .6rem;
@@ -60,5 +62,18 @@ export const Container = styled.div`
 
     .phone p, .services p {
         display: block;
+    }
+
+    @media (max-width: 375px){
+        // background: white;
+
+        .services {
+            a {
+                width: 30px;
+                p {
+                    display: none;
+                }
+            } 
+        }
     }
 `

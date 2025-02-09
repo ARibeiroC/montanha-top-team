@@ -63,8 +63,7 @@ export const Container = styled.div`
                         font-size: 2rem;
                         font-style: italic;
                         color: var(--color-white);
-                        padding: 2.5rem 0;
-                        padding-bottom: 0;
+                        padding-top: 2.5rem;
                         text-align: center;
                     }
 
@@ -72,8 +71,7 @@ export const Container = styled.div`
                         font-size: 1.5rem;
                         font-style: italic;
                         color: var(--color-gold);
-                        padding: 2.5rem 0;
-                        padding-bottom: 0;
+                        padding-top: 2.5rem;
                         text-align: center;
                     }
                 }
@@ -163,6 +161,51 @@ export const Container = styled.div`
                 100% {top:10px;}
             }
         }
+    }
+
+    @media(max-width: 375px){
+        
+        .content {
+        
+            .content-banner{
+                img {
+                    display:none;
+                }
+                .content-left{
+                    gap: 0;
+                    .content-header{
+                        .title{
+                            font-size: 2.4rem;
+                            padding-top: 2rem;
+                        }
+
+                        .subtitle {
+                            font-size: 1.4rem;
+                            padding: 
+                        }
+
+                        .phrase {
+                            font-size: 1.4rem;
+                            padding-top: 1.6rem;
+                        }
+
+                        .services {
+                            font-size: 1.4rem;
+                            padding-top: .6rem;
+                        }
+                }
+                .btn-controller {
+                    display: flex;
+                    justify-content: center;
+                    padding: 3rem 0;
+                }
+            }
+        }
+
+        .arrow-content {
+            padding: 1rem 0;
+        }
+        
     }
 
     
