@@ -19,9 +19,9 @@ export const Container = styled.div`
 
 
     // RESPONSIVE DISPLAY LAYOUTS
-    @media (max-width: 375px) {
+    @media (max-width: 425px) {
         height: 8vh;
-        padding: .6rem 0rem;
+        padding: .6rem .4rem;
         
         .icon-menu-responsive {
             color: white;

@@ -64,7 +64,7 @@ export const Container = styled.div`
         display: block;
     }
 
-    @media (max-width: 375px){
+    @media (max-width: 425px){
         // background: white;
 
         .services {

@@ -7,34 +7,29 @@ import { Container } from "./MenuCSS"
 import { Logotipo } from "./Logo/Logotipo"
 import { Navigation } from "./Nav/Navigation"
 import { Language } from './Dropdown/Language/Language'
-import { useRef, useState } from 'react'
+import { useContext, useState } from 'react'
+
+import { StateMenuContext } from '../../context/StateMenuContext'
 
 export function Menu() {
-    const [state, setState] = useState('hidden')
-    const check = useRef()
+   
+    const {stateMenu, setStateMenu} = useContext(StateMenuContext)
 
-    if (!check) return
-
-
-    function changeState(){
-        if (check.current.checked) {
-            setState('show')
-            console.log(check.current.checked)
+    function changeState(e){
+        const checkbox = e.target
+        if (stateMenu === 'hidden'){
+            setStateMenu("show")
         } else {
-            setState('hidden')
-            console.log(check.current.checked)
+            setStateMenu('hidden')
         }
     }
-
-    console.log(state)
 
     return (
         <Container>
             <Logotipo logotipo={logotipo} responsive={'responsive'}/>
-            <Navigation orientation={'left'} state={state} />
+            <Navigation orientation={'right'} state={stateMenu} />
             <Language responsive={"responsive"}/>
-            <label className="icon-menu-responsive" onClick={()=>{changeState()}}>
-                <input type="checkbox" name="icon-menu-responsive" id="icon-menu-responsive" ref={check}/>
+            <label className="icon-menu-responsive" onClick={(e)=>changeState(e)}>
                 <i className="fa-solid fa-bars"></i>
             </label>
         </Container>

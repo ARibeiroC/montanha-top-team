@@ -1,32 +1,44 @@
 import { Link } from "react-router-dom"
 import { Container } from "./NavCSS"
-
+import { useContext, useEffect } from "react"
+import { StateMenuContext } from "../../../context/StateMenuContext"
 
 export function Navigation({orientation, state}){
+
+    const {stateMenu, setStateMenu} = useContext(StateMenuContext)
+
+    function handleToggleMenu(element){
+        setStateMenu('hidden')
+    }
+
+    useEffect(()=>{
+        const stateMenu = state
+    },[stateMenu])
+
     return (
         <Container>
-            <div id="navigation" className={`${orientation} ${state}`}>
-                <a href="#belt">
+            <div id="navigation" className={`${orientation} ${stateMenu}`}>
+                <a href="#belt" onClick={(e)=> handleToggleMenu(e.target)}>
                     Página Inicial
                     </a>
-                <a href="#about">
+                <a href="#about" onClick={(e)=>handleToggleMenu(e.target)}>
                     Sobre nós
                     </a>
-                <a href="#team">
+                <a href="#team" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Equipe
                     </a>
-                <Link to={"/"}>
+                <a to={"/"} onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Eventos
-                </Link>
-                <Link to={"/"}>
+                </a>
+                <a to={"/"} onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Filiais
-                </Link>
-                <Link to={"/"}>
+                </a>
+                <a to={"/"} onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Horários
-                </Link>
-                <Link to={"/"}>
+                </a>
+                <a to={"/"} onClick={(e)=>{handleToggleMenu(e.target)}}>
                     FAQ's
-                </Link>
+                </a>
             </div>
         </Container>
     )

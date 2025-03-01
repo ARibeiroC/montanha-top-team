@@ -13,6 +13,7 @@ import App from './components/App/App'
 // ROUTES COMPONENTS IMPORTS
 import { Panel } from './routes/Panel/Panel'
 import { Home } from './routes/Home/Home'
+import { StateMenuContextProvider } from './context/StateMenuContext'
 
 // CREATING BROWSER ROUTER
 const router = createBrowserRouter(
@@ -37,6 +38,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <StateMenuContextProvider>
       <RouterProvider router={router} />
+    </StateMenuContextProvider>
   </StrictMode>,
 )

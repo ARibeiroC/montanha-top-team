@@ -7,6 +7,10 @@ export const Container = styled.nav`
     #navigation {
         display: flex;
         justify-content: center;
+        transition: .4s;
+        
+        margin-top: 16px;
+
         a {
             width: 150px;
             border: 1px solid transparent;
@@ -18,22 +22,21 @@ export const Container = styled.nav`
             transition: .4s;
 
             &:hover{
-                border-bottom: 1px solid ;
+                border-bottom: 1px solid tran;
                 transform: translateY(-2px);
                 color: var(--color-red);
             }
         }
     }
 
-    @media (max-width: 375px){
+    @media (max-width: 425px){
         #navigation {
-            overflow-y: scroll;
             height: 300px;
             width: 100vw;
-            background: var(--color-red-alpha-8);
+            background: var(--color-black-opac-9);
             position: absolute;
             top: 12vh;
-            left: -100%;
+            right: -100%;
 
             z-index: 2;
             a {
@@ -43,9 +46,15 @@ export const Container = styled.nav`
         }
 
         .show {
-            // left: 0 !important;
+            right: 0 !important;
         }
 
-        #navigation 
+        .hidden {
+            right: -100% !important
+        }
+
+        .right {
+            right: -100%;
+        }
     }
 `

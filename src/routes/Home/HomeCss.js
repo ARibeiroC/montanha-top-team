@@ -163,7 +163,7 @@ export const Container = styled.div`
         }
     }
 
-    @media(max-width: 375px){
+    @media(max-width: 425px){
         
         .content {
         
@@ -180,17 +180,16 @@ export const Container = styled.div`
                         }
 
                         .subtitle {
-                            font-size: 1.4rem;
-                            padding: 
+                            font-size: 1.6rem;
                         }
 
                         .phrase {
                             font-size: 1.4rem;
-                            padding-top: 1.6rem;
+                            padding: 1.6rem 0;
                         }
 
                         .services {
-                            font-size: 1.4rem;
+                            font-size: 1.2rem;
                             padding-top: .6rem;
                         }
                 }
