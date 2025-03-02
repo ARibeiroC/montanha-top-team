@@ -19,7 +19,7 @@ export const Container = styled.nav`
             font-size: 1.2rem;
             text-align: center;
             padding: .6rem 0;
-            transition: .4s;
+            transition: .4s ease-in-out;
 
             &:hover{
                 border-bottom: 1px solid tran;
@@ -30,15 +30,18 @@ export const Container = styled.nav`
     }
 
     @media (max-width: 425px){
+        position: relative;
+        top: 2vh;
+        right: -100%;
+
+        width: 100%;
+
+        z-index: 2;
+
         #navigation {
-            height: 300px;
             width: 100vw;
             background: var(--color-black-opac-9);
-            position: absolute;
-            top: 12vh;
-            right: -100%;
-
-            z-index: 2;
+            
             a {
                 width: 100%;
                 border-bottom: 1px solid var(--color-white)
@@ -46,15 +49,15 @@ export const Container = styled.nav`
         }
 
         .show {
-            right: 0 !important;
+            right: 210% !important;
         }
 
         .hidden {
             right: -100% !important
         }
 
-        .right {
-            right: -100%;
-        }
+        // .right {
+        //     right: -110%;
+        // }
     }
 `
