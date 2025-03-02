@@ -28,7 +28,7 @@ export function Navigation({state}){
                     Equipe
                     </a>
                 <a to={"/"} onClick={(e)=>{handleToggleMenu(e.target)}}>
-                    Eventos
+                    Projetos Sociais
                 </a>
                 <a to={"/"} onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Filiais
