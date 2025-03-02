@@ -27,16 +27,16 @@ export function Navigation({state}){
                 <a href="#team" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Equipe
                     </a>
-                <a to={"/"} onClick={(e)=>{handleToggleMenu(e.target)}}>
+                <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Projetos Sociais
                 </a>
-                <a to={"/"} onClick={(e)=>{handleToggleMenu(e.target)}}>
+                <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Filiais
                 </a>
-                <a to={"/"} onClick={(e)=>{handleToggleMenu(e.target)}}>
+                <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Horários
                 </a>
-                <a to={"/"} onClick={(e)=>{handleToggleMenu(e.target)}}>
+                <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     FAQ's
                 </a>
             </div>

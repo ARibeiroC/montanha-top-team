@@ -2,14 +2,17 @@ import styled from "styled-components";
 
 export const Container = styled.nav`
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex: 1;
     
     #navigation {
         display: flex;
         justify-content: center;
+        gap: 1rem;
         transition: .4s;
         
         margin-top: 16px;
+        width: 100%;
 
         a {
             border: 1px solid transparent;
@@ -21,7 +24,7 @@ export const Container = styled.nav`
             transition: .4s ease-in-out;
 
             &:hover{
-                border-bottom: 1px solid tran;
+                border-bottom: 1px solid red;
                 transform: translateY(-2px);
                 color: var(--color-red);
             }
