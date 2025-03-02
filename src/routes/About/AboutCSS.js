@@ -4,7 +4,7 @@ import schoolImage from '../../assets/3-mosqueteiros.jpg'
 export const Container = styled.div`
     display: flex;
 
-    height: 85vh;
+    min-height: 85vh;
     padding: 1rem;
     background: var(--color-darkgray);
     color: var(--color-ice);
@@ -38,5 +38,35 @@ export const Container = styled.div`
         
         background: url(${schoolImage}) no-repeat top;
         background-size: cover;
+    }
+
+    @media (max-width: 425px){
+        background-image: url(${schoolImage});
+        background-repeat:  no-repeat;
+        background-position: top;
+        background-size: cover;
+        background-color: --color-black-opac-9;
+        background-blend-mode: overlay;
+
+        .description-about {
+            width: 100%;
+            text-align: center;
+            h2{
+                font-size: 2.6rem;
+                text-align: start;
+            }
+
+            h3{
+                font-size: 1.4rem;
+            }
+
+            p{
+                font-size: 1rem;
+            }
+        }
+
+        .school-image{
+            display: none;
+        }
     }
 `

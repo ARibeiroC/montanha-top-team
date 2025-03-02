@@ -85,6 +85,7 @@ export const Container = styled.div`
                     button {
                         padding: 1rem 2rem;
                         background: var(--color-red);
+                        box-shadow: 0px 0px 10px 4px var(--color-red);
                         border: 1px solid transparent;
                         
                         font-size: 1.2rem;
@@ -93,7 +94,7 @@ export const Container = styled.div`
 
                         &:hover {
                             // background: var(--color-link)
-                            box-shadow: 0px 0px 10px 4px var(--color-red);
+                            
                         }
 
                         &:active{
@@ -129,9 +130,9 @@ export const Container = styled.div`
                 
                 border-radius: 50%;
                 border: 1px solid white;
-                width: 30px;
-                height: 30px;
-                top: -5px;
+                width: 22px;
+                height: 22px;
+                top: -8px;
                 cursor: pointer;
                 transition: .4s;
                 
@@ -154,11 +155,11 @@ export const Container = styled.div`
             }
 
             @keyframes translateVert {
-                0%   {top:-10px;}
+                0%   {top:-8px;}
                 25%  {top:-5px;}
                 50%  {top:0px;}
                 75%  {top:5px;}
-                100% {top:10px;}
+                100% {top:8px;}
             }
         }
     }

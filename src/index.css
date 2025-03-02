@@ -21,6 +21,9 @@
     font-family: 'Roboto', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     min-height: 100vh;
