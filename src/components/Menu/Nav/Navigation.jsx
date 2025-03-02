@@ -3,7 +3,7 @@ import { Container } from "./NavCSS"
 import { useContext, useEffect } from "react"
 import { StateMenuContext } from "../../../context/StateMenuContext"
 
-export function Navigation({orientation, state}){
+export function Navigation({state}){
 
     const {stateMenu, setStateMenu} = useContext(StateMenuContext)
 
@@ -17,7 +17,7 @@ export function Navigation({orientation, state}){
 
     return (
         <Container>
-            <div id="navigation" className={`${orientation} ${stateMenu}`}>
+            <div id="navigation" className={`${stateMenu}`}>
                 <a href="#belt" onClick={(e)=> handleToggleMenu(e.target)}>
                     Página Inicial
                     </a>

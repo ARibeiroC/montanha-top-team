@@ -27,7 +27,7 @@ export function Menu() {
     return (
         <Container>
             <Logotipo logotipo={logotipo} responsive={'responsive'}/>
-            <Navigation orientation={'right'} state={stateMenu} />
+            <Navigation state={stateMenu} />
             <Language responsive={"responsive"}/>
             <label className="icon-menu-responsive" onClick={(e)=>changeState(e)}>
                 <i className="fa-solid fa-bars"></i>

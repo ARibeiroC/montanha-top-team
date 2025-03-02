@@ -12,7 +12,6 @@ export const Container = styled.nav`
         margin-top: 16px;
 
         a {
-            width: 150px;
             border: 1px solid transparent;
             color: var(--color-ice);
             font-weight: bold;
@@ -30,34 +29,32 @@ export const Container = styled.nav`
     }
 
     @media (max-width: 768px){
-        position: relative;
-        top: 2vh;
-        right: -100%;
+        position: absolute;
 
-        width: 100%;
+        top: 12vh;
+        right: 0%;
+        flex: 1;
+        width: 100%;1
+        border: 1px solid red;
+        #navigation{
+            display: flex;
+            flex-direction: column;
 
-        z-index: 2;
-
-        #navigation {
-            width: 100vw;
-            background: var(--color-black-opac-9);
-            
+            width: 100%;
+            position: relative;
+            z-index: 2;
             a {
-                width: 110%;
-                border-bottom: 1px solid var(--color-white)
+                width: 100%;
+                background: var(--color-black-opac-9);
             }
         }
 
-        .show {
-            right: 135% !important;
+        .show{
+            right: 0% !important;
         }
 
         .hidden {
-            right: -100% !important
+            right: -100% !important;
         }
-
-        // .right {
-        //     right: -110%;
-        // }
     }
 `
