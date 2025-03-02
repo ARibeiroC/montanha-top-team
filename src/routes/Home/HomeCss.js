@@ -9,7 +9,7 @@ export const Container = styled.div`
     background-image: url('${background}');
     background-repeat: no-repeat;
     background-position: center;
-    background-color: rgba(0,0,0,.9);
+    background-color: var(--color-black-opac);
     background-blend-mode: overlay;
     background-size: cover;
 
