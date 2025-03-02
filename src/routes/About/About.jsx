@@ -21,7 +21,7 @@ export function About(){
             Venha fazer parte da nossa equipe e descubra o poder transformador do Jiu-Jitsu sob a batuta do Mestre Montanha e a orientação dos mestres Odailton e Fabiano.
           </p>
         </div>
-        <div className="scholl-image">
+        <div className="school-image">
         </div>
     </Container>
   )
