@@ -43,13 +43,13 @@ export const Container = styled.nav`
             background: var(--color-black-opac-9);
             
             a {
-                width: 100%;
+                width: 110%;
                 border-bottom: 1px solid var(--color-white)
             }
         }
 
         .show {
-            right: 210% !important;
+            right: 135% !important;
         }
 
         .hidden {
