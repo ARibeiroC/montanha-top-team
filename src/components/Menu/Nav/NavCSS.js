@@ -30,6 +30,7 @@ export const Container = styled.nav`
 
     @media (max-width: 768px){
         position: absolute;
+        overflow-x: hidden;
 
         top: 12vh;
         right: 0%;
@@ -45,7 +46,7 @@ export const Container = styled.nav`
             z-index: 2;
             a {
                 width: 100%;
-                background: var(--color-black-opac-9);
+                background: var(--color-black-opac);
             }
         }
 

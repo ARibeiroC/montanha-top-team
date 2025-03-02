@@ -8,6 +8,8 @@ export const Container = styled.div`
     height: 10vh;
     padding: .6rem 1rem;
 
+    overflow-x: hidden;
+
     .icon-menu-responsive{
         input {
             display: none;
@@ -18,6 +20,7 @@ export const Container = styled.div`
     @media (max-width: 768px) {
         height: 8vh;
         padding: .6rem .4rem;
+        overflow-x: hidden;
         
         .icon-menu-responsive {
             color: white;
