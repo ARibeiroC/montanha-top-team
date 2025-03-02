@@ -40,7 +40,7 @@ export const Container = styled.div`
         background-size: cover;
     }
 
-    @media (max-width: 425px){
+    @media (max-width: 768px){
         background-image: url(${schoolImage});
         background-repeat:  no-repeat;
         background-position: top;

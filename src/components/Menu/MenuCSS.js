@@ -19,7 +19,7 @@ export const Container = styled.div`
 
 
     // RESPONSIVE DISPLAY LAYOUTS
-    @media (max-width: 425px) {
+    @media (max-width: 768px) {
         height: 8vh;
         padding: .6rem .4rem;
         

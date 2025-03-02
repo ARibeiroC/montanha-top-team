@@ -29,7 +29,7 @@ export const Container = styled.nav`
         }
     }
 
-    @media (max-width: 425px){
+    @media (max-width: 768px){
         position: relative;
         top: 2vh;
         right: -100%;

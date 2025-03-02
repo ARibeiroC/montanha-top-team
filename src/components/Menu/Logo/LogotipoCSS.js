@@ -8,9 +8,10 @@ export const Container = styled.div`
         max-width: 100%;
     }
 
-    @media (max-width: 425px){
+    @media (max-width: 768px){
         img {
-            width: 60%;
+            max-width: 60%;
+            max-height: 60%;
         }
     }
 `
