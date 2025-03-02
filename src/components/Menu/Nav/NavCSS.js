@@ -34,16 +34,18 @@ export const Container = styled.nav`
 
         top: 12vh;
         right: 0%;
-        flex: 1;
-        width: 100%;1
-        border: 1px solid red;
+        
+        width: 100%;
+
+        z-index: 2;
+
         #navigation{
             display: flex;
             flex-direction: column;
 
             width: 100%;
             position: relative;
-            z-index: 2;
+            
             a {
                 width: 100%;
                 background: var(--color-black-opac);
