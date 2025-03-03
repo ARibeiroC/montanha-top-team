@@ -9,7 +9,7 @@ export function MainContainer(){
         <div className="main-container">
             <Home/>
             <About/>
-            <Team/>
+            {/* <Team/> */}
             <Footer/>
         </div>
     )
