@@ -5,11 +5,14 @@ export const Container = styled.nav`
     align-items: center;
     flex: 1;
     
+    
     #navigation {
         display: flex;
         justify-content: center;
         gap: 1rem;
         transition: .4s;
+
+        background: var(--color-black-opac-9);
         
         margin-top: 16px;
         width: 100%;
@@ -51,7 +54,12 @@ export const Container = styled.nav`
             
             a {
                 width: 100%;
-                background: var(--color-black-opac);
+                
+                &:hover{
+                    border: 1px solid transparent;
+                    transform: none;
+                    color: var(--color-ice);
+                }
             }
         }
 
