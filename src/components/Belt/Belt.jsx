@@ -8,7 +8,7 @@ export function Belt(){
             <div className="contact">
                 <div className="phone">
                     <i className='fa-brands fa-whatsapp'></i>
-                    <p>(11) 9999-9999</p>
+                    <p>(11) 97623-5959</p>
                 </div>
                 <div className="email">
                     <i className="fa-solid fa-at"></i>
