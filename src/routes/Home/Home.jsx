@@ -1,7 +1,6 @@
 import mestre from "../../assets/mestre-bg-less.png"
 import { IoMdArrowDropdown } from "react-icons/io";
 
-
 // CSS IMPORT
 import {Container} from './HomeCss.js'
 
