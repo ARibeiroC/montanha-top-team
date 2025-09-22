@@ -1,0 +1,14 @@
+/* Migrado de LogotipoCSS.js */
+
+.Container {
+    max-width: 200px;
+}
+.Container img {
+    max-width: 100%;
+}
+@media (max-width: 768px) {
+    .Container img {
+        max-width: 60%;
+        max-height: 60%;
+    }
+}
