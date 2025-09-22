@@ -1,4 +1,4 @@
-import { Container } from "./SchedulesCSS"
+import { Container } from "./ScheduleCSS"
 
 export function Schedules() {
     return (
