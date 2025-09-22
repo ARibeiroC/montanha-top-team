@@ -33,7 +33,7 @@ export function Navigation({state}){
                 <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Filiais
                 </a>
-                <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
+                <a href="#schedules" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Horários
                 </a>
                 <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
