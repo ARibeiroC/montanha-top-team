@@ -87,4 +87,40 @@ export const Container = styled.div`
             padding: .4rem;
         }
     }
+
+    @media (max-width: 768px){
+        .container{
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 0;
+            .week{
+                width: 100%;
+                h2{
+                    padding: .4rem 2rem;
+                }
+                .container-card-week{
+                    width: 100%;
+                    .header{
+                        .hours{
+                            flex: 1;
+                        }
+                        .teachers, .classifications{
+                            flex: 1;
+                        } 
+                    }
+                    .content{
+                        .row{
+                            .hours{
+                                flex: 1;
+                            }
+                            .teachers, .classifications{
+                                flex: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 `
