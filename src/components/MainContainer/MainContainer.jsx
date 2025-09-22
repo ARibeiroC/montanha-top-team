@@ -1,4 +1,3 @@
-
 import { Home } from "../../routes/Home/Home"
 import { About } from "../../routes/About/About"
 import { Footer } from "../Footer/Footer"
