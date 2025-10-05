@@ -5,38 +5,34 @@ import { StateMenuContext } from "../../../context/StateMenuContext"
 
 export function Navigation({state}){
 
-    const {stateMenu, setStateMenu} = useContext(StateMenuContext)
+    const [stateMenu] = useContext(StateMenuContext)
 
-    function handleToggleMenu(element){
-        setStateMenu('hidden')
+    function handleToggleMenu(){
+        stateMenu.setStateMenu('hidden')
     }
-
-    useEffect(()=>{
-        const stateMenu = state
-    },[stateMenu])
 
     return (
         <Container>
-            <div id="navigation" className={`${stateMenu}`}>
-                <a href="#belt" onClick={(e)=> handleToggleMenu(e.target)}>
+            <div id="navigation" className={`${state}`}>
+                <a href="#belt" onClick={(e)=> handleToggleMenu()}>
                     Página Inicial
                     </a>
-                <a href="#about" onClick={(e)=>handleToggleMenu(e.target)}>
+                <a href="#about" onClick={(e)=>handleToggleMenu()}>
                     Sobre nós
                     </a>
-                <a href="#team" onClick={(e)=>{handleToggleMenu(e.target)}}>
+                <a href="#team" onClick={(e)=>{handleToggleMenu()}}>
                     Equipe
                     </a>
-                <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
+                <a href="#" onClick={(e)=>{handleToggleMenu()}}>
                     Projetos Sociais
                 </a>
-                <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
+                <a href="#" onClick={(e)=>{handleToggleMenu()}}>
                     Filiais
                 </a>
-                <a href="#schedules" onClick={(e)=>{handleToggleMenu(e.target)}}>
+                <a href="#schedules" onClick={(e)=>{handleToggleMenu()}}>
                     Horários
                 </a>
-                <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
+                <a href="#" onClick={(e)=>{handleToggleMenu()}}>
                     FAQ's
                 </a>
             </div>

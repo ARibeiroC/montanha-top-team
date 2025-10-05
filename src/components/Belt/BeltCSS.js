@@ -65,6 +65,19 @@ export const Container = styled.div`
     }
 
     @media (max-width: 768px){
+        .contact {
+            i {
+                font-size: 1.4rem;
+            }
+            .phone{
+                i{
+                    color: var(--color-whatsapp);
+                }
+            }
+            .instagram {
+                color: var(--color-instagram);
+            }
+        }
         .services {
             a {
                 width: 30px;

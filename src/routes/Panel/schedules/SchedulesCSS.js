@@ -87,4 +87,25 @@ export const Container = styled.div`
             padding: .4rem;
         }
     }
+
+    @media (max-width: 768px) {
+        .container{
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+
+            border: 1px solid white;
+            padding: 0;
+
+            .week{
+                width: 100%;
+                h2{
+                    padding: .4rem 2rem;
+                }
+            }
+
+            #saturday{
+                grid-column: auto;
+            }
+        }
+    }
 `

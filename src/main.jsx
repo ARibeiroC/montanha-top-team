@@ -12,7 +12,8 @@ import App from './components/App/App'
 
 // ROUTES COMPONENTS IMPORTS
 import { Panel } from './routes/Panel/Panel'
-import { Home } from './routes/Home/Home'
+import { Login } from './routes/Login/Login'
+import { Register } from './routes/Register/Register'
 import { StateMenuContextProvider } from './context/StateMenuContext'
 
 // CREATING BROWSER ROUTER
@@ -28,9 +29,17 @@ const router = createBrowserRouter(
           element: <Navigate to="/Panel" />,
         },
         {
+          index: true,
           path: '/Panel',
           element: <Panel />
         },
+        { path: '/Login', 
+          element: <Login />
+        },
+        {
+          path: '/Register',
+          element: <Register />
+        }
       ]
     }
   ]

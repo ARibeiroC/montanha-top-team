@@ -13,6 +13,9 @@
     --color-black-opac-9: rgba(0, 0, 0, .9);
     --color-black-opac: rgba(0, 0, 0, .6);
     --color-darkgray: #111;
+    --color-whatsapp: #25D366;
+    --color-facebook: #3b5998;
+    --color-instagram: #E1306C;
 }
 
 * {

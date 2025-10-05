@@ -7,27 +7,28 @@ import { Container } from "./MenuCSS"
 import { Logotipo } from "./Logo/Logotipo"
 import { Navigation } from "./Nav/Navigation"
 import { Language } from './Dropdown/Language/Language'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 
 import { StateMenuContext } from '../../context/StateMenuContext'
 
 export function Menu() {
    
-    const {stateMenu, setStateMenu} = useContext(StateMenuContext)
+    const [stateMenu] = useContext(StateMenuContext)
+
 
     function changeState(e){
         const checkbox = e.target
-        if (stateMenu === 'hidden'){
-            setStateMenu("show")
+        if (stateMenu.stateMenu === 'hidden'){
+            stateMenu.setStateMenu("show")
         } else {
-            setStateMenu('hidden')
+            stateMenu.setStateMenu('hidden')
         }
     }
 
     return (
         <Container>
             <Logotipo logotipo={logotipo} responsive={'responsive'}/>
-            <Navigation state={stateMenu} />
+            <Navigation state={stateMenu.stateMenu} />
             <Language responsive={"responsive"}/>
             <label className="icon-menu-responsive" onClick={(e)=>changeState(e)}>
                 <i className="fa-solid fa-bars"></i>
