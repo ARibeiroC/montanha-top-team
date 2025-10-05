@@ -37,7 +37,6 @@ export function Belt(){
                     <p>Loja</p>
                 </Link>
                 <Link to='/Login'>
-                    {activeLink.activeLink ? console.log('Exite') : console.log('Não exite')}
                     <i className='fa-solid fa-user'></i>
                     <p>Área do Alunos</p>
                 </Link>

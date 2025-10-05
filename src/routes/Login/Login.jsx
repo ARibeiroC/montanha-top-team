@@ -1,4 +1,6 @@
 import { Container } from "./LoginCSS";
+
+// IMPORT COMPONENTS
 import { Belt } from "../../components/Belt/Belt";
 import { Footer } from "../../components/Footer/Footer";
 
