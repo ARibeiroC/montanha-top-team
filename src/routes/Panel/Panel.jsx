@@ -1,17 +1,12 @@
-import { Header } from "../../components/Header/Header"
-import { MainContainer } from "../../components/MainContainer/MainContainer"
+import { Container } from "./PanelCSS.js"
 
-import { Container } from "./PanelCSS"
+import { Header } from "../../components/Header/Header.jsx"
+
 
 export function Panel(){
     return(
         <Container>
-            <div id="header">
-                <Header id="header"/>
-            </div>
-            <div className="content">
-                <MainContainer id="test" />
-            </div>
+            <h1>Testando</h1>
         </Container>
     )
 }

@@ -3,13 +3,8 @@ import { Container } from './BeltCSS.js'
 
 // HOOK IMPORT
 import { Link } from 'react-router-dom'
-import { useContext } from 'react'
-import { StateMenuContext } from '../../context/StateMenuContext'
-
-
 
 export function Belt(){
-    const [stateMenu, activeLink] = useContext(StateMenuContext)
 
     return (
         <Container id='belt'>
@@ -36,12 +31,11 @@ export function Belt(){
                     <i className='fa-solid fa-shop'></i>
                     <p>Loja</p>
                 </Link>
-                <Link to='/Login'>
-                    {activeLink.activeLink ? console.log('Exite') : console.log('Não exite')}
+                <Link to='/UserArea'>
                     <i className='fa-solid fa-user'></i>
                     <p>Área do Alunos</p>
                 </Link>
-                <a href='#'>
+                <a href='/RestrictedArea'>
                     <i className="fa-solid fa-unlock"></i>
                     <p>Área Restrita</p>
                 </a>

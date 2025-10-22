@@ -11,8 +11,7 @@ import './index.css'
 import App from './components/App/App'
 
 // ROUTES COMPONENTS IMPORTS
-import { Panel } from './routes/Panel/Panel'
-import { Home } from './routes/Home/Home'
+import { MainContainer } from './components/MainContainer/MainContainer'
 import { StateMenuContextProvider } from './context/StateMenuContext'
 
 // CREATING BROWSER ROUTER
@@ -25,11 +24,11 @@ const router = createBrowserRouter(
       children: [
         {
           path: '/',
-          element: <Navigate to="/Panel" />,
+          element: <Navigate to="/Home" />,
         },
         {
-          path: '/Panel',
-          element: <Panel />
+          path: '/Home',
+          element: <MainContainer />
         },
       ]
     }

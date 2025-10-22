@@ -1,6 +1,6 @@
 
 // CSS IMPORTS
-import { Container } from './HeaderCSS'
+import { Container } from './HeaderCSS.js'
 
 // COMPONENTS IMPORTS
 import { Belt } from '../Belt/Belt'
