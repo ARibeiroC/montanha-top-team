@@ -1,4 +1,4 @@
-import { Container } from "./ScheduleCSS"
+import { Container } from "./WorkoutSchedulesCSS.js"
 
 export function Schedules() {
     return (
