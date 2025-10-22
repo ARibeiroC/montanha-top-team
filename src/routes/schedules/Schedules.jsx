@@ -344,7 +344,7 @@ export function Schedules() {
                                     <p>Feminino</p>
                                 </div>
                                 <div className="teachers">
-                                    <p>Instrutora Irene</p>
+                                    <p>Instrutora Irene </p>
                                 </div>
                             </div>
                         </div>

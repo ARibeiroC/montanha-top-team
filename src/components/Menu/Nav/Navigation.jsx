@@ -8,11 +8,11 @@ export function Navigation({state}){
     const {stateMenu, setStateMenu} = useContext(StateMenuContext)
 
     function handleToggleMenu(element){
-        setStateMenu('hidden')
+        setStateMenu('hidden') 
     }
 
     useEffect(()=>{
-        const stateMenu = state
+        setStateMenu(state)
     },[stateMenu])
 
     return (
@@ -27,18 +27,18 @@ export function Navigation({state}){
                 <a href="#team" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Equipe
                     </a>
-                <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
+                {/* <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Projetos Sociais
-                </a>
+                </a> */}
                 <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Filiais
                 </a>
-                <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
+                <a href="#schedules" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     Horários
                 </a>
-                <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
+                {/* <a href="#" onClick={(e)=>{handleToggleMenu(e.target)}}>
                     FAQ's
-                </a>
+                </a> */}
             </div>
         </Container>
     )
