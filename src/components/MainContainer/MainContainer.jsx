@@ -1,7 +1,8 @@
+
 import { Home } from "../../routes/Home/Home"
 import { About } from "../../routes/About/About"
 import { Footer } from "../Footer/Footer"
-import { Schedules } from "../../routes/Schedules/SchedulesTable"
+import { Schedules } from "../../routes/schedules/schedules"
 
 export function MainContainer(){
     return (

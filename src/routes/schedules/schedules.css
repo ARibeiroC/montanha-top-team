@@ -1,0 +1,57 @@
+.schedules {
+    color: var(--color-ice);
+
+    .container{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, auto);
+        gap: 1rem;
+
+        .week{
+            display: flex;
+            flex-direction: column;
+            gap: .4rem;
+            width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            /* border: 1px solid skyblue; */
+
+            h2{
+                background-color: var(--color-darkred);
+                padding: .4rem 6rem;
+            }
+            .container-card-week{
+                flex: 1;
+
+                .header{
+                    display: flex;
+
+                }
+                .content{
+                    .row{
+                        display: flex;;
+                    }
+                }
+            }
+        }
+        
+        #saturday{
+            grid-column: 2 / 3;
+        }
+    }
+    .hours{
+        flex: 2;
+        padding: .6rem;
+        border: 1px solid var(--color-darkred);
+    }
+    .classifications{
+        flex: 3;
+        padding: .6rem;
+        border: 1px solid var(--color-darkred);
+    }
+    .teachers{
+        flex:3;
+        padding: .6rem;
+        border: 1px solid var(--color-darkred);
+    }
+}
