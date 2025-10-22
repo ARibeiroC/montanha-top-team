@@ -5,7 +5,7 @@ export const Container = styled.div`
     
     padding: 1rem;
 
-    height: 80vh;
+    // height: 80vh;
     background-image: url('${background}');
     background-repeat: no-repeat;
     background-position: center;

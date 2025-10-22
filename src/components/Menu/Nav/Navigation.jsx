@@ -18,7 +18,7 @@ export function Navigation({state}){
     return (
         <Container>
             <div id="navigation" className={`${stateMenu}`}>
-                <a href="#belt" onClick={(e)=> handleToggleMenu(e.target)}>
+                <a href="#" onClick={(e)=> handleToggleMenu(e.target)}>
                     Página Inicial
                     </a>
                 <a href="#about" onClick={(e)=>handleToggleMenu(e.target)}>

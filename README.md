@@ -7,8 +7,7 @@
     - [X] MENU
       - [ ] DESTACAR MENU AO ROLAR A PÁGINA
     - [X] BELT
-      - [X] ICONS DE CONTATOS
-      - [ ] ROLAR PARA A SECTION "CONTACT"
+      - [X] BUTTONS SIGN
 - [ ] CONTENT
     - [ ] SECTION HOME
       - [ ] CARROSSEL DE IMAGENS

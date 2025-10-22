@@ -8,8 +8,8 @@ import {Container} from './HomeCss.js'
 
 export function Home() {
   return (
-    <Container>
-      <div className="content" id="home">
+    <Container id="home">
+      <div className="content">
         <div className="content-banner">
           <img src={mestre} alt="Mestre Montanha" />
           <div className="content-left">
