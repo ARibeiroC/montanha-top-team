@@ -275,7 +275,7 @@ export function Schedules() {
                                 </div>
                                 <div className="row">
                                     <div className="hours">
-                                        <p>16:00 às 17:30</p>
+                                        <p>16:00 às 17:00</p>
                                     </div>
                                     <div className="classifications">
                                         <p>Adulto</p>
@@ -286,7 +286,7 @@ export function Schedules() {
                                 </div>
                                 <div className="row">
                                     <div className="hours">
-                                        <p>19:00 às 20:15</p>
+                                        <p>19:00 às 20:00</p>
                                     </div>
                                     <div className="classifications">
                                         <p>Kids</p>
@@ -298,7 +298,19 @@ export function Schedules() {
                                 </div>
                                 <div className="row">
                                     <div className="hours">
-                                        <p>20:15 às 21:45</p>
+                                        <p>20:00 às 21:00</p>
+                                    </div>
+                                    <div className="classifications">
+                                        <p>Juvenil</p>
+                                    </div>
+                                    <div className="teachers">
+                                        <p>Prof. Montanha</p>
+                                        <p>Prof. Fabiano Andrade</p>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="hours">
+                                        <p>21:00 às 22:00</p>
                                     </div>
                                     <div className="classifications">
                                         <p>Adulto</p>
