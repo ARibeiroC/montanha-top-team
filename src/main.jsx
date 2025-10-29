@@ -12,6 +12,7 @@ import App from './components/App/App'
 
 // ROUTES COMPONENTS IMPORTS
 import { MainContainer } from './components/MainContainer/MainContainer'
+import { SignUp } from './components/SignUp/SignUp'
 import { StateMenuContextProvider } from './context/StateMenuContext'
 
 // CREATING BROWSER ROUTER
@@ -29,6 +30,10 @@ const router = createBrowserRouter(
         {
           path: '/Home',
           element: <MainContainer />
+        },
+        {
+          path: '/Login',
+          element: <SignUp />
         },
       ]
     }

@@ -31,11 +31,11 @@ export function Belt(){
                     <i className='fa-solid fa-shop'></i>
                     <p>Loja</p>
                 </Link>
-                <Link to='/UserArea'>
+                <Link to='/login'>
                     <i className='fa-solid fa-user'></i>
                     <p>Área do Alunos</p>
                 </Link>
-                <a href='/RestrictedArea'>
+                <a href='/Panel/login'>
                     <i className="fa-solid fa-unlock"></i>
                     <p>Área Restrita</p>
                 </a>
