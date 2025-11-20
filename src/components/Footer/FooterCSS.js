@@ -5,8 +5,9 @@ export const Container = styled.div`
     justify-content: center;
 
     padding-block: .6rem;
-    background-color: var(--color-black);
+    background-color: var(--color-darkred);
     color: var(--color-ice);
+    height: 6.2vh;
 
     .footer-content{
         display: flex;

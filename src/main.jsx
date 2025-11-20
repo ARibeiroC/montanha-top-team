@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 // REACT ROUTER DOM IMPORTS
-import { createBrowserRouter, Navigate, Router, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 
 // CSS IMPORTS
 import './index.css'
@@ -11,6 +11,8 @@ import './index.css'
 import App from './components/App/App'
 
 // ROUTES COMPONENTS IMPORTS
+import { Login } from './routes/Login/Login'
+import { Register } from './routes/Register/Register'
 import { MainContainer } from './components/MainContainer/MainContainer'
 import { StateMenuContextProvider } from './context/StateMenuContext'
 
@@ -24,11 +26,19 @@ const router = createBrowserRouter(
       children: [
         {
           path: '/',
-          element: <Navigate to="/Home" />,
+          element: <Navigate to="/home" />,
         },
         {
-          path: '/Home',
+          path: '/home',
           element: <MainContainer />
+        },
+        {
+          path: '/login',
+          element: <Login />
+        },
+        {
+          path: '/register',
+          element: <Register />
         },
       ]
     }

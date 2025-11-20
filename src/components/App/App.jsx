@@ -1,18 +1,17 @@
 import {Outlet} from 'react-router-dom'
 
-// COMPONENTS IMPORT
-import { Header } from '../Header/Header'
-import { Home } from '../../routes/Home/Home.jsx'
-import {Footer} from '../Footer/Footer.jsx'
-import {About} from '../../routes/About/About.jsx'
-
+// COMPONENTS IMPORTS
+import { Header } from '../Header/Header.jsx'
+import { Footer } from '../Footer/Footer.jsx'
 // CSS IMPORT
 import { Container } from './AppCSS.js'
 
 function App() {
   return (
     <Container>
+      <Header />
       <Outlet />
+      <Footer/>
     </Container>
   )
 }

@@ -1,16 +1,16 @@
 
 // CSS IMPORTS
-import { Container } from './HeaderCSS.js'
+import { Container } from './HeaderCSS'
 
 // COMPONENTS IMPORTS
 import { Belt } from '../Belt/Belt'
-import { Menu } from '../Menu/Menu'
+import { Navigation } from '../Nav/Navigation'
 
 export function Header() {
     return (
         <Container>
             <Belt />
-            <Menu />    
+            <Navigation />    
         </Container>
     )
 }

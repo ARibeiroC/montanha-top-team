@@ -1,43 +1,32 @@
+// REACT HOOKS IMPORT
+import { useLocation } from 'react-router-dom'
+
 // CSS IMPORT
 import { Container } from './BeltCSS.js'
 
-// HOOK IMPORT
-import { Link } from 'react-router-dom'
+// REACT ICONS IMPORT
+import { FaUser, FaHome } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6"
 
 export function Belt(){
+    
+    const location = useLocation()
+    const isHome = location.pathname === '/home'
 
     return (
-        <Container id='belt'>
-            <div className="contact">
-                <div className="phone">
-                    <i className='fa-brands fa-whatsapp'></i>
-                    <p>(11) 97623-5959</p>
-                </div>
-                {/* <div className="email">
-                    <i className="fa-solid fa-at"></i>
-                    <p>montanhatopteam@email.com.br</p>
-                </div> */}
-                <div className="instagram">
-                    <Link to='https://www.instagram.com/montanhatopteam/' target='_blank'><i className="fa-brands fa-instagram" ></i></Link>
-                    <p to='https://www.instagram.com/montanhatopteam/'>@montanhatopteam</p>
-                </div> 
-                {/* <div className="address">
-                    <i className='fa-solid fa-map-location-dot'></i>
-                    <p>Rua Almotacel, 105 - São Paulo/SP</p>
-                </div>                */}
+        <Container>
+            <div id="title-site">
+                <h1>Montanha Top Team</h1>
             </div>
-            <div className="services">
-                <Link to='/Panel'>
-                    <i className='fa-solid fa-shop'></i>
-                    <p>Loja</p>
-                </Link>
-                <Link to='/UserArea'>
-                    <i className='fa-solid fa-user'></i>
-                    <p>Área do Alunos</p>
-                </Link>
-                <a href='/RestrictedArea'>
-                    <i className="fa-solid fa-unlock"></i>
-                    <p>Área Restrita</p>
+            <div className="controlls">
+                {isHome ? null : <a href='/' id='home'>
+                    <FaHome />
+                </a>}
+                <a href='#' id='login'>
+                    <FaUser />
+                </a>
+                <a href='#' id='loja'>
+                    <FaCartShopping />
                 </a>
             </div>
         </Container>

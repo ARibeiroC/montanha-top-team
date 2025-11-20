@@ -4,7 +4,7 @@ import schoolImage from '../../assets/3-mosqueteiros.jpg'
 export const Container = styled.div`
     display: flex;
 
-    min-height: 85vh;
+    min-height: 80vh;
     padding: 1rem;
     background: var(--color-darkgray);
     color: var(--color-ice);
@@ -15,20 +15,21 @@ export const Container = styled.div`
         gap: 1rem;
 
         width: 60%;
-        z-index: 1;
+
         h2{
             font-size: 4rem;
-            color: var(--color-red);
+            color: var(--color-link);
             text-shadow: 2px 2px 2px var(--color-ice);
         }
 
         h3{
             font-size: 2rem;
+            color: var(--color-link);
         }
 
         p {
             font-size: 1.4rem;
-            line-height: 2.5rem;
+            line-height: 1.5rem;
         }
     }
 
@@ -41,13 +42,12 @@ export const Container = styled.div`
     }
 
     @media (max-width: 768px){
-        background-image: url(${schoolImage});
         background-repeat:  no-repeat;
         background-position: top;
         background-size: cover;
-        background-color: --color-black-opac-9;
+        background-color: Whitesmoke;
         background-blend-mode: overlay;
-
+        color: var(--color-black);
         .description-about {
             width: 100%;
             text-align: center;
@@ -68,5 +68,31 @@ export const Container = styled.div`
         .school-image{
             display: none;
         }
+
+        .subscribe{
+            padding: 2rem;
+
+            button{
+                padding: .8rem 1.2rem;
+                font-size: 1.2rem;
+                background-color: var(--color-link);
+                border: none;
+                color: var(--color-ice);
+                font-weight: bold;
+                border-radius: .4rem;
+                transition: .2s ease-in-out;
+
+                &:active{
+                    transform: translateY(1px);
+                    transform: scale(0.99);
+                }
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: var(--color-red);
+                }
+            } 
+        }
+
     }
 `

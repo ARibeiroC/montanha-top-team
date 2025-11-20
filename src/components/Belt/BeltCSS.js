@@ -3,75 +3,39 @@ import styled from "styled-components"
 export const Container = styled.div`
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap-reverse;
+    align-items: center;
 
-    padding: .4rem;
-
-    width: 100%;
-    height: 6vh;
-    background: var(--color-darkgray);
+    padding: 1rem;
+    font-size: 1.4rem;
     color: var(--color-ice);
-
-    p {
-        display: none;
+    
+    a{
+        color: var(--color-ice);
     }
 
-    .services {
+    #title-site{
         display: flex;
-        gap: .6rem;
+        align-items: center;
 
-        a {  
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: .4rem;
-            border: 1px solid transparent;
-            border-radius: .6rem;
-            transition: .4s;
+        h1{
+            font-size: 1.6rem;
             font-weight: bold;
-            background: var(--color-darkred);
-            color: var(--color-ice);
-            padding: .2rem .4rem;
-
-            &:hover {
-                background: var(--color-red); 
-            }
+            padding: 0;
+            margin: 0;
         }
     }
 
-    .contact {
+    .controlls{
         display: flex;
-        justify-content: end;
+        justify-content: center;
+        align-items: center;
         gap: 1rem;
 
-        .address, .phone, .email, .instagram {
+        a{
             display: flex;
+            justify-content: center;
             align-items: center;
-        }
-    }
-
-    .contact {
-        cursor: pointer;
-    }
-    
-    
-    .phone {
-        display: flex;
-        gap: .6rem;
-    }
-
-    .phone p, .services p {
-        display: block;
-    }
-
-    @media (max-width: 768px){
-        .services {
-            a {
-                width: 30px;
-                p {
-                    display: none;
-                }
-            } 
+            gap: .4rem;
         }
     }
 `

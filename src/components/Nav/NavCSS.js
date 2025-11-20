@@ -1,0 +1,57 @@
+import styled from "styled-components";
+
+export const Container = styled.nav`
+    display: flex;
+    justify-content: center;
+
+    position: fixed;
+    bottom: 3rem;
+    left: 2%;
+    z-index: 2;
+    pointer-events: auto;
+    
+    color: var(--color-link);
+    width: 96%;
+
+    transition: .4s; 
+    nav{
+        display: flex;
+        justify-content: center;
+
+        flex: 1;
+
+        background-color: var(--color-ice);
+
+        border-radius: .8rem;
+        border: 2px solid var(--color-link);
+        box-shadow: 2px 2px 8px rgba(0,0,0, .8);
+        ul {
+            display: flex;
+            flex: 1;
+
+            padding: .6rem 1rem;
+            justify-content: space-between;
+            align-items: center;
+
+            font-size: 1rem;
+
+            li {
+                a{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: .4rem;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    &.hide{
+        bottom: -10rem;
+    }
+    
+    &.show{
+        bottom: 3rem;
+    }
+`
