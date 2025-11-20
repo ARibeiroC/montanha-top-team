@@ -31,7 +31,7 @@ export function Home() {
           <h4 className="services">Crianças | Jovens | Adultos</h4>
         </div>
         <div className="btn-controller">
-          <button><a href="/register">Junt-se a Nós!</a></button>
+          <button><a href="/register">Cadastro de Aluno</a></button>
         </div>
         <div className="arrow-content">
           <div id='border'>

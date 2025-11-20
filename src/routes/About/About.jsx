@@ -22,17 +22,16 @@ export function About(){
           </div>
           <div className="social-media">
               <div className="instagram">
-                <i className="fa-brands fa-instagram"></i>
+                <a href="https://www.instagram.com/montanhatopteam/">
+                  <i className="fa-brands fa-instagram"></i>
+                </a>
               </div> 
               <div className="phone">
-                <i className='fa-brands fa-whatsapp'></i>
+                <a href="https://wa.me/5511976235959" target="_blank" rel="noopener noreferrer">
+                  <i className='fa-brands fa-whatsapp'></i>
+                </a>
               </div>
           </div>
-          {/* <p>
-            Venha fazer parte da nossa equipe e descubra o poder transformador do Jiu-Jitsu sob a batuta do Mestre Montanha e a orientação dos mestres Odailton e Fabiano.
-          </p> */}
-        </div>
-        <div className="school-image">
         </div>
     </Container>
   )

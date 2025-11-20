@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import schoolImage from '../../assets/3-mosqueteiros.jpg'
 
 export const Container = styled.div`
     display: flex;
@@ -33,13 +32,6 @@ export const Container = styled.div`
         }
     }
 
-    .school-image{
-        width: 40%;
-        z-index: 0;
-        
-        background: url(${schoolImage}) no-repeat top;
-        background-size: cover;
-    }
 
     @media (max-width: 768px){
         background-repeat:  no-repeat;
@@ -92,6 +84,14 @@ export const Container = styled.div`
                     background-color: var(--color-red);
                 }
             } 
+        }
+
+        .social-media{
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+
+            font-size: 2rem;
         }
 
     }
