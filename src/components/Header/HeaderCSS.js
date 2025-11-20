@@ -5,7 +5,7 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     
-    min-height: 6vh;
+    height: 6vh;
 
     background-color: var(--color-link);
 `
