@@ -1,9 +1,7 @@
 import {Outlet} from 'react-router-dom'
 
-// COMPONENTS IMPORTS
-import { Header } from '../Header/Header.jsx'
-import { Footer } from '../Footer/Footer.jsx'
-// CSS IMPORT
+import { Header } from '../shared/ui/Header/Header.jsx'
+import { Footer } from '../shared/ui/Footer/Footer.jsx'
 import { Container } from './AppCSS.js'
 
 function App() {

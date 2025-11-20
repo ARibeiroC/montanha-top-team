@@ -6,28 +6,36 @@ export const UserContainer = styled.div`
     gap: 1rem;
 
     color: var(--color-white);
-    flex: 1;
+    min-height: 88vh;
+
 
     h2{
         font-size: 2rem;
+        text-align: center;
     }
 
-    input, select, button {
+    input, select, button[type="submit"] {
         padding: .6rem .4rem;
         border-radius: .4rem;
+    }
+
+    label{
+        font-weight: bold;
     }
     
     form{
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        justify-content: start;
+        gap: 2rem;
         flex: 1;
+        position: relative;
 
         .row-input{
             display: flex;
             flex-direction: column;
             gap: .4rem;
-        }
+        }        
 
         #user-student{
             display: flex;
@@ -58,5 +66,46 @@ export const UserContainer = styled.div`
             }
         }
 
+        #register{
+            background: var(--color-link);
+            
+            border: none;
+
+            color: var(--color-ice);
+            
+            font-weight: bold;
+            font-size: 1.4rem;
+            margin-top: auto;
+            margin-bottom: 2rem;
+        }
+
+    }
+    .field-error{
+        background-color: var(--color-error);
+    }
+
+    .loading-overlay{
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,.4);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: .6rem;
+        color: var(--color-ice);
+    }
+
+    .spinner{
+        width: 36px;
+        height: 36px;
+        border: 4px solid var(--color-white-opac);
+        border-top-color: var(--color-link);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin{
+        to{ transform: rotate(360deg); }
     }
 `;

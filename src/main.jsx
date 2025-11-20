@@ -8,7 +8,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import './index.css'
 
 // COMPONENTS IMPORTS
-import App from './components/App/App'
+import App from './app/App'
 
 // ROUTES COMPONENTS IMPORTS
 import { Login } from './routes/Login/Login'
