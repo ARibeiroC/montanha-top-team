@@ -27,7 +27,7 @@ export function About(){
                 </a>
               </div> 
               <div className="phone">
-                <a href="https://wa.me/5511976235959" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/5511976235959?text=Olá, gostaria de saber mais sobre as aulas de jiu-jitsu, como funciona o horário e os preços." target="_blank" rel="noopener noreferrer">
                   <i className='fa-brands fa-whatsapp'></i>
                 </a>
               </div>
