@@ -41,11 +41,22 @@ export const UserContainer = styled.div`
 
             padding: .8rem .4rem;
             border: 1px solid;
-            legend{
+            
+            legend {
                 font-size: 1.2rem;
                 font-weight: 600;
                 margin-inline: 1rem;
                 margin-block: .4rem;
             }
+
+            &.show {
+                display: flex;
+            }
+    
+            &.hidden{
+                display: none;
+            }
+        }
+
     }
 `;

@@ -8,7 +8,6 @@ export function Register() {
   return (
     <Container>
         <Form />
-        <a href="/"> Voltar </a>
     </Container>
   );
 }

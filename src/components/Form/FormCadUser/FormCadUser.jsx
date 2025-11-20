@@ -1,6 +1,10 @@
+import { useState } from 'react';
+
 import { UserContainer } from './FormCadUserCSS.js';
 
 export function FormCadUser() {
+    const [isStudent, setIsStudent] = useState(false)
+
     return (
         <UserContainer id='form-cad-user'>
             <h2>Cadastro de Aluno</h2>
@@ -14,9 +18,10 @@ export function FormCadUser() {
                     <input type="date" id="dt-nasc" name="dt-nasc" required />
                 </div>
                 <div id='user-student'>
-                    <input type="checkbox" name="student" id="stundent" /><label htmlFor="student">Você é estudante? (Escola Básica - Fundamental e Médio)</label>
+                    <input type="checkbox" name="student" id="student" onChange={(e)=>setIsStudent(e.target.checked)} />
+                    <label htmlFor="student">Você é estudante? ( Fundamental / Médio )</label>
                 </div>
-                <fieldset id='field'>
+                <fieldset id='field' className={isStudent ? 'show' : 'hidden'}>
                     <legend id='title-fieldset'>Dados Escolares</legend>
                     <label htmlFor="school">Nome da Escola Completo</label>
                     <input type="text" id="school" name="school" />
