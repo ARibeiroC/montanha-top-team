@@ -25,12 +25,12 @@ export function Navigation(){
                             <p>Quem somos</p>
                         </a>
                     </li>
-                    <li>
+                    {/* <li>
                         <a href={isHome ? '#team' : '/home#team'}>
                             <FaUserGroup />
                             <p>Equipe</p>
                         </a>
-                    </li>
+                    </li> */}
                     <li>
                         <a href={isHome ? '#schedulesTable' : '/home#schedulesTable'}>
                             <FaCalendarAlt />

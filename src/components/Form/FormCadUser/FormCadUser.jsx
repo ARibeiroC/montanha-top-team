@@ -39,6 +39,7 @@ export function FormCadUser() {
                     navigate('/login')
                 }
             }catch(err){
+                console.log(err)
                 setErrors(prev=>({ ...prev, email: true }))
             }finally{
                 setLoading(false)

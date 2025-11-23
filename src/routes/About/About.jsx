@@ -18,7 +18,9 @@ export function About(){
             Com anos de experiência e um profundo conhecimento da arte suave, nossos professores transmitem não apenas técnicas, mas também valores como respeito, humildade e perseverança.
           </p>
           <div className="subscribe">
-            <button>Junte-se a Nós!</button>
+              <a id='btn-about-message-start' href="https://wa.me/5511976235959?text=Olá, gostaria de conhecer a equipe e a academia, estou pensando em começar a treinar. QWuando posso agendar a visíta ?" target="_blank" rel="noopener noreferrer">
+                Junte-se a Nós!
+              </a>
           </div>
           <div className="social-media">
               <div className="instagram">

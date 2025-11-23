@@ -64,7 +64,7 @@ export const Container = styled.div`
         .subscribe{
             padding: 2rem;
 
-            button{
+            #btn-about-message-start{
                 padding: .8rem 1.2rem;
                 font-size: 1.2rem;
                 background-color: var(--color-link);
@@ -82,6 +82,10 @@ export const Container = styled.div`
                 &:hover{
                     cursor: pointer;
                     background-color: var(--color-red);
+                }
+                    
+                a{
+                    color: var(--color-ice);
                 }
             } 
         }

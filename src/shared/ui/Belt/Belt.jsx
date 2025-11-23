@@ -1,5 +1,5 @@
 // REACT HOOKS IMPORT
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 
 // CSS IMPORT
 import { Container } from './BeltCSS.js'
@@ -19,15 +19,15 @@ export function Belt(){
                 <h1>Montanha Top Team</h1>
             </div>
             <div className="controlls">
-                {isHome ? null : <a href='/' id='home'>
+                {isHome ? null : <Link to={'/'} id='home'>
                     <FaHome />
-                </a>}
-                <a href='#' id='login'>
+                </Link>}
+                <Link to={'/login'} id='login'>
                     <FaUser />
-                </a>
-                <a href='#' id='loja'>
+                </Link>
+                {/* <Link to={'/loja'} id='loja'>
                     <FaCartShopping />
-                </a>
+                </Link> */}
             </div>
         </Container>
     )

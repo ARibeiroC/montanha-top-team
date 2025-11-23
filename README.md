@@ -126,26 +126,3 @@ src/
 ## Licença
 Este projeto é parte da Equipe Montanha Top Team. Direitos reservados.
 <p style="font-size: 1.2rem;">Escola de jiu-jitsu para todas as idades.</p>
-
-
-## ESCOPO DO PROJETO
-- [ ] HEADER <!-- CABEÇALHO DO SITE -->
-    - [X] MENU
-      - [ ] DESTACAR MENU AO ROLAR A PÁGINA
-    - [X] BELT
-      - [X] ICONS DE CONTATOS
-      - [ ] ROLAR PARA A SECTION "CONTACT"
-- [ ] CONTENT
-    - [X] SECTION HOME
-      - [X] BACKGROUND VIDEO
-      - [X] BANNERS
-      - [ ] CONTENT
-      - [ ] BUTTON "AGENDE UMA AULA"
-    - [ ] SECTION ABOUT
-      - [ ] DESCRIÇÃO SOBRE A ESCOLA
-      - [ ] TIME DE PROFISSIONAIS
-    - [ ] SECTION EQUIPE
-    - [ ] SECTION EVENTOS
-    - [ ] SECTION FILIAIS
-    - [ ] SECTION HORARIOS
-    - [ ] SECTION FAQ's
