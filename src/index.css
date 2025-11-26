@@ -3,14 +3,14 @@
     --color-error: #f1aab1;
     --color-darkred: darkred;
     --color-red: red;
-    --color-ice: #f1f1f1;
+    --color-ice: aliceblue;
     --color-gold: gold;
     --color-gold-opacity: rgba(255, 217, 0, .8);
     --color-brown: #110602;
     --color-darkbrown: #161213;
     --color-white: white;
     --color-white-opac: rgba(255, 255, 255, .6);
-    --color-black: #222;
+    --color-black: #000;
     --color-black-opac-9: rgba(0, 0, 0, .9);
     --color-black-opac: rgba(0, 0, 0, .6);
     --color-darkgray: #111;

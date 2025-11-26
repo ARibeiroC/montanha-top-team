@@ -3,21 +3,26 @@ import backgroundImage from '../../assets/LOGO_VETORIZADA_COM_FUNDO_BRANCO_800x2
 
 export const Container = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
 
     min-height: 88vh;
 
     padding: 2rem;
 
     color: var(--color-ice);
+    background-color: var(--color-black);
 
-    background-color: rgba(0,0,0, .9);
-    background-image: url(${backgroundImage});
-    background-blend-mode: darken;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 96%;
+
+    .login-logo{
+        height: 5rem;
+
+        img{
+            max-height: 100%;
+        }
+    }
 
     .card{
         width: 100%;
@@ -25,7 +30,7 @@ export const Container = styled.div`
         background: var(--color-black-opac-9);
         border: 1px solid var(--color-link);
         border-radius: .6rem;
-        box-shadow: 2px 2px 8px rgba(0,0,0,.8);
+        box-shadow: 2px 2px 6px rgba(255,0,0,.8);
         padding: 1.6rem;
         display: flex;
         flex-direction: column;
@@ -35,6 +40,7 @@ export const Container = styled.div`
     h2{
         color: var(--color-link);
         text-align: center;
+        font-size: 2rem
     }
 
     .row{

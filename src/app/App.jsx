@@ -3,6 +3,7 @@ import {Outlet} from 'react-router-dom'
 import { Header } from '../shared/ui/Header/Header.jsx'
 import { Footer } from '../shared/ui/Footer/Footer.jsx'
 import { Container } from './AppCSS.js'
+import { users } from '../repository/moc.js'
 
 function App() {
   return (

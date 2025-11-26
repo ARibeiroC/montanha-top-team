@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PasswordInput } from '../../components/Form/PasswordInput/PasswordInput.jsx'
+import backgroundImage from '../../assets/LOGO_VETORIZADA_COM_FUNDO_BRANCO_800x275.png';
 import { Container } from './LoginCSS'
 
 export function Login(){
@@ -33,6 +34,9 @@ export function Login(){
     }
     return (
         <Container>
+            <div className="login-logo">
+                <img src={backgroundImage} alt="" />
+            </div>
             <div className="card">
                 <h2>Entrar</h2>
                 <form onSubmit={handleSubmit}>

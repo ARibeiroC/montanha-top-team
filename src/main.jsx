@@ -15,6 +15,8 @@ import { Login } from './routes/Login/Login'
 import { Register } from './routes/Register/Register'
 import { MainContainer } from './components/MainContainer/MainContainer'
 import { StateMenuContextProvider } from './context/StateMenuContext'
+import { AdminPanel } from './routes/AdminPanel/AdminPanel'
+
 
 // CREATING BROWSER ROUTER
 const router = createBrowserRouter(
@@ -41,9 +43,9 @@ const router = createBrowserRouter(
           element: <Register />
         },
         {
-          path: '/Login',
-          element: <Login />
-        },
+          path: '/admin-panel',
+          element: <AdminPanel />
+        }
       ]
     }
   ]

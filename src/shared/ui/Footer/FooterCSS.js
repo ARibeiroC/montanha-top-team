@@ -7,7 +7,7 @@ export const Container = styled.div`
     padding-block: .6rem;
     background-color: var(--color-darkred);
     color: var(--color-ice);
-    height: 6vh;
+    min-height: 6vh;
 
     .footer-content{
         display: flex;
