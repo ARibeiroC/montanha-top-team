@@ -1,17 +1,16 @@
 import {Outlet} from 'react-router-dom'
 
-import { Header } from '../shared/ui/Header/Header.jsx'
-import { Footer } from '../shared/ui/Footer/Footer.jsx'
-import { Container } from './AppCSS.js'
-import { users } from '../repository/moc.js'
+import { Header } from '@/shared/ui/Header/Header.jsx'
+import { Footer } from '@/shared/ui/Footer/Footer.jsx'
+import './App.css'
 
 function App() {
   return (
-    <Container>
+    <div className="app-container">
       <Header />
       <Outlet />
       <Footer/>
-    </Container>
+    </div>
   )
 }
 

@@ -1,16 +1,20 @@
 import { useState } from 'react';
-import { PasswordInput } from '../PasswordInput/PasswordInput.jsx'
+import { PasswordInput } from '@/shared/ui/PasswordInput/PasswordInput.jsx'
 import { useNavigate } from 'react-router-dom'
+import { studentService } from '@/services/studentService.js'
 
-import { UserContainer } from './FormCadUserCSS.js';
+import './FormCadUser.css';
+// import { StateMenuContext } from '../../../context/StateMenuContext.jsx';
 
 export function FormCadUser() {
     const [isStudent, setIsStudent] = useState(false)
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({})
     const navigate = useNavigate()
+    // const database = StateMenuContext()
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
+        const aluno = {}
         e.preventDefault()
         const form = e.currentTarget
         const formData = new FormData(form)
@@ -19,37 +23,45 @@ export function FormCadUser() {
         const confirmInput = form.querySelector('#confirm-password')
         confirmInput.setCustomValidity('')
         setErrors({})
+
         if (password !== confirmPassword) {
             confirmInput.setCustomValidity('As senhas não coincidem')
             confirmInput.reportValidity()
             setErrors(prev=>({ ...prev, password: true, ['confirm-password']: true }))
             return
         }
+
         const data = Object.fromEntries(formData.entries())
         data.student = formData.has('student')
-        setLoading(true)
-        ;(async()=>{
-            try{
-                await new Promise(r=>setTimeout(r, 1200))
-                const status = 200
-                if (status === 200){
-                    form.reset()
-                    setIsStudent(false)
-                    setErrors({})
-                    navigate('/login')
-                }
-            }catch(err){
-                console.log(err)
-                setErrors(prev=>({ ...prev, email: true }))
-            }finally{
-                setLoading(false)
+        aluno.Nome = data.name
+        aluno.Nasc = data['dt-nasc']
+        aluno.Escola = data.school ? {
+                'Nome da Escola': data.school,
+                'série': data.serie
+            } : null 
+        aluno.Usuario = {
+                'email': data.email,
+                'password': data.password,
             }
-        })()
-        console.log(data)
+
+        setLoading(true)
+
+        try {
+            await studentService.createStudent(aluno)
+            form.reset()
+            setIsStudent(false)
+            setErrors({})
+            navigate('/login')
+        } catch(err) {
+            console.log(err)
+            setErrors(prev=>({ ...prev, email: true }))
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
-        <UserContainer id='form-cad-user'>
+        <div className="form-cad-user-container" id='form-cad-user'>
             <h2>Cadastro de Aluno</h2>
             <form onSubmit={handleSubmit}>
                 <div className="row-input">
@@ -91,6 +103,6 @@ export function FormCadUser() {
                     </div>
                 )}
             </form>
-        </UserContainer>
+        </div>
     );
 }

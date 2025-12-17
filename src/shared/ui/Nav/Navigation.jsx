@@ -1,7 +1,7 @@
-import { Container } from "./NavCSS"
+import "./Nav.css"
 import { FaHome } from "react-icons/fa";
 import { FaInfoCircle } from "react-icons/fa"
-import { FaUserGroup } from "react-icons/fa6"
+// import { FaUserGroup } from "react-icons/fa6"
 import { FaCalendarAlt } from "react-icons/fa"
 import { useLocation } from "react-router-dom"
 
@@ -10,7 +10,7 @@ export function Navigation(){
     const isHome = location.pathname === '/home'
 
     return (
-        <Container className={isHome ? 'show' : 'hide'}>
+        <div className={`nav-container ${isHome ? 'show' : 'hide'}`}>
             <nav>
                 <ul>
                     <li>
@@ -39,6 +39,6 @@ export function Navigation(){
                     </li>
                 </ul>
             </nav>
-        </Container>
+        </div>
     )
 }

@@ -1,0 +1,140 @@
+.workout-schedules-container {
+    color: var(--color-ice);
+    padding: 2rem;
+}
+
+.workout-schedules-container h1 {
+    font-size: 4rem;
+    color: var(--color-red);
+    text-shadow: 2px 2px 2px var(--color-ice);
+}
+
+.workout-schedules-container .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 1rem;
+
+    padding: 2rem;
+}
+
+.workout-schedules-container .container .week {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.workout-schedules-container .container .week h2 {
+    background-color: var(--color-darkred);
+    padding: .4rem 6rem;
+}
+
+.workout-schedules-container .container .week .container-card-week {
+    width: 100%;
+    height: auto;
+    /* overflow-y: hidden; */
+}
+
+.workout-schedules-container .container .week .container-card-week .header {
+    display: flex;
+}
+
+.workout-schedules-container .container .week .container-card-week .header .hours {
+    flex: 2;
+}
+
+.workout-schedules-container .container .week .container-card-week .header .teachers,
+.workout-schedules-container .container .week .container-card-week .header .classifications {
+    flex: 3;
+}
+
+.workout-schedules-container .container .week .container-card-week .content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.workout-schedules-container .container .week .container-card-week .content .row {
+    display: flex;
+}
+
+.workout-schedules-container .container .week .container-card-week .content .row .hours {
+    flex: 2;
+}
+
+.workout-schedules-container .container .week .container-card-week .content .row .teachers,
+.workout-schedules-container .container .week .container-card-week .content .row .classifications {
+    flex: 3;
+}
+
+.workout-schedules-container .container #saturday {
+    grid-column: 2 / 3;
+}
+
+.workout-schedules-container .hours,
+.workout-schedules-container .classifications {
+    display: flex;
+    min-height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-darkred);
+}
+
+.workout-schedules-container .hours p,
+.workout-schedules-container .classifications p {
+    padding: .4rem;
+}
+
+.workout-schedules-container .teachers {
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-darkred);
+}
+
+.workout-schedules-container .teachers p {
+    padding: .4rem;
+}
+
+@media (max-width: 768px) {
+    .workout-schedules-container .container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0;
+    }
+
+    .workout-schedules-container .container .week {
+        width: 100%;
+    }
+
+    .workout-schedules-container .container .week h2 {
+        padding: .4rem 2rem;
+    }
+
+    .workout-schedules-container .container .week .container-card-week {
+        width: 100%;
+    }
+
+    .workout-schedules-container .container .week .container-card-week .header .hours {
+        flex: 1;
+    }
+
+    .workout-schedules-container .container .week .container-card-week .header .teachers,
+    .workout-schedules-container .container .week .container-card-week .header .classifications {
+        flex: 1;
+    }
+
+    .workout-schedules-container .container .week .container-card-week .content .row .hours {
+        flex: 1;
+    }
+
+    .workout-schedules-container .container .week .container-card-week .content .row .teachers,
+    .workout-schedules-container .container .week .container-card-week .content .row .classifications {
+        flex: 1;
+    }
+}

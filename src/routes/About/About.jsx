@@ -1,9 +1,9 @@
-import { Container } from './AboutCSS'
+import './About.css'
 
 
 export function About(){
   return (
-    <Container id='about'>
+    <div className="about-container" id='about'>
         <div className="description-about">
           <h2>Sobre Nós</h2>
           <h3>
@@ -35,6 +35,6 @@ export function About(){
               </div>
           </div>
         </div>
-    </Container>
+    </div>
   )
 }

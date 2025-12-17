@@ -1,8 +1,8 @@
-import { Container } from "./ScheduleCSS"
+import './SchedulesTable.css'
 
 export function SchedulesTable() {
     return (
-        <Container id="schedulesTable">
+        <div className="schedules-table-container" id="schedulesTable">
             <h1>Horário de Treinos</h1>
             <div className="container">
                 <div className="week">
@@ -201,156 +201,10 @@ export function SchedulesTable() {
                                     <p>Prof. Fabiano Andrade</p>
                                 </div>
                             </div>
-                        </div>     
-                    </div>     
-                </div>
-                <div className="week">
-                    <h2>QUINTA</h2>
-                    <div className="container-card-week">
-                        <div className="header">
-                            <div className="hours">
-                                <h3>Horário</h3>
-                            </div>
-                            <div className="classifications">
-                                <h3>Categoria</h3>
-                            </div>
-                            <div className="teachers">
-                                <h3>Professor</h3>
-                            </div>
                         </div>
-                        <div className="content">
-                            <div className="row">
-                                <div className="hours">
-                                    <p>19:00 às 20:15</p>
-                                </div>
-                                <div className="classifications">
-                                    <p>Mirim</p>
-                                </div>
-                                <div className="teachers">
-                                    <p>Prof. Montanha</p>
-                                    <p>Prof. Fabiano Andrade</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="hours">
-                                    <p>20:15 às 21:30</p>
-                                </div>
-                                <div className="classifications">
-                                    <p>Juvenil</p>
-                                </div>
-                                <div className="teachers">
-                                    <p>Prof. Montanha</p>
-                                    <p>Prof. Fabiano Andrade</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                         
-                </div>
-                <div className="week">
-                    <h2>SEXTA</h2>
-                    <div className="container-card-week">
-                        <div className="header">
-                            <div className="hours">
-                                <h3>Horário</h3>
-                            </div>
-                            <div className="classifications">
-                                <h3>Categoria</h3>
-                            </div>
-                            <div className="teachers">
-                                <h3>Professor</h3>
-                            </div>
-                        </div>
-                        <div className="content">
-                            <div className="row">
-                                <div className="hours">
-                                    <p>07:00 às 08:30</p>
-                                </div>
-                                <div className="classifications">
-                                    <p>Adulto</p>
-                                </div>
-                                <div className="teachers">
-                                    <p>Prof. Odailton Bezerra</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="hours">
-                                    <p>16:00 às 17:30</p>
-                                </div>
-                                <div className="classifications">
-                                    <p>Adulto</p>
-                                </div>
-                                <div className="teachers">
-                                    <p>Prof. Montanha</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="hours">
-                                    <p>19:00 às 20:15</p>
-                                </div>
-                                <div className="classifications">
-                                    <p>Kids</p>
-                                </div>
-                                <div className="teachers">
-                                    <p>Prof. Montanha</p>
-                                    <p>Prof. Fabiano Andrade</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="hours">
-                                    <p>20:15 às 21:45</p>
-                                </div>
-                                <div className="classifications">
-                                    <p>Adulto</p>
-                                </div>
-                                <div className="teachers">
-                                    <p>Prof. Montanha</p>
-                                    <p>Prof. Fabiano Andrade</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-                <div className="week" id='saturday'>
-                    <h2>SÁBADO</h2>
-                    <div className="container-card-week">
-                        <div className="header">
-                            <div className="hours">
-                                <h3>Horário</h3>
-                            </div>
-                            <div className="classifications">
-                                <h3>Categoria</h3>
-                            </div>
-                            <div className="teachers">
-                                <h3>Professor</h3>
-                            </div>
-                        </div>
-                        <div className="content">
-                            <div className="row">
-                                <div className="hours">
-                                    <p>08:30 às 10:00</p>
-                                </div>
-                                <div className="classifications">
-                                    <p>Mirim</p>
-                                </div>
-                                <div className="teachers">
-                                    <p>Prof. Odailton Bezerra</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="hours">
-                                    <p>19:30 às 21:30</p>
-                                </div>
-                                <div className="classifications">
-                                    <p>Feminino</p>
-                                </div>
-                                <div className="teachers">
-                                    <p>Instrutora Irene</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                          
+                    </div>                        
                 </div>
             </div>
-        </Container>
+        </div>
     )
 }

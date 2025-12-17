@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { PasswordInput } from '../../components/Form/PasswordInput/PasswordInput.jsx'
+import { PasswordInput } from '@/shared/ui/PasswordInput/PasswordInput.jsx'
 import backgroundImage from '../../assets/LOGO_VETORIZADA_COM_FUNDO_BRANCO_800x275.png';
-import { Container } from './LoginCSS'
+import './Login.css'
 
 export function Login(){
     const [loading, setLoading] = useState(false)
@@ -11,9 +11,9 @@ export function Login(){
 
     function handleSubmit(e){
         e.preventDefault()
-        const form = e.currentTarget
-        const formData = new FormData(form)
-        const data = Object.fromEntries(formData.entries())
+        // const form = e.currentTarget
+        // const formData = new FormData(form)
+        // const data = Object.fromEntries(formData.entries())
         setErrors({})
         setLoading(true)
         ;(async()=>{
@@ -25,7 +25,7 @@ export function Login(){
                 } else {
                     setErrors({ email: true, password: true })
                 }
-            } catch(err){
+            } catch {
                 setErrors({ email: true })
             } finally {
                 setLoading(false)
@@ -33,7 +33,7 @@ export function Login(){
         })()
     }
     return (
-        <Container>
+        <div className="login-container">
             <div className="login-logo">
                 <img src={backgroundImage} alt="" />
             </div>
@@ -60,6 +60,6 @@ export function Login(){
                     )}
                 </form>
             </div>
-        </Container>
+        </div>
     )
 }

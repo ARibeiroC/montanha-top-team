@@ -1,0 +1,135 @@
+.schedules-table-container {
+    color: var(--color-ice);
+    padding-inline: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+}
+
+.schedules-table-container h1 {
+    font-size: 2rem;
+    text-align: center;
+    color: var(--color-red);
+    text-shadow: 2px 2px 2px var(--color-ice);
+}
+
+.schedules-table-container .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 1rem;
+
+    padding: 2rem;
+}
+
+.schedules-table-container .container .week {
+    display: flex;
+    flex-direction: column;
+
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.schedules-table-container .container .week h2 {
+    background-color: var(--color-darkred);
+    padding: .4rem 6rem;
+}
+
+.schedules-table-container .container .week .container-card-week {
+    width: 100%;
+    height: auto;
+}
+
+.schedules-table-container .container .week .container-card-week .header {
+    display: flex;
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+.schedules-table-container .container .week .container-card-week .content {
+    display: flex;
+    flex-direction: column;
+}
+
+.schedules-table-container .container .week .container-card-week .content .row {
+    display: flex;
+    font-size: .9rem;
+}
+
+.schedules-table-container .container .week .container-card-week .content .row .hours {
+    flex: 2;
+}
+
+.schedules-table-container .container .week .container-card-week .content .row .teachers,
+.schedules-table-container .container .week .container-card-week .content .row .classifications {
+    flex: 3;
+}
+
+.schedules-table-container .container #saturday {
+    grid-column: 2 / 3;
+}
+
+.schedules-table-container .hours,
+.schedules-table-container .classifications {
+    display: flex;
+    min-height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-darkred);
+}
+
+.schedules-table-container .hours p,
+.schedules-table-container .classifications p {
+    padding: .4rem;
+}
+
+.schedules-table-container .teachers {
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-darkred);
+}
+
+.schedules-table-container .teachers p {
+    padding: .4rem;
+}
+
+@media (max-width: 768px) {
+    .schedules-table-container .container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0;
+    }
+
+    .schedules-table-container .container .week {
+        width: 100%;
+    }
+
+    .schedules-table-container .container .week h2 {
+        padding: .4rem 2rem;
+    }
+
+    .schedules-table-container .container .week .container-card-week {
+        width: 100%;
+    }
+
+    .schedules-table-container .container .week .container-card-week .header .hours {
+        flex: 1;
+    }
+
+    .schedules-table-container .container .week .container-card-week .header .teachers,
+    .schedules-table-container .container .week .container-card-week .header .classifications {
+        flex: 1;
+    }
+
+    .schedules-table-container .container .week .container-card-week .content .row .hours {
+        flex: 1;
+    }
+
+    .schedules-table-container .container .week .container-card-week .content .row .teachers,
+    .schedules-table-container .container .week .container-card-week .content .row .classifications {
+        flex: 1;
+    }
+}

@@ -1,6 +1,4 @@
-/* Migrado de TeamCSS.js */
-
-.Container {
+.team-container {
     display: flex;
     height: 85vh;
     padding: 1rem;

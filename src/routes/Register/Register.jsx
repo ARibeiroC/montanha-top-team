@@ -1,13 +1,13 @@
 // STYLED COMPONENTS IMPORT
-import { Container } from "./RegisterCSS.js";
+import "./Register.css";
 
 // COMPONENTS IMPORT
 import { Form } from "../../components/Form/Form.jsx";
 
 export function Register() {
   return (
-    <Container>
+    <div className="register-container">
         <Form />
-    </Container>
+    </div>
   );
 }

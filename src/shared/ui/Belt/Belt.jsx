@@ -1,12 +1,9 @@
-// REACT HOOKS IMPORT
 import { useLocation, Link } from 'react-router-dom'
-
-// CSS IMPORT
-import { Container } from './BeltCSS.js'
+import './Belt.css'
 
 // REACT ICONS IMPORT
 import { FaUser, FaHome } from "react-icons/fa";
-import { FaCartShopping } from "react-icons/fa6"
+// import { FaCartShopping } from "react-icons/fa6"
 
 export function Belt(){
     
@@ -14,7 +11,7 @@ export function Belt(){
     const isHome = location.pathname === '/home'
 
     return (
-        <Container>
+        <div className="belt-container">
             <div id="title-site">
                 <h1>Montanha Top Team</h1>
             </div>
@@ -29,6 +26,6 @@ export function Belt(){
                     <FaCartShopping />
                 </Link> */}
             </div>
-        </Container>
+        </div>
     )
 };

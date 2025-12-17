@@ -1,0 +1,26 @@
+.form-cad-admin-container {
+    display: flex;
+}
+
+.form-cad-admin-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.form-cad-admin-container .row-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-cad-admin-container button {
+    padding: 0.8rem;
+    background-color: var(--color-link);
+    color: var(--color-ice);
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-weight: bold;
+}

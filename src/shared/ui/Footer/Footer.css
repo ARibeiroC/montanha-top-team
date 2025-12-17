@@ -1,0 +1,15 @@
+.footer-container {
+    display: flex;
+    justify-content: center;
+
+    padding-block: .6rem;
+    background-color: var(--color-darkred);
+    color: var(--color-ice);
+    min-height: 6vh;
+}
+
+.footer-container .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,0 +1,190 @@
+.students-manager-container {
+    padding: 0.5rem;
+    color: var(--color-ice);
+    width: 100%;
+}
+
+.students-manager-container h2 {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+    font-size: 1.2rem;
+}
+
+.header-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--color-red);
+    padding-bottom: 0.5rem;
+}
+
+.add-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-student-form {
+    background: #333;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #555;
+}
+
+.form-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-inline .edit-input, 
+.form-inline .edit-select, 
+.form-inline .edit-input-small {
+    padding: 0.8rem;
+    border-radius: 4px;
+    border: 1px solid #555;
+    background: #222;
+    color: white;
+}
+
+/* Tabela Padrão (oculta em mobile) */
+.students-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #333;
+    border-radius: 8px;
+    overflow: hidden;
+    display: none; /* Mobile First: Oculta tabela */
+}
+
+/* Cards Mobile (exibidos em mobile) */
+.student-card-mobile {
+    display: flex;
+    flex-direction: column;
+    background: #333;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    gap: 0.5rem;
+    border-left: 4px solid var(--color-red);
+}
+
+.student-card-mobile .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.student-card-mobile h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.student-card-mobile .details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.student-card-mobile .actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.student-card-mobile button {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Estilos de Edição (Comuns) */
+.edit-btn { background-color: #444; color: white; }
+.save-btn { background-color: var(--color-red); color: white; }
+.cancel-btn { background-color: transparent; border: 1px solid #666; color: #ccc; }
+
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.status-badge.active { background-color: rgba(76, 175, 80, 0.2); color: #4caf50; }
+.status-badge.inactive { background-color: rgba(244, 67, 54, 0.2); color: #f44336; }
+
+/* Desktop (acima de 768px) */
+@media (min-width: 768px) {
+    .students-manager-container {
+        padding: 1.5rem;
+    }
+
+    .students-table {
+        display: table; /* Mostra tabela */
+    }
+
+    .students-table th, .students-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #444;
+    }
+
+    .students-table th {
+        background-color: #222;
+        font-weight: bold;
+        color: var(--color-red);
+    }
+
+    .form-inline {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .form-inline .edit-input {
+        flex: 2;
+    }
+
+    .form-inline .edit-select {
+        flex: 1;
+    }
+
+    .form-inline .edit-input-small {
+        width: 80px;
+    }
+
+    .form-inline .save-btn {
+        width: auto;
+        padding: 0 1.5rem;
+    }
+
+    .student-card-mobile {
+        display: none; /* Oculta cards em desktop */
+    }
+}
+
+/* Inputs de edição */
+.edit-input, .edit-select {
+    padding: 0.4rem;
+    background: #222;
+    border: 1px solid #555;
+    color: white;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 0.5rem; /* Espaço em mobile */
+}
+
+@media (min-width: 768px) {
+    .edit-input, .edit-select {
+        margin-bottom: 0;
+    }
+}

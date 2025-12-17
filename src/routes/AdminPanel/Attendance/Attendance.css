@@ -1,0 +1,125 @@
+.attendance-container {
+    padding: 1rem;
+    color: var(--color-ice);
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.attendance-container h2 {
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--color-red);
+    padding-bottom: 0.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #444;
+    color: white;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.success-message {
+    background-color: #4caf50;
+    color: white;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.students-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.student-card-mini {
+    background: #333;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column; /* Mobile: Stack vertical */
+    gap: 1rem;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.student-card-mini .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.student-card-mini strong {
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+}
+
+.student-card-mini span {
+    font-size: 1rem;
+    color: #aaa;
+}
+
+.checkin-btn {
+    background-color: var(--color-red);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem; /* Botão maior para touch */
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    width: 100%; /* Botão full width no mobile */
+    transition: background 0.3s;
+}
+
+.checkin-btn:hover {
+    background-color: #a00000;
+}
+
+.checkin-btn.disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+    .attendance-container {
+        padding: 1.5rem;
+    }
+
+    .attendance-container h2 {
+        text-align: left;
+    }
+
+    .student-card-mini {
+        flex-direction: row; /* Volta para linha */
+        justify-content: space-between;
+        text-align: left;
+        align-items: center;
+    }
+
+    .student-card-mini .info {
+        align-items: flex-start;
+    }
+
+    .checkin-btn {
+        width: auto; /* Botão tamanho normal */
+    }
+}

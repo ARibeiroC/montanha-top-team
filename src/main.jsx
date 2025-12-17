@@ -1,60 +1,17 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-
-// REACT ROUTER DOM IMPORTS
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
-
-// CSS IMPORTS
+import { RouterProvider } from 'react-router-dom'
 import './index.css'
-
-// COMPONENTS IMPORTS
-import App from './app/App'
-
-// ROUTES COMPONENTS IMPORTS
-import { Login } from './routes/Login/Login'
-import { Register } from './routes/Register/Register'
-import { MainContainer } from './components/MainContainer/MainContainer'
-import { StateMenuContextProvider } from './context/StateMenuContext'
-import { AdminPanel } from './routes/AdminPanel/AdminPanel'
-
-
-// CREATING BROWSER ROUTER
-const router = createBrowserRouter(
-  [
-    {
-      path: '/',
-      element: <App />,
-      errorElement: <div>404 Not Found</div>,
-      children: [
-        {
-          path: '/',
-          element: <Navigate to="/home" />,
-        },
-        {
-          path: '/home',
-          element: <MainContainer />
-        },
-        {
-          path: '/login',
-          element: <Login />
-        },
-        {
-          path: '/register',
-          element: <Register />
-        },
-        {
-          path: '/admin-panel',
-          element: <AdminPanel />
-        }
-      ]
-    }
-  ]
-)
+import { StateMenuContextProvider } from '@/context/StateMenuContext'
+import { SchoolContextProvider } from '@/context/SchoolContext'
+import { router } from '@/routes/router'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <StateMenuContextProvider>
-      <RouterProvider router={router} />
+      <SchoolContextProvider>
+        <RouterProvider router={router} />
+      </SchoolContextProvider>
     </StateMenuContextProvider>
   </StrictMode>,
 )

@@ -1,8 +1,8 @@
-import { Container } from "./FormCadAdminCSS.js";
+import "./FormCadAdmin.css";
 
 export function FormCadAdmin() {
     return (
-        <Container>
+        <div className="form-cad-admin-container">
             <form>
                 <div className="row-form">
                     <label htmlFor="name">Nome Completo:</label>
@@ -22,6 +22,6 @@ export function FormCadAdmin() {
                 </div>
                 <button type="submit">Cadastrar Administrador</button>
             </form>
-        </Container>
+        </div>
     )
 }

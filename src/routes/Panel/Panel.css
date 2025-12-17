@@ -1,0 +1,13 @@
+.panel-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-container #header {
+    width: 100%;
+    z-index: 2;
+}
+
+.panel-container .content {
+    width: 100%;
+}

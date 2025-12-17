@@ -1,13 +1,11 @@
 // COMPONENTS IMPORT
-import { Logotipo } from '../../components/Logo/Logotipo.jsx'
-
+import { Logotipo } from '@/shared/ui/Logo/Logotipo.jsx'
 
 // REACT ICONS IMPORT
 import { IoMdArrowDropdownCircle } from "react-icons/io"
 
-
 // CSS IMPORT
-import {Container} from './HomeCss.js'
+import './Home.css'
 
 // IMAGE IMPORT
 import logo from "../../assets/LOGO_VETORIZADA_COM_FUNDO_BRANCO_800x275.png"
@@ -15,7 +13,7 @@ import video from '../../assets/jiu-jitsu-video.mp4'
 
 export function Home() {
   return (
-    <Container>
+    <div className="home-container">
       <video src={video} autoPlay muted loop></video>
       <div id="background-video">
       </div>
@@ -31,7 +29,7 @@ export function Home() {
           <h4 className="services">Crianças | Jovens | Adultos</h4>
         </div>
         <div className="btn-controller">
-          <button><a href="/register">Cadastro de Aluno</a></button>
+          <button><a href="/register">Cadastre-se</a></button>
         </div>
         <div className="arrow-content">
           <div id='border'>
@@ -39,6 +37,6 @@ export function Home() {
           </div>
         </div>
       </div>
-    </Container>
+    </div>
   )
 }

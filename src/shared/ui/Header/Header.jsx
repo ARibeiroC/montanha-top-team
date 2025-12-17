@@ -1,14 +1,14 @@
 
-import { Container } from './HeaderCSS'
+import './Header.css'
 
 import { Belt } from '../Belt/Belt'
 import { Navigation } from '../Nav/Navigation'
 
 export function Header() {
     return (
-        <Container>
+        <div className="header-container">
             <Belt />
             <Navigation />    
-        </Container>
+        </div>
     )
 }

@@ -1,9 +1,9 @@
-import { Container } from "./TeamCSS"
+import './Team.css'
 
 export function Team(){
     return (
-        <Container id="team">
+        <div className="team-container" id="team">
             <h1>EQUIPE</h1>
-        </Container>
+        </div>
     )
 }

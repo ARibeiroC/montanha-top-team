@@ -1,0 +1,337 @@
+.certificates-container {
+    padding: 1rem;
+    color: var(--color-ice);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* --- MANAGEMENT PANEL --- */
+.management-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns for config and selection */
+    gap: 2rem;
+    width: 100%;
+}
+
+.panel-section {
+    background: #333;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.panel-section h3 {
+    margin-bottom: 1.5rem;
+    color: var(--color-red);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid #555;
+    padding-bottom: 0.5rem;
+}
+
+/* Form Styles */
+.form-group-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+input, select {
+    padding: 0.8rem;
+    border-radius: 4px;
+    border: 1px solid #555;
+    background: #444;
+    color: white;
+    font-size: 1rem;
+    width: 100%;
+}
+
+input:focus, select:focus {
+    outline: 2px solid var(--color-red);
+    border-color: transparent;
+}
+
+/* Instructors Config */
+.instructors-config {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.instructor-block {
+    background: #2a2a2a;
+    padding: 1rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.instructor-block h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    color: #aaa;
+    text-transform: uppercase;
+}
+
+/* Selection Table */
+.selection-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.students-table-wrapper {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #555;
+    border-radius: 4px;
+}
+
+.students-selection-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.students-selection-table th, 
+.students-selection-table td {
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid #444;
+}
+
+.students-selection-table th {
+    background: #222;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.students-selection-table tr:hover {
+    background: #444;
+}
+
+.students-selection-table tr.selected {
+    background: rgba(220, 20, 60, 0.2); /* Red tint */
+}
+
+.no-data {
+    text-align: center;
+    color: #888;
+    padding: 2rem;
+}
+
+.action-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #555;
+}
+
+.print-btn {
+    padding: 0.8rem 1.5rem;
+    background: var(--color-red);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.3s;
+}
+
+.print-btn:hover {
+    background: #a00;
+}
+
+.print-btn:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+/* --- PRINT AREA --- */
+.print-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    background: #222;
+    padding: 2rem;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.empty-preview {
+    color: #888;
+    font-style: italic;
+    padding: 2rem;
+}
+
+/* Certificate Page (Same styles as before but optimized for list) */
+.certificate-page {
+    width: 297mm;
+    height: 210mm;
+    background: white;
+    color: black;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    
+    /* Scale for Preview on screen */
+    transform: scale(0.6);
+    transform-origin: top center;
+    margin-bottom: -80mm; /* Compensate for scale whitespace */
+}
+
+/* Reuse existing certificate styles */
+.bg-border-outline {
+    position: absolute;
+    top: 15mm; left: 15mm; right: 15mm; bottom: 15mm;
+    border: 2px solid #FFD700; outline: 2px solid #FFD700; outline-offset: 4px;
+    z-index: 1; pointer-events: none;
+}
+.bg-curve-top-left {
+    position: absolute; top: -100px; left: -100px; width: 300px; height: 300px;
+    background: black; border-radius: 50%; z-index: 0;
+}
+.bg-curve-top-left::after {
+    content: ''; position: absolute; top: 20px; left: 20px; width: 100%; height: 100%;
+    background: #ff0000; border-radius: 50%; z-index: -1;
+}
+.bg-curve-bottom-right {
+    position: absolute; bottom: -100px; right: -100px; width: 300px; height: 300px;
+    background: black; border-radius: 50%; z-index: 0;
+}
+.bg-curve-bottom-right::after {
+    content: ''; position: absolute; bottom: 20px; right: 20px; width: 100%; height: 100%;
+    background: #ff0000; border-radius: 50%; z-index: -1;
+}
+
+.certificate-content {
+    position: relative; z-index: 2; height: 100%; display: flex;
+    flex-direction: column; align-items: center; padding: 20mm 30mm; text-align: center;
+}
+.header-logo img { height: 80px; object-fit: contain; margin-bottom: 1rem; }
+.title-certificate {
+    font-family: 'Arial Black', 'Impact', sans-serif; font-size: 4rem; text-transform: uppercase;
+    letter-spacing: 5px; margin: 0.5rem 0; font-weight: 900; transform: scaleX(1.2);
+}
+.date-location {
+    font-size: 1.1rem; text-transform: uppercase; color: #333; font-weight: bold;
+    margin-bottom: 3rem; letter-spacing: 1px;
+}
+.main-text {
+    flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; width: 100%;
+}
+.main-text p { font-size: 1.4rem; font-style: italic; font-family: 'Georgia', serif; }
+.student-name {
+    font-family: 'Arial Black', sans-serif; font-size: 3.5rem; text-transform: uppercase;
+    margin: 1rem 0; letter-spacing: 2px; font-weight: 900;
+}
+.signatures-row {
+    display: flex; justify-content: space-between; width: 100%; margin-top: auto;
+    margin-bottom: 2rem; padding: 0 2rem;
+}
+.signature-block { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.sig-line { width: 300px; height: 2px; background: #333; margin-bottom: 0.5rem; }
+.sig-name { font-weight: bold; font-size: 1.1rem; text-transform: uppercase; margin: 0; }
+.sig-role { font-size: 0.7rem; text-transform: uppercase; margin: 0.2rem 0; font-weight: bold; }
+.sig-details { font-size: 0.65rem; color: #555; margin: 0; }
+.belt-bar-bottom {
+    position: absolute; bottom: 0; left: 20%; width: 60%; height: 20px;
+    transform: skewX(-45deg); margin-bottom: 10mm; z-index: 1;
+}
+.belt-bar-bottom.white { background: #e0e0e0; border: 1px solid #ccc; }
+.belt-bar-bottom.blue { background: #0000ff; }
+.belt-bar-bottom.purple { background: #800080; }
+.belt-bar-bottom.brown { background: #8b4513; }
+.belt-bar-bottom.black { background: #000000; }
+.gold-seal {
+    position: absolute; bottom: 30px; right: 30px; width: 120px; height: 120px;
+    background: radial-gradient(circle, #FFD700 0%, #B8860B 100%); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); border: 4px solid #DAA520; z-index: 10;
+}
+.gold-seal::before {
+    content: ''; position: absolute; width: 90%; height: 90%;
+    border: 2px dashed #B8860B; border-radius: 50%;
+}
+.seal-inner img { width: 80px; opacity: 0.8; mix-blend-mode: multiply; }
+
+/* --- PRINT MEDIA QUERY --- */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .print-area, .print-area * {
+        visibility: visible;
+    }
+    
+    .management-panel, .admin-container > #controllers, #header-admin {
+        display: none !important;
+    }
+
+    .print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: white;
+        display: block; /* Allows page breaks */
+    }
+
+    .certificate-page {
+        transform: none !important; /* Reset scale for actual print */
+        margin: 0;
+        width: 100%;
+        height: 100vh; /* Force full page */
+        page-break-after: always;
+        break-inside: avoid;
+        box-shadow: none;
+        border: none;
+    }
+
+    @page {
+        size: landscape;
+        margin: 0;
+    }
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 1024px) {
+    .management-panel {
+        grid-template-columns: 1fr;
+    }
+    .certificate-page {
+        transform: scale(0.4);
+        margin-bottom: -120mm;
+    }
+}
