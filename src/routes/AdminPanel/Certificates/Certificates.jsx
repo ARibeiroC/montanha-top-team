@@ -1,11 +1,13 @@
 import { useState, useRef } from 'react';
 import { useSchool } from '@/context/SchoolContext';
+import { useAuth } from '@/context/AuthContext';
 import { FaPrint, FaFilter } from 'react-icons/fa';
 import './Certificates.css';
 import logo from '@/assets/LOGO_VETORIZADA_COM_FUNDO_BRANCO_800x275.png';
 
 export function Certificates() {
     const { students, certificateConfig, updateCertificateConfig } = useSchool();
+    const { user } = useAuth();
     const printRef = useRef();
 
     // --- STATES ---
@@ -40,9 +42,16 @@ export function Certificates() {
     };
 
     // --- HELPERS ---
-    const filteredStudents = students.filter(student => 
-        filterBelt ? student.belt === filterBelt : true
-    );
+    const filteredStudents = students.filter(student => {
+        // Filter by Branch (if user is Branch Admin - Level 2)
+        if (user?.accessLevel === 2 && user?.branch) {
+            if ((student.branch ?? 'Montanha Top Team') !== user.branch) {
+                return false;
+            }
+        }
+
+        return filterBelt ? student.belt === filterBelt : true;
+    });
 
     const getFormattedDate = () => {
         if (!certificateConfig.date) return '';

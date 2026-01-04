@@ -25,6 +25,10 @@
     margin-bottom: 1.5rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
+.search-box input::placeholder {
+    color: #cccccc;
+    opacity: 1;
+}
 
 .success-message {
     background-color: #4caf50;

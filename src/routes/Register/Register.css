@@ -1,10 +1,61 @@
 .register-container {
-  height: 88vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 
-  background-color: rgba(0,0,0, .9);
-  background-image: url('../../assets/LOGO_VETORIZADA_COM_FUNDO_BRANCO_800x275.png');
-  background-blend-mode: darken;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 96%;
+    min-height: 88vh;
+
+    padding: 2rem;
+
+    color: var(--color-ice);
+    background-color: var(--color-black);
+}
+
+.register-container .register-logo {
+    height: 5rem;
+}
+
+.register-container .register-logo img {
+    max-height: 100%;
+}
+
+.register-container .card {
+    width: 100%;
+    max-width: 600px; /* Wider than login because registration has more fields */
+    background: var(--color-black-opac-9);
+    border: 1px solid var(--color-link);
+    border-radius: .6rem;
+    box-shadow: 2px 2px 6px rgba(255,0,0,.8);
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.register-container .loading-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    color: var(--color-ice);
+    border-radius: .6rem;
+}
+
+.register-container .spinner {
+    width: 36px;
+    height: 36px;
+    border: 4px solid var(--color-ice);
+    border-top-color: var(--color-link);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }

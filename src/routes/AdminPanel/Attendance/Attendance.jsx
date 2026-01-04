@@ -1,15 +1,24 @@
 import { useState } from 'react';
+import { useAuth } from '@/context/AuthContext';
 import { useSchool } from '@/context/SchoolContext';
 import './Attendance.css';
 
 export function Attendance() {
     const { students, registerAttendance } = useSchool();
+    const { user } = useAuth();
     const [searchTerm, setSearchTerm] = useState('');
     const [message, setMessage] = useState('');
 
-    const filteredStudents = students.filter(student => 
-        student.name.toLowerCase().includes(searchTerm.toLowerCase()) && student.active
-    );
+    const filteredStudents = students.filter(student => {
+        // Filter by Branch (if user is Branch Admin - Level 2)
+        if (user?.accessLevel === 2 && user?.branch) {
+            if ((student.branch ?? 'Montanha Top Team') !== user.branch) {
+                return false;
+            }
+        }
+        
+        return student.name.toLowerCase().includes(searchTerm.toLowerCase()) && student.active;
+    });
 
     const handleCheckIn = (id, name) => {
         registerAttendance(id);

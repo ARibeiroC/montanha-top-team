@@ -8,10 +8,22 @@ import './FormCadUser.css';
 
 export function FormCadUser() {
     const [isStudent, setIsStudent] = useState(false)
+    const [isMinor, setIsMinor] = useState(false)
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({})
     const navigate = useNavigate()
     // const database = StateMenuContext()
+
+    const handleDateChange = (e) => {
+        const birthDate = new Date(e.target.value);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        setIsMinor(age < 18);
+    };
 
     async function handleSubmit(e){
         const aluno = {}
@@ -33,16 +45,42 @@ export function FormCadUser() {
 
         const data = Object.fromEntries(formData.entries())
         data.student = formData.has('student')
-        aluno.Nome = data.name
-        aluno.Nasc = data['dt-nasc']
-        aluno.Escola = data.school ? {
-                'Nome da Escola': data.school,
-                'série': data.serie
+        
+        // Estrutura para o MongoDB
+        aluno.name = data.name
+        aluno.birthDate = data['dt-nasc']
+        aluno.schoolInfo = data.school ? {
+                schoolName: data.school,
+                grade: data.serie
             } : null 
-        aluno.Usuario = {
-                'email': data.email,
-                'password': data.password,
+        
+        // Dados do responsável se for menor
+        aluno.guardianName = isMinor ? data.guardian : null
+
+        // Dados de autenticação
+        aluno.auth = {
+                email: data.email,
+                password: data.password,
             }
+
+        // Inicialização de campos de gestão
+        aluno.attendance = [] // Histórico de presença
+        aluno.beltInfo = {
+            currentBelt: 'Branca',
+            stripes: 0,
+            history: [] // Histórico de graduações
+        }
+        aluno.events = [] // Campeonatos participados
+        aluno.active = true // Status do aluno
+
+        // Dados do perfil (Inicializados vazios)
+        aluno.profilePic = null
+        aluno.height = null
+        aluno.weight = null
+
+        // Filial e Professor
+        aluno.branch = data.branch || 'Montanha Top Team'
+        aluno.professorName = data.professorName || ''
 
         setLoading(true)
 
@@ -50,6 +88,7 @@ export function FormCadUser() {
             await studentService.createStudent(aluno)
             form.reset()
             setIsStudent(false)
+            setIsMinor(false)
             setErrors({})
             navigate('/login')
         } catch(err) {
@@ -70,8 +109,16 @@ export function FormCadUser() {
                 </div>
                 <div className="row-input">
                     <label htmlFor="dt-nasc">Data de Nascimento</label>
-                    <input type="date" id="dt-nasc" name="dt-nasc" required className={errors['dt-nasc'] ? 'field-error' : ''} />
+                    <input type="date" id="dt-nasc" name="dt-nasc" required className={errors['dt-nasc'] ? 'field-error' : ''} onChange={handleDateChange} />
                 </div>
+                
+                {isMinor && (
+                    <div className="row-input">
+                        <label htmlFor="guardian">Nome do Responsável</label>
+                        <input type="text" id="guardian" name="guardian" required className={errors.guardian ? 'field-error' : ''} minLength={5} placeholder="Nome do pai, mãe ou responsável" />
+                    </div>
+                )}
+
                 <div id='user-student'>
                     <input type="checkbox" name="student" id="student" onChange={(e)=>setIsStudent(e.target.checked)} />
                     <label htmlFor="student">Você é estudante? ( Fundamental / Médio )</label>
@@ -86,6 +133,18 @@ export function FormCadUser() {
                 <div className="row-input">
                     <label htmlFor="email">Email</label>
                     <input type="email" id="email" name="email" required className={errors.email ? 'field-error' : ''} />
+                </div>
+                <div className="row-input">
+                    <label htmlFor="branch">Filial</label>
+                    <select id="branch" name="branch" required>
+                        <option value="Montanha Top Team">Montanha Top Team (Matriz)</option>
+                        <option value="Montanha Top Team - Wagner">Montanha Top Team - Wagner</option>
+                        <option value="Montanha Top Team - Marcos">Montanha Top Team - Marcos</option>
+                    </select>
+                </div>
+                <div className="row-input">
+                    <label htmlFor="professorName">Nome do Professor</label>
+                    <input type="text" id="professorName" name="professorName" required placeholder="Ex: Guilherme Nascimento" />
                 </div>
                 <div className="row-input">
                     <label htmlFor="password">Senha</label>

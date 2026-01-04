@@ -3,12 +3,13 @@
     flex-direction: column;
     gap: 1rem;
     color: var(--color-white);
-    min-height: 88vh;
+    /* min-height removed to fit in card */
 }
 
 .form-cad-user-container h2 {
     font-size: 2rem;
     text-align: center;
+    color: var(--color-link);
 }
 
 .form-cad-user-container input, 

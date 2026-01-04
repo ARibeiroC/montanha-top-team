@@ -1,5 +1,6 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import PropTypes from 'prop-types';
+import { unifiedService } from "../services/unifiedService";
 
 export const SchoolContext = createContext()
 
@@ -12,134 +13,40 @@ export const useSchool = () => {
     return context;
 };
 
-const initialStudents = [
-    { 
-        id: 1, 
-        name: "Carlos Silva", 
-        email: "carlos@example.com",
-        belt: "Branca", 
-        stripes: 2, 
-        attendance: [
-            { date: "2023-10-01", time: "19:00" },
-            { date: "2023-10-03", time: "19:00" }
-        ],
-        events: ["Campeonato Estadual 2023"],
-        active: true
-    },
-    { 
-        id: 2, 
-        name: "Ana Souza", 
-        email: "ana@example.com",
-        belt: "Azul", 
-        stripes: 0, 
-        attendance: [], 
-        events: [],
-        active: true
-    },
-    { 
-        id: 3, 
-        name: "Marcos Oliveira", 
-        email: "marcos@example.com",
-        belt: "Roxa", 
-        stripes: 3, 
-        attendance: [], 
-        events: ["Seminário Internacional"],
-        active: false
-    },
-    { 
-        id: 4, 
-        name: "Juliana Santos", 
-        email: "juliana@example.com",
-        belt: "Branca", 
-        stripes: 4, 
-        attendance: [], 
-        events: [],
-        active: true
-    },
-    { 
-        id: 5, 
-        name: "Roberto Almeida", 
-        email: "roberto@example.com",
-        belt: "Marrom", 
-        stripes: 1, 
-        attendance: [], 
-        events: ["Copa do Mundo"],
-        active: true
-    },
-    { 
-        id: 6, 
-        name: "Fernanda Lima", 
-        email: "fernanda@example.com",
-        belt: "Preta", 
-        stripes: 0, 
-        attendance: [], 
-        events: [],
-        active: true
-    },
-    { 
-        id: 7, 
-        name: "Ricardo Pereira", 
-        email: "ricardo@example.com",
-        belt: "Azul", 
-        stripes: 2, 
-        attendance: [], 
-        events: [],
-        active: true
-    },
-    { 
-        id: 8, 
-        name: "Patrícia Costa", 
-        email: "patricia@example.com",
-        belt: "Roxa", 
-        stripes: 1, 
-        attendance: [], 
-        events: [],
-        active: true
-    },
-    { 
-        id: 9, 
-        name: "Lucas Martins", 
-        email: "lucas@example.com",
-        belt: "Branca", 
-        stripes: 0, 
-        attendance: [], 
-        events: [],
-        active: true
-    },
-    { 
-        id: 10, 
-        name: "Beatriz Rocha", 
-        email: "beatriz@example.com",
-        belt: "Marrom", 
-        stripes: 2, 
-        attendance: [], 
-        events: [],
-        active: true
-    },
-    { 
-        id: 11, 
-        name: "Gabriel Ferreira", 
-        email: "gabriel@example.com",
-        belt: "Branca", 
-        stripes: 3, 
-        attendance: [], 
-        events: [],
-        active: true
-    },
-    { 
-        id: 12, 
-        name: "Larissa Mendes", 
-        email: "larissa@example.com",
-        belt: "Azul", 
-        stripes: 4, 
-        attendance: [], 
-        events: [],
-        active: true
-    }
-];
-
 export const SchoolContextProvider = ({children}) => {
-    const [students, setStudents] = useState(initialStudents);
+    const [students, setStudents] = useState([]);
+    const [transactions, setTransactions] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                await unifiedService.initialize();
+                const [studentsData, transactionsData] = await Promise.all([
+                    unifiedService.getStudents(),
+                    unifiedService.getTransactions()
+                ]);
+
+                // Validate data types
+                const validStudents = Array.isArray(studentsData) ? studentsData : [];
+                const validTransactions = Array.isArray(transactionsData) ? transactionsData : [];
+
+                const studentsWithDefaults = validStudents.map(s => ({
+                    branch: 'Montanha Top Team',
+                    professorName: '',
+                    ...s
+                }));
+                
+                setStudents(studentsWithDefaults);
+                setTransactions(validTransactions);
+            } catch (err) {
+                console.error("Erro ao carregar dados escolares:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadData();
+    }, []);
 
     // Gestão de Alunos (Atualizar dados, graduação)
     const updateStudent = (id, updatedData) => {
@@ -149,18 +56,34 @@ export const SchoolContextProvider = ({children}) => {
     };
 
     // Adicionar Novo Aluno
-    const addStudent = (newStudent) => {
-        const id = Math.max(...students.map(s => s.id), 0) + 1;
-        const student = {
-            id,
-            attendance: [],
-            events: [],
-            active: true,
-            stripes: 0,
-            belt: 'Branca',
-            ...newStudent
-        };
-        setStudents(prev => [...prev, student]);
+    const addStudent = async (newStudent) => {
+        try {
+            const sessionStr = localStorage.getItem("session");
+            let token = null;
+            if (sessionStr) {
+                 try {
+                     token = JSON.parse(sessionStr).token;
+                 } catch(e) { console.debug('Invalid session JSON', e) }
+            }
+
+            const created = await unifiedService.createStudent(newStudent, token);
+
+            const student = {
+                attendance: [],
+                events: [],
+                active: true,
+                stripes: 0,
+                belt: 'Branca',
+                branch: newStudent.branch ?? 'Montanha Top Team',
+                professorName: newStudent.professorName ?? '',
+                ...created
+            };
+            setStudents(prev => [...prev, student]);
+            return student;
+        } catch (e) {
+            console.error("Erro ao criar estudante:", e);
+            throw e;
+        }
     };
 
     // Gestão de Presença
@@ -233,6 +156,62 @@ export const SchoolContextProvider = ({children}) => {
 
     const getStudentById = (id) => students.find(s => s.id === id);
 
+    const addTransaction = (tx) => {
+        const id = Math.max(...transactions.map(t => t.id), 0) + 1;
+        const baseBranch = tx.branch ?? (tx.studentId ? (getStudentById(tx.studentId)?.branch ?? 'Montanha Top Team') : 'Montanha Top Team');
+        const item = {
+            id,
+            type: tx.type,
+            category: tx.category,
+            amount: Number(tx.amount),
+            date: tx.date ?? new Date().toISOString(),
+            status: tx.status ?? 'pending',
+            paymentMethod: tx.paymentMethod ?? 'cash',
+            description: tx.description ?? '',
+            branch: baseBranch,
+            studentId: tx.studentId ?? null
+        };
+        setTransactions(prev => [item, ...prev]);
+        return item;
+    };
+    const updateTransaction = (id, updates) => {
+        let updated;
+        setTransactions(prev => prev.map(t => {
+            if (t.id === id) {
+                updated = { ...t, ...updates };
+                return updated;
+            }
+            return t;
+        }));
+        return updated;
+    };
+    const deleteTransaction = (id) => {
+        setTransactions(prev => prev.filter(t => t.id !== id));
+    };
+    const getSummary = ({ from, to, branch } = {}) => {
+        const filtered = transactions.filter(t => {
+            const tDate = new Date(t.date).toISOString().split('T')[0];
+            const inFrom = from ? tDate >= from : true;
+            const inTo = to ? tDate <= to : true;
+            const inBranch = branch ? t.branch === branch : true;
+            return inFrom && inTo && inBranch;
+        });
+        const income = filtered.filter(t => t.type === 'income').reduce((acc, t) => acc + t.amount, 0);
+        const expense = filtered.filter(t => t.type === 'expense').reduce((acc, t) => acc + t.amount, 0);
+        const balance = income - expense;
+        return { income, expense, balance };
+    };
+    const getOverdue = ({ branch } = {}) => {
+        const items = transactions.filter(t => {
+            const inBranch = branch ? t.branch === branch : true;
+            const isIncome = t.type === 'income';
+            const isPending = t.status === 'pending';
+            const isPast = new Date(t.date).getTime() < new Date().setHours(0, 0, 0, 0);
+            return inBranch && isIncome && isPending && isPast;
+        });
+        return { count: items.length, items };
+    };
+
     return (
         <SchoolContext.Provider value={{ 
             students, 
@@ -242,7 +221,14 @@ export const SchoolContextProvider = ({children}) => {
             addEvent,
             certificateConfig,
             updateCertificateConfig,
-            getStudentById 
+            getStudentById,
+            transactions,
+            addTransaction,
+            updateTransaction,
+            deleteTransaction,
+            getSummary,
+            getOverdue,
+            loading
         }}>
             {children}
         </SchoolContext.Provider>

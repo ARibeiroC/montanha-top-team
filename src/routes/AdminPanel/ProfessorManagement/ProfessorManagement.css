@@ -1,0 +1,153 @@
+.professor-management-container {
+    padding: 1rem;
+    color: #fff;
+    width: 100%;
+}
+
+.pm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 1rem;
+}
+
+.pm-header h2 {
+    color: var(--color-red, #ff0000);
+    margin: 0;
+}
+
+/* Reusing some button styles or defining specific ones */
+.btn-add {
+    background-color: var(--color-green, #28a745);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+}
+
+.pm-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.pm-form-container {
+    background-color: #222;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.pm-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.pm-form-header h3 {
+    margin: 0;
+    color: #fff;
+}
+
+.event-type {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.event-type.absence {
+    background-color: #dc3545;
+    color: white;
+}
+
+.event-type.delay {
+    background-color: #ffc107;
+    color: black;
+}
+
+.event-type.substitution {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.status-badge.approved {
+    background-color: #28a745;
+    color: white;
+}
+
+.status-badge.pending {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-icon.approve {
+    color: #28a745;
+}
+
+.btn-icon.reject {
+    color: #dc3545;
+}
+
+/* Table styles reused from user management roughly */
+.pm-list {
+    overflow-x: auto;
+}
+
+.pm-list table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #222;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.pm-list th,
+.pm-list td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.pm-list th {
+    background-color: #1a1a1a;
+    color: #ccc;
+    font-weight: 600;
+}
+
+.pm-list tr:hover {
+    background-color: #2a2a2a;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: #fff;
+    resize: vertical;
+}

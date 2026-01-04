@@ -60,6 +60,10 @@ input, select {
     font-size: 1rem;
     width: 100%;
 }
+input::placeholder {
+    color: #cccccc;
+    opacity: 1;
+}
 
 input:focus, select:focus {
     outline: 2px solid var(--color-red);
@@ -180,7 +184,7 @@ input:focus, select:focus {
     background: #222;
     padding: 2rem;
     border-radius: 8px;
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 
 .empty-preview {
@@ -191,8 +195,9 @@ input:focus, select:focus {
 
 /* Certificate Page (Same styles as before but optimized for list) */
 .certificate-page {
-    width: 297mm;
-    height: 210mm;
+    width: 100%;
+    max-width: 900px;
+    height: auto;
     background: white;
     color: black;
     position: relative;
@@ -206,7 +211,7 @@ input:focus, select:focus {
     /* Scale for Preview on screen */
     transform: scale(0.6);
     transform-origin: top center;
-    margin-bottom: -80mm; /* Compensate for scale whitespace */
+    margin-bottom: 2rem;
 }
 
 /* Reuse existing certificate styles */

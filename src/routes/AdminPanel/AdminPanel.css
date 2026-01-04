@@ -31,8 +31,9 @@
 
 .content {
     flex: 1;
-    padding: 1rem;
+    padding: 0.75rem;
     overflow-y: auto;
+    overflow-x: hidden;
     width: 100%;
 }
 
@@ -121,11 +122,22 @@
     list-style: none;
     display: flex;
     flex-direction: row; /* Horizontal em mobile */
-    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: center;
     width: 100%;
     height: 100%;
-    padding: 0;
+    padding: 0 1rem;
     margin: 0;
+    overflow-x: auto;
+    gap: 1rem;
+    
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#menu-controller::-webkit-scrollbar {
+    display: none;
 }
 
 .link-controller {
@@ -134,7 +146,9 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    flex: 1;
+    flex: 0 0 auto;
+    min-width: 80px;
+    height: 100%;
     transition: background 0.3s;
     color: #888;
 }
@@ -154,8 +168,37 @@
     text-align: center;
 }
 
+/* Scroll Indicators */
+.scroll-indicator {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(34, 34, 34, 0.9);
+    color: var(--color-red, #ff0000);
+    z-index: 101;
+    pointer-events: none; /* Let clicks pass through if needed, though they usually sit on edges */
+}
+
+.scroll-indicator.left {
+    left: 0;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+}
+
+.scroll-indicator.right {
+    right: 0;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+}
+
 /* Responsividade: Tablet e Desktop (acima de 768px) */
 @media (min-width: 768px) {
+    .scroll-indicator {
+        display: none;
+    }
+
     .admin-container {
         flex-direction: row; /* Volta para layout lateral */
         padding-bottom: 0;
@@ -195,11 +238,16 @@
         flex-direction: column;
         gap: 2rem;
         justify-content: center;
+        padding: 0;
+        overflow-x: visible;
     }
 
     .link-controller {
         flex: 0;
         padding: 1rem 0.5rem;
+        width: 100%;
+        height: auto;
+        min-width: auto;
     }
 
     .menu-icon {

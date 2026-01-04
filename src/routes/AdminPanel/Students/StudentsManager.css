@@ -52,6 +52,11 @@
     border: 1px solid #555;
     background: #222;
     color: white;
+    }
+.form-inline .edit-input::placeholder,
+.edit-input::placeholder {
+    color: #bbbbbb;
+    opacity: 1;
 }
 
 /* Tabela Padrão (oculta em mobile) */
@@ -181,6 +186,10 @@
     border-radius: 4px;
     width: 100%;
     margin-bottom: 0.5rem; /* Espaço em mobile */
+}
+.edit-input::placeholder {
+    color: #bbbbbb;
+    opacity: 1;
 }
 
 @media (min-width: 768px) {

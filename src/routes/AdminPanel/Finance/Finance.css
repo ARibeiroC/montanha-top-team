@@ -1,0 +1,223 @@
+.finance-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  color: var(--color-ice);
+}
+.finance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-direction: column;
+}
+.finance-header .title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.finance-header .actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #444;
+  color: var(--color-ice);
+  cursor: pointer;
+  transition: background 0.2s;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.btn.primary {
+  background: var(--color-red);
+  color: #fff;
+}
+.btn.small {
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.btn.danger {
+  background: #a00000;
+  color: #fff;
+}
+.filters {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.filters input,
+.filters select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background: #222;
+  color: #fff;
+}
+.filters input::placeholder {
+  color: #bbbbbb;
+  opacity: 1;
+}
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  gap: 8px;
+}
+.card {
+  background: #333;
+  border-radius: 10px;
+  padding: 12px;
+  display: grid;
+  grid-template-rows: auto auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.card-data p {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-red);
+}
+.card-title p {
+  font-size: 13px;
+  color: #ccc;
+}
+.table-wrapper {
+  overflow: auto;
+  background: #333;
+  border-radius: 10px;
+  display: none; /* Mobile-first: oculta tabela em mobile */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.finance-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.finance-table th,
+.finance-table td {
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  text-align: left;
+  color: var(--color-ice);
+}
+.finance-table thead th {
+  background: #222;
+  color: var(--color-red);
+  position: sticky;
+  top: 0;
+}
+.finance-table tbody tr:hover { background: #2a2a2a; }
+.empty {
+  text-align: center;
+  padding: 18px;
+}
+.list-mobile {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.list-card {
+  background: #333;
+  border-radius: 10px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  border-left: 4px solid var(--color-red);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.list-card .row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--color-ice);
+}
+.list-card .title {
+  font-weight: 700;
+}
+.list-card .actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal {
+  width: min(720px, 92vw);
+  background: #2a2a2a;
+  border-radius: 10px;
+  padding: 16px;
+  color: var(--color-ice);
+  border: 1px solid #444;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.form-grid input,
+.form-grid select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  color: #fff;
+  background: #222;
+}
+.form-grid input::placeholder {
+  color: #bbbbbb;
+  opacity: 1;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.actions-cell {
+  display: flex;
+  gap: 6px;
+}
+.menu-icon {
+  font-size: 22px;
+}
+@media (min-width: 480px) {
+  .summary-cards {
+    grid-template-columns: repeat(3, minmax(160px, 1fr));
+  }
+  .finance-header {
+    flex-direction: row;
+  }
+  .finance-header .actions {
+    width: auto;
+    flex-wrap: nowrap;
+  }
+}
+@media (min-width: 768px) {
+  .filters {
+    grid-template-columns: repeat(5, minmax(140px, 1fr));
+  }
+  .summary-cards {
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
+  }
+  .table-wrapper {
+    display: block; /* Mostra tabela em telas maiores */
+  }
+  .list-mobile {
+    display: none; /* Oculta cards em telas maiores */
+  }
+  .form-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

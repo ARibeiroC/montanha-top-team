@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useAuth } from '@/context/AuthContext';
 import { useSchool } from '@/context/SchoolContext';
 import './StudentsManager.css';
 
 export function StudentsManager() {
     const { students, updateStudent, addStudent } = useSchool();
+    const { user } = useAuth();
     const [editingId, setEditingId] = useState(null);
     const [editForm, setEditForm] = useState({});
     
@@ -49,6 +51,10 @@ export function StudentsManager() {
         const { name, value } = e.target;
         setEditForm(prev => ({ ...prev, [name]: value }));
     };
+
+    const visibleStudents = (user?.accessLevel === 2 && user?.branch)
+        ? students.filter(s => (s.branch ?? 'Montanha Top Team') === user.branch)
+        : students;
 
     return (
         <div className="students-manager-container">
@@ -98,7 +104,7 @@ export function StudentsManager() {
             
             {/* Visualização Mobile (Cards) */}
             <div className="mobile-view">
-                {students.map(student => (
+                {visibleStudents.map(student => (
                     <div key={student.id} className="student-card-mobile">
                         {editingId === student.id ? (
                             <div className="edit-form-mobile">
@@ -148,7 +154,7 @@ export function StudentsManager() {
                     </tr>
                 </thead>
                 <tbody>
-                    {students.map(student => (
+                    {visibleStudents.map(student => (
                         <tr key={student.id}>
                             {editingId === student.id ? (
                                 <>
