@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import backgroundImage from '../../assets/LOGO_VETORIZADA_COM_FUNDO_BRANCO_800x275.png';
-import './Login.css' // Reuse login styles
+import '../Login/Login.css' // Reuse login styles
 
 export function ForgotPassword() {
     const [email, setEmail] = useState('')
