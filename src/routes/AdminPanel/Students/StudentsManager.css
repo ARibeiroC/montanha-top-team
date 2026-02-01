@@ -115,9 +115,58 @@
 }
 
 /* Estilos de Edição (Comuns) */
-.edit-btn { background-color: #444; color: white; }
-.save-btn { background-color: var(--color-red); color: white; }
-.cancel-btn { background-color: transparent; border: 1px solid #666; color: #ccc; }
+.edit-btn { 
+    background-color: var(--color-red); 
+    color: white; 
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+.edit-btn:hover {
+    filter: brightness(0.9);
+}
+/* Container dos botões de ação na tabela */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.save-btn { 
+    background-color: var(--color-red); 
+    color: white; 
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+.save-btn:hover {
+    filter: brightness(0.9);
+}
+
+.cancel-btn { 
+    background-color: transparent; 
+    border: 1px solid #999; 
+    color: #eee; 
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancel-btn:hover {
+    background-color: rgba(255,255,255,0.1);
+    border-color: white;
+    color: white;
+}
 
 .status-badge {
     padding: 0.25rem 0.5rem;

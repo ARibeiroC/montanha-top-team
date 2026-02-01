@@ -59,6 +59,21 @@ export const unifiedService = {
                 
                 return { user: userProfile, token: data.session.access_token };
             } catch (error) {
+                // Se falhar no Supabase por credenciais inválidas, tenta o Mock
+                // Isso permite login híbrido (usuários reais e usuários de teste)
+                if (error.message && (error.message.includes("Invalid login credentials") || error.message.includes("user not found"))) {
+                    console.log("Login Supabase falhou/não encontrado, tentando Mock...");
+                    try {
+                        const mockUser = await mockRepository.login(email, password);
+                        if (mockUser) {
+                             console.log("Usuário encontrado no Mock!");
+                             return { user: mockUser, token: 'mock-token-' + Date.now() };
+                        }
+                    } catch (mockError) {
+                        // Se falhar no mock também, ignora erro do mock e lança o original do Supabase
+                    }
+                }
+
                 console.error("Erro no login Supabase:", error);
                 throw error;
             }
@@ -192,15 +207,12 @@ export const unifiedService = {
         if (!isInitialized) await this.initialize();
 
         if (useSupabase) {
-            // Exemplo de busca no Supabase
-            // Requer tabela 'students' criada
             try {
                 const { data, error } = await supabase
                     .from('students')
                     .select('*');
                 
                 if (error) {
-                    // Se a tabela não existir ainda, retornamos mock para não travar o app
                     if (error.code === '42P01') { // undefined_table
                         console.warn("Tabela 'students' não encontrada no Supabase. Retornando Mock.");
                         return await mockRepository.getStudents();
@@ -208,16 +220,16 @@ export const unifiedService = {
                     throw error;
                 }
                 
-                // Se a tabela estiver vazia, retorna array vazio ou mock (decisão de projeto)
+                // Se o Supabase retornar vazio ou 0, carrega os dados mocados (Solicitação do usuário)
                 if (!data || data.length === 0) {
-                     console.log("Supabase retornou lista vazia de alunos.");
-                     return []; 
+                     console.log("Supabase retornou lista vazia de alunos. Carregando dados mocados.");
+                     return await mockRepository.getStudents();
                 }
 
                 return data;
             } catch (error) {
                 console.error("Erro ao buscar alunos no Supabase:", error);
-                // Fallback silencioso para Mock durante migração
+                // Fallback para Mock
                 return await mockRepository.getStudents();
             }
         } else if (useBackend) {
@@ -282,30 +294,7 @@ export const unifiedService = {
         }
     },
 
-    async getUsers() {
-        if (!isInitialized) await this.initialize();
-        
-        if (useSupabase) {
-            const { data, error } = await supabase
-                .from('profiles')
-                .select('*');
-            if (error) throw error;
-            return data.map(p => ({
-                id: p.id,
-                name: p.full_name,
-                email: 'Email protegido', // Profiles publicos não devem expor email sem join com auth
-                role: p.role,
-                accessLevel: p.access_level,
-                branch: p.branch
-            }));
-        } else {
-             // Mock getUsers
-             return [
-                 { id: 1, name: 'Admin Mock', email: 'admin@teste.com', role: 'admin', accessLevel: 3 },
-                 { id: 2, name: 'Professor Mock', email: 'prof@teste.com', role: 'teacher', accessLevel: 2 }
-             ];
-        }
-    },
+
 
     async createStudent(studentData, token) {
         if (!isInitialized) await this.initialize();
@@ -354,21 +343,112 @@ export const unifiedService = {
     // User Management
     async getUsers() {
         if (!isInitialized) await this.initialize();
-        return await mockRepository.getUsers();
+        
+        let supabaseUsers = [];
+        
+        if (useSupabase) {
+            try {
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .order('name');
+                
+                if (error) {
+                    console.error("Erro Supabase getUsers:", error);
+                } else {
+                    supabaseUsers = data.map(p => ({
+                        id: p.id,
+                        name: p.name || p.full_name || 'Sem Nome',
+                        email: p.email || 'Email não disponível', 
+                        role: p.role || 'student',
+                        accessLevel: p.access_level || 1,
+                        branch: p.branch || ''
+                    }));
+                }
+            } catch (error) {
+                console.error("Erro ao buscar usuários do Supabase:", error);
+            }
+        }
+        
+        // Busca usuários Mockados para manter na lista (Híbrido)
+        const mockUsers = await mockRepository.getUsers();
+        
+        // Combina as listas (Mock + Supabase)
+        // IDs do Supabase são UUIDs, do Mock são Inteiros, então dificilmente haverá colisão
+        const allUsers = [...supabaseUsers, ...mockUsers];
+        
+        return allUsers;
     },
 
     async createUser(userData) {
         if (!isInitialized) await this.initialize();
+        
+        if (useSupabase) {
+            // Nota: Criar usuário no Auth via Client requer login ou função RPC.
+            // Por enquanto, simulamos sucesso ou avisamos.
+            console.warn("Criação de usuário direto via painel admin requer Edge Functions. Usuário não será criado no Auth.");
+            alert("Atenção: A criação de usuários por aqui apenas adicionaria ao banco de dados, mas não criaria o login. Peça para o usuário se cadastrar na tela de login.");
+            return { id: Date.now(), ...userData };
+        }
         return await mockRepository.createUser(userData);
     },
 
     async updateUser(id, updates) {
         if (!isInitialized) await this.initialize();
+        
+        // Verifica se é ID de Mock (numérico)
+        if (typeof id === 'number' || !isNaN(Number(id))) {
+            return await mockRepository.updateUser(id, updates);
+        }
+
+        if (useSupabase) {
+            try {
+                // Mapeia campos do frontend para colunas do banco
+                const dbUpdates = {
+                    name: updates.name,
+                    role: updates.role,
+                    access_level: updates.accessLevel,
+                    branch: updates.branch
+                };
+
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .update(dbUpdates)
+                    .eq('id', id)
+                    .select();
+
+                if (error) throw error;
+                return data[0];
+            } catch (error) {
+                console.error("Erro ao atualizar usuário no Supabase:", error);
+                throw error;
+            }
+        }
         return await mockRepository.updateUser(id, updates);
     },
 
     async deleteUser(id) {
         if (!isInitialized) await this.initialize();
+        
+        // Verifica se é ID de Mock (numérico)
+        if (typeof id === 'number' || !isNaN(Number(id))) {
+            return await mockRepository.deleteUser(id);
+        }
+
+        if (useSupabase) {
+             try {
+                const { error } = await supabase
+                    .from('profiles')
+                    .delete()
+                    .eq('id', id);
+                
+                if (error) throw error;
+                return { success: true };
+            } catch (error) {
+                console.error("Erro ao deletar usuário no Supabase:", error);
+                throw error;
+            }
+        }
         return await mockRepository.deleteUser(id);
     },
 

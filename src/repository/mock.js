@@ -14,31 +14,43 @@ export const mockUsers = [
 
 // TABLE: STUDENTS
 export const mockStudents = [
-    // MTT (Original)
-    { id: 1, name: "Carlos Silva", email: "carlos@example.com", belt: "Branca", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: '', profilePic: null, height: 1.75, weight: 80.5, birthDate: '1995-05-20', cpf: '123.456.789-00', rg: '12.345.678-9', address: 'Rua das Flores, 123', phone: '11988887777', emergencyContact: 'Maria Silva (11) 98888-1111', registrationDate: '2023-01-15' },
-    { id: 2, name: "Ana Souza", email: "ana@example.com", belt: "Azul", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: '', registrationDate: '2023-02-10' },
-    { id: 3, name: "Marcos Oliveira", email: "marcos@example.com", belt: "Roxa", stripes: 3, active: 0, branch: 'Montanha Top Team', professorName: '', registrationDate: '2022-11-05' },
-    { id: 4, name: "Juliana Santos", email: "juliana@example.com", belt: "Branca", stripes: 4, active: 1, branch: 'Montanha Top Team', professorName: '', registrationDate: '2023-06-20' },
-    { id: 5, name: "Roberto Almeida", email: "roberto@example.com", belt: "Marrom", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: '', registrationDate: '2021-08-15' },
-    { id: 6, name: "Fernanda Lima", email: "fernanda@example.com", belt: "Preta", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: '', registrationDate: '2020-03-10' },
-    { id: 7, name: "Ricardo Pereira", email: "ricardo@example.com", belt: "Azul", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: '', registrationDate: '2023-04-01' },
-    { id: 8, name: "Patrícia Costa", email: "patricia@example.com", belt: "Roxa", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: '', registrationDate: '2022-09-12' },
-    { id: 9, name: "Lucas Martins", email: "lucas@example.com", belt: "Branca", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: '', registrationDate: '2024-01-05' },
-    { id: 10, name: "Beatriz Rocha", email: "beatriz@example.com", belt: "Marrom", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: '', registrationDate: '2021-12-01' },
-    { id: 11, name: "Gabriel Ferreira", email: "gabriel@example.com", belt: "Branca", stripes: 3, active: 1, branch: 'Montanha Top Team', professorName: '', registrationDate: '2023-07-22' },
-    { id: 12, name: "Larissa Mendes", email: "larissa@example.com", belt: "Azul", stripes: 4, active: 1, branch: 'Montanha Top Team', professorName: '', registrationDate: '2023-03-15' },
-    // New MTT
-    { id: 13, name: "Felipe Costa", email: "felipe@example.com", belt: "Branca", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: '', registrationDate: '2024-02-01' },
-    { id: 14, name: "Mariana Dias", email: "mariana@example.com", belt: "Branca", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: '', registrationDate: '2024-02-15' },
-    // Wagner
+    // ADULTOS - Montanha Top Team
+    { id: 1, name: "Carlos Silva", email: "carlos.silva@example.com", belt: "Branca", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-01-15', birthDate: '1995-05-20', cpf: '123.456.789-00' },
+    { id: 2, name: "Ana Souza", email: "ana.souza@example.com", belt: "Azul", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-02-10', birthDate: '1998-03-12' },
+    { id: 3, name: "Marcos Oliveira", email: "marcos.oli@example.com", belt: "Roxa", stripes: 3, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2022-11-05', birthDate: '1990-07-25' },
+    { id: 4, name: "Juliana Santos", email: "ju.santos@example.com", belt: "Marrom", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2021-08-15', birthDate: '1988-12-01' },
+    { id: 5, name: "Roberto Almeida", email: "beto.almeida@example.com", belt: "Preta", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2020-03-10', birthDate: '1985-09-18' },
+    { id: 6, name: "Fernanda Lima", email: "fe.lima@example.com", belt: "Branca", stripes: 4, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-06-20', birthDate: '1996-02-14' },
+    { id: 7, name: "Ricardo Pereira", email: "ricardo.p@example.com", belt: "Azul", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-04-01', birthDate: '1993-11-30' },
+    { id: 8, name: "Patrícia Costa", email: "paty.costa@example.com", belt: "Roxa", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2022-09-12', birthDate: '1991-04-22' },
+    { id: 9, name: "Lucas Martins", email: "lucas.m@example.com", belt: "Marrom", stripes: 2, active: 0, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2021-12-01', birthDate: '1989-06-10' },
+    { id: 10, name: "Beatriz Rocha", email: "bia.rocha@example.com", belt: "Preta", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2019-05-15', birthDate: '1986-08-05' },
+    { id: 11, name: "Gabriel Ferreira", email: "gabriel.f@example.com", belt: "Branca", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2024-01-05', birthDate: '1999-10-20' },
+    { id: 12, name: "Larissa Mendes", email: "lari.mendes@example.com", belt: "Azul", stripes: 3, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-03-15', birthDate: '1994-01-08' },
+    { id: 13, name: "Thiago Gomes", email: "thiago.g@example.com", belt: "Roxa", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2022-07-20', birthDate: '1992-05-12' },
+    { id: 14, name: "Amanda Barbosa", email: "amanda.b@example.com", belt: "Marrom", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2021-10-10', birthDate: '1987-03-25' },
+    { id: 15, name: "Bruno Dias", email: "bruno.d@example.com", belt: "Branca", stripes: 3, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-09-05', birthDate: '2000-12-15' },
+
+    // INFANTIL - Montanha Top Team
+    { id: 16, name: "Davi Lucca", email: "davi.lucca@example.com", belt: "Branca", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-05-10', birthDate: '2015-02-20', guardianName: 'Pedro Lucca' },
+    { id: 17, name: "Sofia Helena", email: "sofia.helena@example.com", belt: "Cinza", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-06-15', birthDate: '2014-08-10', guardianName: 'Maria Helena' },
+    { id: 18, name: "Miguel Arthur", email: "miguel.arthur@example.com", belt: "Amarela", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2022-04-20', birthDate: '2013-11-05', guardianName: 'João Arthur' },
+    { id: 19, name: "Alice Vitória", email: "alice.vitoria@example.com", belt: "Laranja", stripes: 3, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2021-09-10', birthDate: '2012-03-15', guardianName: 'Ana Vitória' },
+    { id: 20, name: "Heitor Gabriel", email: "heitor.gabriel@example.com", belt: "Verde", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2020-02-05', birthDate: '2011-06-25', guardianName: 'Carlos Gabriel' },
+    { id: 21, name: "Laura Beatriz", email: "laura.beatriz@example.com", belt: "Branca", stripes: 4, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-08-12', birthDate: '2016-01-30', guardianName: 'Fernanda Beatriz' },
+    { id: 22, name: "Samuel Henrique", email: "samuel.henrique@example.com", belt: "Cinza", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-01-20', birthDate: '2014-05-18', guardianName: 'Ricardo Henrique' },
+    { id: 23, name: "Valentina Maria", email: "valentina.maria@example.com", belt: "Amarela", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2022-10-05', birthDate: '2013-09-12', guardianName: 'Patrícia Maria' },
+    { id: 24, name: "Bernardo Silva", email: "bernardo.silva@example.com", belt: "Laranja", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2021-05-15', birthDate: '2012-12-01', guardianName: 'Lucas Silva' },
+    { id: 25, name: "Heloísa Costa", email: "heloisa.costa@example.com", belt: "Verde", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2020-08-20', birthDate: '2011-04-10', guardianName: 'Beatriz Costa' },
+    { id: 26, name: "Lorenzo Dias", email: "lorenzo.dias@example.com", belt: "Branca", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2024-02-01', birthDate: '2017-07-20', guardianName: 'Gabriel Dias' },
+    { id: 27, name: "Manuela Rocha", email: "manuela.rocha@example.com", belt: "Cinza", stripes: 3, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-03-10', birthDate: '2014-11-15', guardianName: 'Larissa Rocha' },
+    { id: 28, name: "Theo Alves", email: "theo.alves@example.com", belt: "Amarela", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2022-06-25', birthDate: '2013-02-05', guardianName: 'Thiago Alves' },
+    { id: 29, name: "Isadora Lima", email: "isadora.lima@example.com", belt: "Laranja", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2021-11-05', birthDate: '2012-08-30', guardianName: 'Amanda Lima' },
+    { id: 30, name: "Gustavo Pereira", email: "gustavo.pereira@example.com", belt: "Verde", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2020-12-10', birthDate: '2011-10-25', guardianName: 'Bruno Pereira' },
+
+    // OUTRAS FILIAIS (Exemplos mantidos para teste de filtro)
     { id: 101, name: "Pedro Wagner Aluno", email: "pedro.w@example.com", belt: "Branca", stripes: 1, active: 1, branch: 'Montanha Top Team - Wagner', professorName: 'Wagner', emergencyContact: 'Tia do Pedro (11) 97777-2222', registrationDate: '2023-11-10' },
-    { id: 102, name: "Sônia Dias", email: "sonia@example.com", belt: "Branca", stripes: 2, active: 1, branch: 'Montanha Top Team - Wagner', professorName: 'Wagner', registrationDate: '2023-11-15' },
-    { id: 103, name: "Tiago Wagner", email: "tiago.w@example.com", belt: "Azul", stripes: 0, active: 1, branch: 'Montanha Top Team - Wagner', professorName: 'Wagner', registrationDate: '2024-01-10' },
-    { id: 104, name: "Julia Wagner", email: "julia.w@example.com", belt: "Branca", stripes: 3, active: 1, branch: 'Montanha Top Team - Wagner', professorName: 'Wagner', registrationDate: '2024-01-20' },
-    // Marcos
-    { id: 201, name: "Aluno Marcos 1", email: "am1@example.com", belt: "Branca", stripes: 0, active: 1, branch: 'Montanha Top Team - Marcos', professorName: 'Marcos', registrationDate: '2024-01-05' },
-    { id: 202, name: "Aluno Marcos 2", email: "am2@example.com", belt: "Branca", stripes: 1, active: 1, branch: 'Montanha Top Team - Marcos', professorName: 'Marcos', registrationDate: '2024-01-12' },
-    { id: 203, name: "Aluno Marcos 3", email: "am3@example.com", belt: "Azul", stripes: 0, active: 1, branch: 'Montanha Top Team - Marcos', professorName: 'Marcos', registrationDate: '2023-12-01' }
+    { id: 201, name: "Aluno Marcos 1", email: "am1@example.com", belt: "Branca", stripes: 0, active: 1, branch: 'Montanha Top Team - Marcos', professorName: 'Marcos', registrationDate: '2024-01-05' }
 ];
 
 // TABLE: GUARDIANS
