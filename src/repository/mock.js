@@ -157,8 +157,14 @@ export const mockRepository = {
             const lastPayment = financial.filter(f => f.type === 'income').sort((a, b) => new Date(b.date) - new Date(a.date))[0];
             const financialStatus = lastPayment ? 'Em dia' : 'Pendente';
 
+            const normalize = (s) => String(s || '').toLowerCase().trim();
+            const b = normalize(student.belt);
+            const adultBelts = new Set(['branca', 'azul', 'roxa', 'marrom', 'preta']);
+            const category = adultBelts.has(b) ? 'adulto' : 'infantil';
+
             return {
                 ...student,
+                category,
                 guardians,
                 attendance,
                 events,

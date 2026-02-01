@@ -127,6 +127,9 @@ export const SchoolContextProvider = ({children}) => {
     const [certificateConfig, setCertificateConfig] = useState({
         city: 'SÃO PAULO',
         date: new Date().toISOString().split('T')[0], // YYYY-MM-DD
+        thirdInstructorEnabled: false,
+        templateMode: true,
+        templateCategory: 'adulto',
         instructor1: {
             name: 'GUILHERME NASCIMENTO',
             role: 'RESPONSÁVEL TÉCNICO',
@@ -140,6 +143,13 @@ export const SchoolContextProvider = ({children}) => {
             details1: 'FAIXA PRETA',
             details2: 'FPJJ: 57789',
             details3: 'CBJJ / IBJJF: 407945'
+        },
+        instructor3: {
+            name: '',
+            role: '',
+            details1: '',
+            details2: '',
+            details3: ''
         }
     });
 

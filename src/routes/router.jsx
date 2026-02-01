@@ -59,6 +59,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: '/admin',
+        element: <Navigate to="/admin-panel" replace />,
+      },
+      {
         path: '/admin-panel',
         element: (
           <ProtectedRoute allowedLevels={[1, 2, 3, 4]}>

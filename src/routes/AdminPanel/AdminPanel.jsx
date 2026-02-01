@@ -16,12 +16,13 @@ import { AdminProfile } from './Profile/AdminProfile'
 
 // IMPORT VIDEO FOR BACKGROUND
 import backgrondVideo from '../../assets/montanha.mp4'
+import backgroundImage from '../../assets/background.jpg'
 
 // IMPORT REACT ICONS
 import { PiStudentFill } from "react-icons/pi"
 import { LiaCoinsSolid } from "react-icons/lia"
 import { PiUserListBold } from "react-icons/pi"
-import { FaFileAlt, FaCheckSquare, FaSignOutAlt, FaUsersCog, FaChalkboardTeacher, FaChevronLeft, FaChevronRight } from "react-icons/fa"
+import { FaFileAlt, FaCheckSquare, FaSignOutAlt, FaUsersCog, FaChalkboardTeacher, FaChevronLeft, FaChevronRight, FaCheck, FaTimes } from "react-icons/fa"
 import { VscGraph } from "react-icons/vsc"
 
 
@@ -88,8 +89,30 @@ export function AdminPanel(){
     // Cálculos para o Dashboard
     const totalStudents = students.length
     const activeStudents = students.filter(s => s.active).length
-    const infrequentStudents = students.filter(s => s.active && (!s.attendance || s.attendance.length === 0)).length
+    const payingStudents = students.filter(s => s.active && s.financialStatus === 'Em dia').length
+    const nonPayingStudents = students.filter(s => s.active && s.financialStatus !== 'Em dia').length
     const competitors = students.filter(s => s.active && s.events && s.events.length > 0).length
+
+    // State para filtro do Dashboard
+    const [dashboardFilter, setDashboardFilter] = useState('all') // 'all', 'active', 'paying', 'nonpaying', 'competitor'
+
+    // Filtragem dos alunos na tabela
+    const getFilteredDashboardStudents = () => {
+        switch (dashboardFilter) {
+            case 'active':
+                return students.filter(s => s.active)
+            case 'paying':
+                return students.filter(s => s.active && s.financialStatus === 'Em dia')
+            case 'nonpaying':
+                return students.filter(s => s.active && s.financialStatus !== 'Em dia')
+            case 'competitor':
+                return students.filter(s => s.active && s.events && s.events.length > 0)
+            default:
+                return students
+        }
+    }
+
+    const filteredDashboardList = getFilteredDashboardStudents()
 
     const renderContent = () => {
         switch(activeTab) {
@@ -113,7 +136,11 @@ export function AdminPanel(){
                     <div id="dashboard-content">
                         {/* Conteúdo original do Dashboard */}
                         <div className="card-container">
-                            <div className="card">
+                            <div 
+                                className={`card ${dashboardFilter === 'all' ? 'active-card' : ''}`}
+                                onClick={() => setDashboardFilter('all')}
+                                style={{ cursor: 'pointer', border: dashboardFilter === 'all' ? '2px solid #fff' : 'none' }}
+                            >
                                 <div className="card-data">
                                     <p>{totalStudents}</p>
                                 </div>
@@ -121,7 +148,11 @@ export function AdminPanel(){
                                     <p>Total Alunos</p>
                                 </div>
                             </div>
-                            <div className="card">
+                            <div 
+                                className={`card ${dashboardFilter === 'active' ? 'active-card' : ''}`}
+                                onClick={() => setDashboardFilter('active')}
+                                style={{ cursor: 'pointer', border: dashboardFilter === 'active' ? '2px solid #fff' : 'none' }}
+                            >
                                 <div className="card-data">
                                     <p>{activeStudents}</p>
                                 </div>
@@ -129,21 +160,92 @@ export function AdminPanel(){
                                     <p>Ativos</p>
                                 </div>
                             </div>
-                            <div className="card">
+                            <div 
+                                className={`card ${dashboardFilter === 'paying' ? 'active-card' : ''}`}
+                                onClick={() => setDashboardFilter('paying')}
+                                style={{ cursor: 'pointer', border: dashboardFilter === 'paying' ? '2px solid #fff' : 'none' }}
+                            >
                                 <div className="card-data">
-                                    <p>{infrequentStudents}</p>
+                                    <p>{payingStudents}</p>
                                 </div>
                                 <div className="card-title">
-                                    <p>Não frequentes</p>
+                                    <p>Pagantes</p>
                                 </div>
                             </div>
-                            <div className="card">
+                            <div 
+                                className={`card ${dashboardFilter === 'nonpaying' ? 'active-card' : ''}`}
+                                onClick={() => setDashboardFilter('nonpaying')}
+                                style={{ cursor: 'pointer', border: dashboardFilter === 'nonpaying' ? '2px solid #fff' : 'none' }}
+                            >
+                                <div className="card-data">
+                                    <p>{nonPayingStudents}</p>
+                                </div>
+                                <div className="card-title">
+                                    <p>Não Pagantes</p>
+                                </div>
+                            </div>
+                            <div 
+                                className={`card ${dashboardFilter === 'competitor' ? 'active-card' : ''}`}
+                                onClick={() => setDashboardFilter('competitor')}
+                                style={{ cursor: 'pointer', border: dashboardFilter === 'competitor' ? '2px solid #fff' : 'none' }}
+                            >
                                 <div className="card-data">
                                     <p>{competitors}</p>
                                 </div>
                                 <div className="card-title">
                                     <p>Competidores</p>
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <div className="dashboard-list-container">
+                            <h2>
+                                {dashboardFilter === 'all' && 'Todos os Alunos'}
+                                {dashboardFilter === 'active' && 'Alunos Ativos'}
+                                {dashboardFilter === 'paying' && 'Alunos Pagantes (Ativos)'}
+                                {dashboardFilter === 'nonpaying' && 'Alunos Não Pagantes (Ativos)'}
+                                {dashboardFilter === 'competitor' && 'Alunos Competidores'}
+                                {' '}({filteredDashboardList.length})
+                            </h2>
+                            <div className="table-responsive">
+                                <table className="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Status</th>
+                                            <th>Pagante</th>
+                                            <th>Competidor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {filteredDashboardList.map(student => (
+                                            <tr key={student.id}>
+                                                <td>{student.name}</td>
+                                                <td>
+                                                    {student.active ? (
+                                                        <span className="status-badge active"><FaCheck /> Ativo</span>
+                                                    ) : (
+                                                        <span className="status-badge inactive"><FaTimes /> Inativo</span>
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    {student.financialStatus === 'Em dia' ? (
+                                                        <span className="status-text success">Sim</span>
+                                                    ) : (
+                                                        <span className="status-text danger">Não</span>
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    {student.events && student.events.length > 0 ? (
+                                                        <span className="status-text success">Sim</span>
+                                                    ) : (
+                                                        <span className="status-text muted">Não</span>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -153,7 +255,11 @@ export function AdminPanel(){
 
     return (
         <div className="admin-container">
-            <video src={backgrondVideo} autoPlay loop muted></video>
+            {activeTab === 'certificates' ? (
+                <img src={backgroundImage} className="admin-bg" alt="" />
+            ) : (
+                <video src={backgrondVideo} autoPlay loop muted></video>
+            )}
             <div id="video-overlay"></div>
             <div className="content">
                 <div id="header-admin">

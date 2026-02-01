@@ -18,6 +18,15 @@
     object-fit: cover;
     z-index: -2;
 }
+.admin-container .admin-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
 
 #video-overlay {
     position: absolute;
@@ -89,55 +98,59 @@
     border-radius: 8px;
     text-align: center;
     color: white;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    border: 1px solid #444;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-red);
+}
+
+.card.active-card {
+    border-color: #fff;
+    background-color: #444;
 }
 
 .card-data p {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
     color: var(--color-red);
+    margin: 0;
 }
 
 .card-title p {
     font-size: 1rem;
     color: #ccc;
+    margin-top: 0.5rem;
 }
 
-/* Menu de Controle (Navegação) */
+/* Controllers / Menu Inferior */
 #controllers {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 60px;
-    background-color: #222;
-    display: flex;
-    justify-content: center;
+    background-color: #1a1a1a;
+    border-top: 1px solid #333;
     z-index: 100;
-    border-top: 1px solid #444;
-    border-right: none;
+    display: flex;
+    align-items: center;
 }
 
 #menu-controller {
-    list-style: none;
     display: flex;
-    flex-direction: row; /* Horizontal em mobile */
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 0 1rem;
-    margin: 0;
+    flex-wrap: nowrap;
     overflow-x: auto;
     gap: 1rem;
-    
-    /* Hide scrollbar */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    list-style: none;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
 }
-
 #menu-controller::-webkit-scrollbar {
-    display: none;
+    display: none; /* Chrome/Safari */
 }
 
 .link-controller {
@@ -145,55 +158,133 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    flex: 0 0 auto;
+    padding: 0.5rem;
     min-width: 80px;
-    height: 100%;
-    transition: background 0.3s;
     color: #888;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+    flex-shrink: 0;
 }
 
-.link-controller:hover, .link-controller.active {
-    background-color: var(--color-red);
+.link-controller:hover {
+    background-color: rgba(255, 255, 255, 0.05);
     color: white;
 }
 
+.link-controller.active {
+    color: var(--color-red);
+    background-color: rgba(211, 47, 47, 0.1);
+}
+
 .menu-icon {
-    font-size: 1.4rem;
-    margin-bottom: 2px;
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
 }
 
-.label {
-    font-size: 0.6rem;
-    text-align: center;
+.link-controller .label {
+    font-size: 0.7rem;
+    white-space: nowrap;
 }
 
-/* Scroll Indicators */
 .scroll-indicator {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(34, 34, 34, 0.9);
-    color: var(--color-red, #ff0000);
+    padding: 0 0.5rem;
+    color: var(--color-red);
+    background-color: #1a1a1a;
     z-index: 101;
-    pointer-events: none; /* Let clicks pass through if needed, though they usually sit on edges */
+    height: 100%;
+    position: absolute;
+    top: 0;
 }
-
 .scroll-indicator.left {
     left: 0;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+    box-shadow: 5px 0 10px rgba(0,0,0,0.5);
 }
 
-.scroll-indicator.right {
-    right: 0;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+/* TABLE DASHBOARD STYLES */
+.dashboard-list-container {
+    margin-top: 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 8px;
+    color: white;
+    border: 1px solid #444;
 }
 
-/* Responsividade: Tablet e Desktop (acima de 768px) */
+.dashboard-list-container h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: var(--color-red);
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.5rem;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    min-width: 600px; /* Garante scroll horizontal se muito estreito */
+}
+
+.dashboard-table th,
+.dashboard-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #444;
+}
+
+.dashboard-table th {
+    color: #aaa;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.dashboard-table tr:last-child td {
+    border-bottom: none;
+}
+
+.dashboard-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-badge.active {
+    background-color: rgba(76, 175, 80, 0.15);
+    color: #66bb6a;
+}
+
+.status-badge.inactive {
+    background-color: rgba(244, 67, 54, 0.15);
+    color: #ef5350;
+}
+
+.status-text {
+    font-weight: 500;
+}
+
+.status-text.success { color: #66bb6a; }
+.status-text.danger { color: #ef5350; }
+.status-text.muted { color: #888; }
+
+/* Desktop */
 @media (min-width: 768px) {
     .scroll-indicator {
         display: none;
@@ -222,7 +313,7 @@
     .card-container {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
-
+    
     #controllers {
         position: fixed;
         left: 0;
@@ -232,30 +323,42 @@
         flex-direction: column;
         border-right: 1px solid #444;
         border-top: none;
+        padding-top: 0;
+        align-items: center;
+        justify-content: center;
+        background-color: #1a1a1a;
     }
-
+    
     #menu-controller {
         flex-direction: column;
         gap: 2rem;
         justify-content: center;
         padding: 0;
         overflow-x: visible;
+        height: auto;
+        width: 100%;
     }
 
     .link-controller {
-        flex: 0;
+        flex-direction: column;
+        justify-content: center;
         padding: 1rem 0.5rem;
         width: 100%;
         height: auto;
         min-width: auto;
+        gap: 0.5rem;
     }
-
+    
     .menu-icon {
+        margin-bottom: 0;
         font-size: 1.8rem;
-        margin-bottom: 0.5rem;
     }
-
-    .label {
+    
+    .link-controller .label {
         font-size: 0.7rem;
     }
+}
+
+@media (min-width: 1024px) {
+    /* Mantendo grid ajustavel do desktop anterior */
 }
