@@ -1,47 +1,86 @@
 import { api } from './api';
 import { mockRepository } from '../repository/mock';
+import { supabase, isSupabaseConfigured } from './supabase';
 
 let useBackend = false;
+let useSupabase = false;
 let isInitialized = false;
 
 export const unifiedService = {
     async initialize() {
-        if (isInitialized) return useBackend;
+        if (isInitialized) return { useBackend, useSupabase };
         
-        console.log("Verificando disponibilidade do backend...");
-        useBackend = await api.healthCheck();
-        console.log(`Backend disponível: ${useBackend ? 'Sim' : 'Não'}. Usando ${useBackend ? 'API' : 'Mock'}.`);
+        console.log("Inicializando serviços...");
+        
+        // 1. Tenta Supabase primeiro (Prioridade)
+        if (isSupabaseConfigured()) {
+            console.log("Supabase configurado. Verificando conexão...");
+            // Um ping simples pode ser verificar a sessão ou uma tabela pública
+            // Mas por enquanto assumimos que se tem chave, vamos tentar usar
+            useSupabase = true;
+            console.log("Usando Supabase como backend principal.");
+        } else {
+            console.log("Supabase não configurado (Faltam variáveis de ambiente).");
+            
+            // 2. Se não tem Supabase, tenta API Legada
+            console.log("Verificando disponibilidade do backend legado...");
+            useBackend = await api.healthCheck();
+            console.log(`Backend legado disponível: ${useBackend ? 'Sim' : 'Não'}.`);
+        }
+
+        console.log(`Modo de operação: ${useSupabase ? 'Supabase' : (useBackend ? 'API Python' : 'Mock Local')}`);
         
         isInitialized = true;
-        return useBackend;
+        return { useBackend, useSupabase };
     },
 
     async login(email, password) {
         if (!isInitialized) await this.initialize();
 
-        if (useBackend) {
+        email = email?.trim();
+        password = password?.trim();
+
+        if (useSupabase) {
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+                if (error) throw error;
+                
+                // Tenta pegar do metadata do usuário
+                const meta = data.user.user_metadata || {};
+                
+                const userProfile = {
+                    id: data.user.id,
+                    name: meta.full_name || data.user.email.split('@')[0],
+                    email: data.user.email,
+                    // Usa os valores do metadata se existirem
+                    accessLevel: meta.access_level !== undefined ? parseInt(meta.access_level) : 1,
+                    role: meta.role || 'student'
+                };
+                
+                return { user: userProfile, token: data.session.access_token };
+            } catch (error) {
+                console.error("Erro no login Supabase:", error);
+                throw error;
+            }
+        } else if (useBackend) {
+            // ... (código existente da API Python)
             try {
                 const { access_token } = await api.login(email, password);
                 const user = await api.getMe(access_token);
                 
-                // Mapear campos do backend para o formato esperado pelo frontend se necessário
-                // Backend User: { username, email, full_name, role, ... }
-                // Frontend User espera: { id, name, role, email, ... }
-                
                 const mappedUser = {
                     ...user,
-                    id: user.id || user.username, // Fallback se id não vier
+                    id: user.id || user.username,
                     name: user.full_name || user.username,
-                    // Garante que role existe
                 };
 
                 return { user: mappedUser, token: access_token };
             } catch (error) {
                 console.error("Erro no login via API:", error);
-                throw error; // Repassa erro de credenciais ou servidor
+                throw error;
             }
         } else {
-            // Verifica se mockRepository e mockRepository.login existem antes de chamar
+            // ... (código existente do Mock)
             if (!mockRepository || typeof mockRepository.login !== 'function') {
                 console.error("Erro Crítico: mockRepository.login não está definido.", mockRepository);
                 throw new Error("Erro interno no sistema de login (Mock indisponível).");
@@ -51,15 +90,141 @@ export const unifiedService = {
         }
     },
 
+    async signUp(email, password, userData) {
+        if (!isInitialized) await this.initialize();
+
+        email = email?.trim();
+        password = password?.trim();
+
+        if (useSupabase) {
+            try {
+                const { data, error } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        data: {
+                            full_name: userData.name,
+                            role: 'student', // Padrão: Aluno
+                            access_level: 1,
+                            branch: 'Montanha Top Team' // Default branch
+                        }
+                    }
+                });
+                if (error) throw error;
+                return data;
+            } catch (error) {
+                console.error("Erro no cadastro Supabase:", error);
+                throw error;
+            }
+        } else {
+            // Mock signup
+            console.log("Mock SignUp:", { email, ...userData });
+            return { 
+                user: { id: 'mock-new', email, ...userData, role: 'student' }, 
+                session: null // Simula que precisa verificar
+            };
+        }
+    },
+
+    async verifyOtp(email, token, type = 'signup') {
+        if (!isInitialized) await this.initialize();
+        
+        if (useSupabase) {
+            try {
+                const { data, error } = await supabase.auth.verifyOtp({
+                    email,
+                    token,
+                    type
+                });
+                if (error) throw error;
+                
+                const meta = data.user.user_metadata || {};
+                const userProfile = {
+                    id: data.user.id,
+                    name: meta.full_name || data.user.email.split('@')[0],
+                    email: data.user.email,
+                    accessLevel: meta.access_level !== undefined ? parseInt(meta.access_level) : 1,
+                    role: meta.role || 'student'
+                };
+                
+                return { user: userProfile, token: data.session.access_token };
+            } catch (error) {
+                 console.error("Erro na verificação OTP:", error);
+                 throw error;
+            }
+        } else {
+            // Mock verify
+            if (token === '123456') {
+                return { 
+                    user: { id: 'mock-new', email, name: 'Novo Aluno', role: 'student', accessLevel: 1 }, 
+                    token: 'mock-token-verified' 
+                };
+            }
+            throw new Error("Código de verificação inválido.");
+        }
+    },
+
+    async resendOtp(email, type = 'signup') {
+        if (!isInitialized) await this.initialize();
+        
+        if (useSupabase) {
+            try {
+                const { data, error } = await supabase.auth.resend({
+                    email,
+                    type,
+                    options: {
+                        emailRedirectTo: undefined 
+                    }
+                });
+                if (error) throw error;
+                return { message: "Código reenviado com sucesso!" };
+            } catch (error) {
+                console.error("Erro ao reenviar OTP:", error);
+                throw error;
+            }
+        } else {
+            console.log("Mock Resend OTP para:", email);
+            return { message: "Código reenviado (Mock)" };
+        }
+    },
+
     async getStudents(token) {
         if (!isInitialized) await this.initialize();
 
-        if (useBackend) {
+        if (useSupabase) {
+            // Exemplo de busca no Supabase
+            // Requer tabela 'students' criada
+            try {
+                const { data, error } = await supabase
+                    .from('students')
+                    .select('*');
+                
+                if (error) {
+                    // Se a tabela não existir ainda, retornamos mock para não travar o app
+                    if (error.code === '42P01') { // undefined_table
+                        console.warn("Tabela 'students' não encontrada no Supabase. Retornando Mock.");
+                        return await mockRepository.getStudents();
+                    }
+                    throw error;
+                }
+                
+                // Se a tabela estiver vazia, retorna array vazio ou mock (decisão de projeto)
+                if (!data || data.length === 0) {
+                     console.log("Supabase retornou lista vazia de alunos.");
+                     return []; 
+                }
+
+                return data;
+            } catch (error) {
+                console.error("Erro ao buscar alunos no Supabase:", error);
+                // Fallback silencioso para Mock durante migração
+                return await mockRepository.getStudents();
+            }
+        } else if (useBackend) {
             try {
                 return await api.getStudents(token);
             } catch (error) {
                 console.warn("Falha ao buscar estudantes da API, tentando mock como fallback...", error);
-                // Opcional: Fallback para mock se a API falhar em listar (já que a API pode estar incompleta)
                 return await mockRepository.getStudents();
             }
         } else {
@@ -70,24 +235,95 @@ export const unifiedService = {
     async getCurrentUser() {
         if (!isInitialized) await this.initialize();
         
-        if (useBackend) {
-             // Tenta obter usuário via cookie
+        if (useSupabase) {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return null;
+            
+            // Mapear para formato interno
+            return {
+                id: user.id,
+                email: user.email,
+                name: user.user_metadata?.full_name || user.email,
+                accessLevel: 3 // Temporário
+            };
+        } else if (useBackend) {
              try {
                  return await api.getMe();
              } catch (e) {
                  return null;
              }
         } else {
-             // No mock, não temos persistência real de sessão além do localStorage gerenciado pelo AuthContext
-             // Então retornamos null aqui e deixamos o AuthContext usar o localStorage fallback
              return null;
+        }
+    },
+
+    async createUser(userData) {
+        if (!isInitialized) await this.initialize();
+        
+        if (useSupabase) {
+            // Criar usuário no Auth (Requer que a função seja chamada por um Admin Logado via Service Role ou API Function se o RLS bloquear)
+            // OBS: O supabase.auth.signUp cria usuário e loga automaticamente (o que mudaria a sessão do admin).
+            // Para criar OUTRO usuário sem deslogar, deve-se usar a Admin API (backend) ou uma Edge Function.
+            // Porem, como estamos no frontend puro, a solução comum é usar `supabase.auth.signUp` se for auto-cadastro,
+            // OU chamar uma função Postgres RPC se for admin criando usuário.
+            
+            // SIMPLIFICAÇÃO: Por enquanto, vamos criar apenas o registro na tabela 'profiles' simulando que o Auth já existe
+            // ou assumir que vamos implementar um "Invite User" futuramente.
+            
+            // CORREÇÃO: Vamos tentar usar a API de admin via RPC ou instruir o usuário que criação de usuário requer backend
+            console.warn("Criação de usuário via Frontend no Supabase requer Edge Function ou Admin API.");
+            
+            // Tenta criar apenas o profile se o ID for fornecido (migração)
+            // Se for novo user real, retornamos erro por enquanto
+            throw new Error("Criação de novos usuários de acesso ainda não implementada no modo Supabase (Requer Edge Function).");
+        } else {
+            // Mock implementation
+            return { id: Date.now(), ...userData };
+        }
+    },
+
+    async getUsers() {
+        if (!isInitialized) await this.initialize();
+        
+        if (useSupabase) {
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('*');
+            if (error) throw error;
+            return data.map(p => ({
+                id: p.id,
+                name: p.full_name,
+                email: 'Email protegido', // Profiles publicos não devem expor email sem join com auth
+                role: p.role,
+                accessLevel: p.access_level,
+                branch: p.branch
+            }));
+        } else {
+             // Mock getUsers
+             return [
+                 { id: 1, name: 'Admin Mock', email: 'admin@teste.com', role: 'admin', accessLevel: 3 },
+                 { id: 2, name: 'Professor Mock', email: 'prof@teste.com', role: 'teacher', accessLevel: 2 }
+             ];
         }
     },
 
     async createStudent(studentData, token) {
         if (!isInitialized) await this.initialize();
 
-        if (useBackend) {
+        if (useSupabase) {
+            try {
+                const { data, error } = await supabase
+                    .from('students')
+                    .insert([studentData])
+                    .select();
+                
+                if (error) throw error;
+                return data[0];
+            } catch (error) {
+                console.error("Erro ao criar aluno no Supabase:", error);
+                throw error;
+            }
+        } else if (useBackend) {
             return await api.createStudent(studentData, token);
         } else {
             return await mockRepository.createStudent(studentData);
@@ -95,17 +331,24 @@ export const unifiedService = {
     },
 
     async logout() {
-        if (useBackend) {
+        if (useSupabase) {
+            await supabase.auth.signOut();
+        } else if (useBackend) {
             await api.logout();
         }
-        // Mock doesn't need explicit logout call as it's local
     },
-
+    
+    // Adicione outros métodos conforme necessário (getTransactions, etc)
     async getTransactions() {
         if (!isInitialized) await this.initialize();
-        // Backend não tem transações implementadas ainda, fallback para mock
-        // Se no futuro tiver, adicionar lógica aqui
-        return await mockRepository.getTransactions();
+        
+        if (useSupabase) {
+            // Implementar tabela 'financial_transactions' futuramente
+            return []; 
+        } else {
+            // Mock ou Backend legado não implementado aqui
+            return [];
+        }
     },
 
     // User Management

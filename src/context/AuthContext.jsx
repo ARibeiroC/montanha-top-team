@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect, useRef } from "react";
 import PropTypes from 'prop-types';
 import { useSchool } from "./SchoolContext";
 import { unifiedService } from "../services/unifiedService";
+import { supabase } from "../services/supabase"; // Importar cliente Supabase
 
 const AuthContext = createContext({
     user: null,
@@ -23,6 +24,44 @@ export const AuthContextProvider = ({ children }) => {
     useEffect(() => {
         const initService = async () => {
             await unifiedService.initialize();
+            
+            // Listener para mudanças de estado no Supabase (Login, Logout, Token Refresh)
+            // Isso captura automaticamente o redirecionamento de confirmação de email
+            if (supabase) {
+                const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+                    if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+                        if (session?.user) {
+                            const meta = session.user.user_metadata || {};
+                            const userProfile = {
+                                id: session.user.id,
+                                name: meta.full_name || session.user.email.split('@')[0],
+                                email: session.user.email,
+                                accessLevel: meta.access_level !== undefined ? parseInt(meta.access_level) : 1,
+                                role: meta.role || 'student'
+                            };
+                            
+                            setUser(userProfile);
+                            // Sincroniza sessão
+                            const newSession = {
+                                id: session.access_token.slice(-10),
+                                userId: session.user.id,
+                                createdAt: Date.now(),
+                                expiresAt: session.expires_at ? session.expires_at * 1000 : endOfDayTimestamp()
+                            };
+                            setSession(newSession);
+                            
+                            // Persistência local segura (apenas para manter compatibilidade com mocks se necessário)
+                            localStorage.setItem("user", JSON.stringify(userProfile));
+                        }
+                    } else if (event === 'SIGNED_OUT') {
+                        logout();
+                    }
+                });
+
+                return () => {
+                    subscription.unsubscribe();
+                };
+            }
         };
         initService();
     }, []);

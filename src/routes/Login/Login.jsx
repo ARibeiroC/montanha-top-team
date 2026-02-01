@@ -8,10 +8,14 @@ import './Login.css'
 
 export function Login(){
     const [step, setStep] = useState('credentials') // 'credentials' | '2fa'
+    const [isSignup, setIsSignup] = useState(false) // Toggle between Login and Signup
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({})
     const [tempUser, setTempUser] = useState(null) // User waiting for 2FA
     const [otpCode, setOtpCode] = useState('')
+    
+    // Additional fields for Signup
+    const [fullName, setFullName] = useState('')
     
     const navigate = useNavigate()
     const { login: authLogin, isAuthenticated, user, loading: authLoading } = useAuth()
@@ -27,26 +31,63 @@ export function Login(){
         }
     }, [authLoading, isAuthenticated, user, navigate])
 
+    // Resend OTP logic
+    async function handleResendOtp() {
+        if (!tempUser?.email) return
+        setLoading(true)
+        try {
+            await unifiedService.resendOtp(tempUser.email)
+            alert("Código reenviado com sucesso! Verifique seu email.")
+        } catch (err) {
+            alert("Erro ao reenviar código: " + err.message)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     async function handleCredentialsSubmit(e){
         e.preventDefault()
         const form = e.currentTarget
         const formData = new FormData(form)
-        const email = formData.get('email')
-        const password = formData.get('login-password')
+        const email = formData.get('email')?.toString().trim()
+        const password = formData.get('login-password')?.toString().trim()
+        const name = formData.get('full-name')?.toString().trim()
+        
+        if (!email || !password) {
+            setErrors({ message: "Preencha todos os campos obrigatórios." })
+            return
+        }
         
         setErrors({})
         setLoading(true)
         
         try{
-            // First step: Verify credentials only (do not set session yet)
-            const result = await unifiedService.login(email, password)
-            setTempUser(result.user) // result.user contains the user info
-            setStep('2fa')
-            // Mock sending 2FA code
-            console.log("Código 2FA enviado para: " + email)
-            // In a real app, you would trigger the backend to send the code here
+            if (isSignup) {
+                // SIGN UP FLOW
+                const result = await unifiedService.signUp(email, password, { name })
+                setTempUser({ email, ...result.user }) 
+                setStep('2fa')
+            } else {
+                // LOGIN FLOW
+                const result = await unifiedService.login(email, password)
+                await authLogin(email, password)
+            }
         } catch (err) {
-            setErrors({ email: true, password: true, message: err.message })
+            // Check for specific Supabase "Email not confirmed" error
+            if (err.message && (err.message.includes("Email not confirmed") || err.message.includes("confirm your email"))) {
+                setErrors({ message: "Email não confirmado. Digite o código enviado para seu email." })
+                setTempUser({ email }) // We only have email here
+                setIsSignup(true) // Switch to signup context for verification
+                setStep('2fa')
+            } else if (err.message && err.message.includes("rate limit exceeded")) {
+                setErrors({ message: "Muitas tentativas. Aguarde alguns minutos antes de tentar novamente." })
+            } else {
+                setErrors({ 
+                    email: true, 
+                    password: true, 
+                    message: err.message || "Erro na autenticação. Verifique suas credenciais." 
+                })
+            }
         } finally {
             setLoading(false)
         }
@@ -56,86 +97,34 @@ export function Login(){
         e.preventDefault()
         setErrors({})
         setLoading(true)
+        
+        // Allow user to manually input email if not present (e.g. came from "Já tenho código")
+        const emailToVerify = tempUser?.email || document.getElementById('verify-email')?.value
 
-        // Mock 2FA Verification
-        // Accepts '123456' or any 6 digit code for demo if not specified
+        if (!emailToVerify) {
+             setErrors({ message: "Email necessário para verificação." })
+             setLoading(false)
+             return
+        }
+
         if (otpCode.length === 6) {
             try {
-                // Now complete the login via AuthContext
-                // We use the tempUser data to avoid re-sending password if possible, 
-                // but AuthContext.login expects email/pass usually.
-                // However, since we already verified password, we can just "setSession" if exposed,
-                // OR we can just call authLogin(email, password) which will re-verify (safe)
-                // BUT, since we don't have the password stored in state (security), 
-                // let's assume unifiedService.login returned the 'token' too.
+                // Always verify as 'signup' for email confirmation
+                const result = await unifiedService.verifyOtp(emailToVerify, otpCode, 'signup')
                 
-                // Let's modify AuthContext to accept a pre-authenticated user object?
-                // Or easier: Just Mock the 2FA check and if pass, assume success.
-                // But we need to call authLogin to update the Context State.
-                
-                // Problem: We don't have the password anymore to call authLogin(email, pass).
-                // Solution: We should rely on the token we got from the first step.
-                // unifiedService.login returns { user, token }.
-                // We should pass this token to AuthContext.
-                
-                // Since AuthContext.login(email, pass) does the whole flow, 
-                // let's create a helper in AuthContext or just manually update it if we could.
-                // But we can't access setSession outside.
-                
-                // Alternative: Store password in state? (Less secure but common in SPA memory).
-                // Let's store password in tempUser for this moment (memory only).
-                
-                // Wait, if I change AuthContext to expose a "setSession(user, token)" method, that's better.
-                // But I can't easily change the Context interface without breaking things.
-                
-                // Let's assume for this "Cyber Security" demo, we just call login again.
-                // We will need to keep password in memory for the 2FA step.
-                
-                // Let's simulate:
-                await new Promise(r => setTimeout(r, 1000)); // Verify delay
-                
-                // Call the context login to set the state
-                await authLogin(tempUser.email, tempUser.password) // We attached password to tempUser in mock.js? No.
-                // We need to pass the password from the first form to this step.
-                
-            } catch (err) {
-                 setErrors({ message: "Erro ao finalizar login: " + err.message })
+                alert("Conta verificada com sucesso! Por favor, faça login.");
+                setIsSignup(false);
+                setStep('credentials');
+                setLoading(false);
+                return;
+
+            } catch(err) {
+                setErrors({ message: err.message || "Código inválido ou expirado." })
+            } finally {
+                setLoading(false)
             }
         } else {
-            setErrors({ message: "Código inválido. Use 6 dígitos." })
-        }
-        setLoading(false)
-    }
-
-    // Wrapper to handle state transition
-    const handleLoginWith2FA = async (email, password) => {
-        setLoading(true)
-        try {
-            // 1. Verify Creds
-            const result = await unifiedService.login(email, password)
-            // 2. Store temp data for 2FA step
-            setTempUser({ ...result.user, _temp_password: password }) 
-            setStep('2fa')
-        } catch (err) {
-            setErrors({ email: true, password: true, message: err.message })
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    const confirm2FA = async (e) => {
-        e.preventDefault()
-        setLoading(true)
-        if (otpCode === '123456' || otpCode.length === 6) { // Accept any 6 digit for demo or specific '123456'
-             try {
-                // 3. Finalize Login
-                await authLogin(tempUser.email, tempUser._temp_password)
-                // Navigation happens in useEffect
-             } catch(err) {
-                setErrors({ message: "Erro na autenticação final." })
-             }
-        } else {
-            setErrors({ message: "Código incorreto. Tente 123456." })
+            setErrors({ message: "O código deve ter 6 dígitos." })
             setLoading(false)
         }
     }
@@ -147,12 +136,21 @@ export function Login(){
                     <img src={backgroundImage} alt="" />
                 </div>
                 <div className="card">
-                    <h2>Verificação em Duas Etapas</h2>
+                    <h2>Verifique seu Email</h2>
                     <p style={{textAlign: 'center', marginBottom: '1rem', fontSize: '0.9rem', color: '#555'}}>
-                        Enviamos um código de 6 dígitos para seu email/app.
-                        <br/>(Para demo: use qualquer 6 dígitos)
+                        Enviamos um código de 6 dígitos para o email:
+                        <br/>
+                        <strong>{tempUser?.email || "seu email"}</strong>
+                        <br/>
+                        (Verifique a caixa de spam)
                     </p>
-                    <form onSubmit={confirm2FA}>
+                    <form onSubmit={handle2FASubmit}>
+                        {!tempUser?.email && (
+                            <div className="row" style={{marginBottom: '1rem'}}>
+                                <label htmlFor="verify-email">Confirme seu Email</label>
+                                <input type="email" id="verify-email" name="verify-email" required placeholder="Digite seu email" />
+                            </div>
+                        )}
                         <div className="row">
                             <label htmlFor="otp">Código de Verificação</label>
                             <input 
@@ -172,6 +170,11 @@ export function Login(){
                             <button type="button" onClick={() => setStep('credentials')} style={{background: 'transparent', color: '#333', border: '1px solid #ccc'}}>Voltar</button>
                             <button type="submit" id="login-button">Verificar</button>
                         </div>
+                        <div style={{textAlign: 'center', marginTop: '1rem'}}>
+                             <button type="button" onClick={handleResendOtp} style={{background: 'none', border: 'none', color: '#007bff', textDecoration: 'underline', cursor: 'pointer', fontSize: '0.9rem'}}>
+                                Reenviar código
+                             </button>
+                        </div>
                         {loading && (
                             <div className="loading-overlay">
                                 <div className="spinner"></div>
@@ -190,32 +193,87 @@ export function Login(){
                 <img src={backgroundImage} alt="" />
             </div>
             <div className="card">
-                <h2>Entrar</h2>
-                <form onSubmit={(e) => {
-                    e.preventDefault()
-                    const formData = new FormData(e.currentTarget)
-                    handleLoginWith2FA(formData.get('email'), formData.get('login-password'))
-                }}>
+                <h2>{isSignup ? "Criar Nova Conta" : "Bem-vindo ao Portal"}</h2>
+                
+                <form onSubmit={handleCredentialsSubmit}>
+                    {isSignup && (
+                        <div className="row">
+                            <label htmlFor="full-name">Nome Completo</label>
+                            <input 
+                                type="text" 
+                                id="full-name" 
+                                name="full-name" 
+                                placeholder="Seu nome"
+                                required={isSignup}
+                                value={fullName}
+                                onChange={(e) => setFullName(e.target.value)}
+                            />
+                        </div>
+                    )}
+
                     <div className="row">
                         <label htmlFor="email">Email</label>
-                        <input type="email" id="email" name="email" required className={errors.email ? 'field-error' : ''} />
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="exemplo@email.com"
+                            required
+                            className={errors.email ? 'error' : ''}
+                        />
                     </div>
+
                     <div className="row">
                         <label htmlFor="login-password">Senha</label>
-                        <PasswordInput id="login-password" name="login-password" required className={errors.password ? 'field-error' : ''} />
-                        <div style={{textAlign: 'right', marginTop: '0.5rem'}}>
-                            <Link to="/forgot-password" style={{fontSize: '0.8rem', color: '#d4af37', textDecoration: 'none'}}>Esqueci minha senha</Link>
-                        </div>
+                        <PasswordInput 
+                            id="login-password" 
+                            name="login-password" 
+                            placeholder="Sua senha"
+                            required
+                            className={errors.password ? 'error' : ''}
+                        />
                     </div>
-                    {errors.message && <p className="error-message" style={{color: 'red', fontSize: '0.9rem', marginBottom: '1rem'}}>{errors.message}</p>}
+
+                    {errors.message && <p className="error-message">{errors.message}</p>}
+
                     <div className="actions">
-                        <Link to="/register">Criar conta</Link>
-                        <button type="submit" id="login-button">Entrar</button>
+                        <button type="submit" id="login-button" disabled={loading}>
+                            {isSignup ? "Cadastrar" : "Entrar"}
+                        </button>
                     </div>
+
+                    <div className="toggle-mode" style={{marginTop: '1rem', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
+                        <button 
+                            type="button" 
+                            onClick={() => {
+                                setIsSignup(!isSignup)
+                                setErrors({})
+                            }}
+                            style={{background: 'none', border: 'none', color: '#007bff', textDecoration: 'underline', cursor: 'pointer'}}
+                        >
+                            {isSignup ? "Já tem uma conta? Faça login" : "Não tem conta? Cadastre-se"}
+                        </button>
+                        
+                        {!isSignup && (
+                            <button 
+                                type="button" 
+                                onClick={() => {
+                                    setStep('2fa')
+                                    setTempUser(null) // Reset user so we ask for email
+                                    setIsSignup(true) // Treat as signup verification
+                                    setErrors({})
+                                }}
+                                style={{background: 'none', border: 'none', color: '#555', fontSize: '0.8rem', textDecoration: 'underline', cursor: 'pointer'}}
+                            >
+                                Já tenho um código de verificação
+                            </button>
+                        )}
+                    </div>
+
                     {loading && (
                         <div className="loading-overlay">
                             <div className="spinner"></div>
-                            <p>Aguarde...</p>
+                            <p>{isSignup ? "Criando conta..." : "Autenticando..."}</p>
                         </div>
                     )}
                 </form>
