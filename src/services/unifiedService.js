@@ -54,7 +54,8 @@ export const unifiedService = {
                     email: data.user.email,
                     // Usa os valores do metadata se existirem
                     accessLevel: meta.access_level !== undefined ? parseInt(meta.access_level) : 1,
-                    role: meta.role || 'student'
+                    role: meta.role || 'student',
+                    branch: meta.branch || '' // Garante que a filial seja passada
                 };
                 
                 return { user: userProfile, token: data.session.access_token };
@@ -252,11 +253,14 @@ export const unifiedService = {
             if (!user) return null;
             
             // Mapear para formato interno
+            const meta = user.user_metadata || {};
             return {
                 id: user.id,
                 email: user.email,
-                name: user.user_metadata?.full_name || user.email,
-                accessLevel: 3 // Temporário
+                name: meta.full_name || user.email,
+                accessLevel: meta.access_level !== undefined ? parseInt(meta.access_level) : 1,
+                role: meta.role || 'student',
+                branch: meta.branch || ''
             };
         } else if (useBackend) {
              try {

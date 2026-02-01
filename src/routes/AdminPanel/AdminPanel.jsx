@@ -86,29 +86,42 @@ export function AdminPanel(){
         setActiveTab(allowedTabs[0])
     }
 
-    // Cálculos para o Dashboard
-    const totalStudents = students.length
-    const activeStudents = students.filter(s => s.active).length
-    const payingStudents = students.filter(s => s.active && s.financialStatus === 'Em dia').length
-    const nonPayingStudents = students.filter(s => s.active && s.financialStatus !== 'Em dia').length
-    const competitors = students.filter(s => s.active && s.events && s.events.length > 0).length
-
     // State para filtro do Dashboard
     const [dashboardFilter, setDashboardFilter] = useState('all') // 'all', 'active', 'paying', 'nonpaying', 'competitor'
+
+    // Filtragem por Filial (Lógica Global do Dashboard)
+    const getStudentsByAccessLevel = () => {
+        // Lógica idêntica ao StudentsManager para consistência
+        if (user?.accessLevel === 2 && user?.branch) {
+            return students.filter(s => (s.branch ?? 'Montanha Top Team') === user.branch);
+        }
+        
+        // Level 3 (Admin Geral) vê tudo
+        return students;
+    }
+
+    const accessibleStudents = getStudentsByAccessLevel();
+
+    // Cálculos para o Dashboard (Baseado nos alunos acessíveis)
+    const totalStudents = accessibleStudents.length
+    const activeStudents = accessibleStudents.filter(s => s.active).length
+    const payingStudents = accessibleStudents.filter(s => s.active && s.financialStatus === 'Em dia').length
+    const nonPayingStudents = accessibleStudents.filter(s => s.active && s.financialStatus !== 'Em dia').length
+    const competitors = accessibleStudents.filter(s => s.active && s.events && s.events.length > 0).length
 
     // Filtragem dos alunos na tabela
     const getFilteredDashboardStudents = () => {
         switch (dashboardFilter) {
             case 'active':
-                return students.filter(s => s.active)
+                return accessibleStudents.filter(s => s.active)
             case 'paying':
-                return students.filter(s => s.active && s.financialStatus === 'Em dia')
+                return accessibleStudents.filter(s => s.active && s.financialStatus === 'Em dia')
             case 'nonpaying':
-                return students.filter(s => s.active && s.financialStatus !== 'Em dia')
+                return accessibleStudents.filter(s => s.active && s.financialStatus !== 'Em dia')
             case 'competitor':
-                return students.filter(s => s.active && s.events && s.events.length > 0)
+                return accessibleStudents.filter(s => s.active && s.events && s.events.length > 0)
             default:
-                return students
+                return accessibleStudents
         }
     }
 
@@ -265,7 +278,7 @@ export function AdminPanel(){
                 <div id="header-admin">
                     <div className="title-admin">
                         <PiStudentFill className='icon-logo' />
-                        <h1>Painel do Administrador</h1>
+                        <h1>Painel do Administrador {user?.branch && user.accessLevel !== 3 && <span style={{fontSize: '0.5em', display: 'block', fontWeight: 'normal'}}>{user.branch}</span>}</h1>
                     </div>
                     <div className="user-admin">
                         {/* Avatar removido conforme solicitado */}
