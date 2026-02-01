@@ -5,10 +5,10 @@
 export const mockUsers = [
     { id: 'admin', name: 'Administrador', email: 'admin@montanha.com', role: 'admin', accessLevel: 3, branch: 'Montanha Top Team', password: 'admin' },
     { id: 'teacher', name: 'Professor Mestre', email: 'professor@montanha.com', role: 'teacher', accessLevel: 1, branch: 'Montanha Top Team', password: '123' },
-    { id: 'prof-test', name: 'Professor Teste', email: 'prof@montanha.com', role: 'teacher', accessLevel: 1, branch: 'Montanha Top Team', password: '123' },
+    { id: 'prof-test', name: 'Professor Teste', email: 'prof@montanha.com', role: 'teacher', accessLevel: 1, branch: 'Montanha Top Team - Wagner', password: '123' },
     { id: 'guardian', name: 'Responsável Silva', email: 'responsavel@montanha.com', role: 'guardian', accessLevel: 0, branch: 'Montanha Top Team', password: '123' },
     { id: 'ceo-filial', name: 'CEO Filial', email: 'ceo.filial@montanha.com', role: 'ceo-filial', accessLevel: 2, branch: 'Montanha Top Team - Wagner', password: '123' },
-    { id: 'ceo-matriz', name: 'CEO Matriz', email: 'ceo.matriz@montanha.com', role: 'ceo-matriz', accessLevel: 3, branch: 'Montanha Top Team', password: '123' },
+    { id: 'ceo-matriz', name: 'CEO Matriz', email: 'fundador@montanha.com', role: 'ceo-matriz', accessLevel: 3, branch: 'Montanha Top Team', password: '123' },
     { id: 'prof-marcos', name: 'Professor Marcos', email: 'marcos@montanha.com', role: 'teacher', accessLevel: 1, branch: 'Montanha Top Team - Marcos', password: '123' }
 ];
 
