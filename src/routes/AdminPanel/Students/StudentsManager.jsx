@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useSchool } from '@/context/SchoolContext';
+import { unifiedService } from '@/services/unifiedService';
 import { FaUser, FaHistory, FaCalendarAlt, FaMoneyBillWave, FaTrophy, FaTimes } from 'react-icons/fa';
 import './StudentsManager.css';
 
@@ -15,12 +16,30 @@ export function StudentsManager() {
     
     // Add Student State
     const [isAdding, setIsAdding] = useState(false);
+    const [professors, setProfessors] = useState([]);
     const [newStudentForm, setNewStudentForm] = useState({
         name: '',
         belt: 'Branca',
         stripes: 0,
-        active: true
+        active: true,
+        professorName: ''
     });
+
+    useEffect(() => {
+        const fetchProfessors = async () => {
+            try {
+                const users = await unifiedService.getUsers();
+                // Filter users with role 'teacher' or 'admin' or 'ceo'
+                const teacherUsers = users.filter(u => 
+                    u.role === 'teacher' || u.role === 'admin' || u.role.includes('ceo')
+                );
+                setProfessors(teacherUsers);
+            } catch (error) {
+                console.error("Erro ao carregar professores:", error);
+            }
+        };
+        fetchProfessors();
+    }, []);
 
     const handleAddChange = (e) => {
         const { name, value } = e.target;
@@ -32,7 +51,7 @@ export function StudentsManager() {
         if (!newStudentForm.name) return; // Simple validation
         addStudent(newStudentForm);
         setIsAdding(false);
-        setNewStudentForm({ name: '', belt: 'Branca', stripes: 0, active: true });
+        setNewStudentForm({ name: '', belt: 'Branca', stripes: 0, active: true, professorName: '' });
     };
 
     const startEdit = (student) => {
@@ -143,6 +162,17 @@ export function StudentsManager() {
                             className="edit-input"
                             required 
                         />
+                        <select 
+                            name="professorName" 
+                            value={newStudentForm.professorName} 
+                            onChange={handleAddChange}
+                            className="edit-select"
+                        >
+                            <option value="">Selecione o Professor</option>
+                            {professors.map(p => (
+                                <option key={p.id} value={p.name}>{p.name}</option>
+                            ))}
+                        </select>
                         <select 
                             name="belt" 
                             value={newStudentForm.belt} 

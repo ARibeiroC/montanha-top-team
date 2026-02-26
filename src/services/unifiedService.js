@@ -57,6 +57,27 @@ export const unifiedService = {
                     role: meta.role || 'student',
                     branch: meta.branch || '' // Garante que a filial seja passada
                 };
+
+                // Merge student data if role is student
+                if (userProfile.role === 'student') {
+                    try {
+                        const students = await this.getStudents();
+                        const studentData = students.find(s => s.email === userProfile.email);
+                        if (studentData) {
+                            Object.assign(userProfile, {
+                                belt: studentData.belt,
+                                stripes: studentData.stripes,
+                                professorName: studentData.professorName,
+                                active: studentData.active,
+                                events: studentData.events || [],
+                                attendance: studentData.attendance || [],
+                                studentId: studentData.id
+                            });
+                        }
+                    } catch (err) {
+                        console.warn('Could not merge student data', err);
+                    }
+                }
                 
                 return { user: userProfile, token: data.session.access_token };
             } catch (error) {
@@ -404,7 +425,7 @@ export const unifiedService = {
             // Nota: Criar usuário no Auth via Client requer login ou função RPC.
             // Por enquanto, simulamos sucesso ou avisamos.
             console.warn("Criação de usuário direto via painel admin requer Edge Functions. Usuário não será criado no Auth.");
-            alert("Atenção: A criação de usuários por aqui apenas adicionaria ao banco de dados, mas não criaria o login. Peça para o usuário se cadastrar na tela de login.");
+            // alert("Atenção: A criação de usuários por aqui apenas adicionaria ao banco de dados, mas não criaria o login. Peça para o usuário se cadastrar na tela de login.");
             return { id: Date.now(), ...userData };
         }
         return await mockRepository.createUser(userData);

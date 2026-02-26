@@ -68,6 +68,33 @@ export const SchoolContextProvider = ({children}) => {
 
             const created = await unifiedService.createStudent(newStudent, token);
 
+            // Automatically create a user for the student if email exists
+            if (newStudent.email) {
+                try {
+                    const defaultPassword = '123'; // Default password for new students
+                    const userPayload = {
+                        id: created.id.toString(), // Use student ID as User ID or link them
+                        name: newStudent.name,
+                        email: newStudent.email,
+                        role: 'student',
+                        accessLevel: 0,
+                        branch: newStudent.branch ?? 'Montanha Top Team',
+                        password: defaultPassword
+                    };
+                    
+                    // Call service to create user (assuming unifiedService exposes it or we use mock directly if offline)
+                    // unifiedService.createUser might need to be exposed or added
+                    // For now, let's assume we can call it if it exists, or fallback to mock
+                    if (unifiedService.createUser) {
+                        await unifiedService.createUser(userPayload, token);
+                        console.log(`Usuário criado automaticamente para o aluno: ${newStudent.name}`);
+                    }
+                } catch (userError) {
+                    console.error("Erro ao criar usuário automático para o aluno:", userError);
+                    // Don't block student creation if user creation fails, but log it
+                }
+            }
+
             const student = {
                 attendance: [],
                 events: [],

@@ -6,17 +6,19 @@ export const mockUsers = [
     { id: 'admin', name: 'Administrador', email: 'admin@montanha.com', role: 'admin', accessLevel: 3, branch: 'Montanha Top Team', password: 'admin' },
     { id: 'teacher', name: 'Professor Mestre', email: 'professor@montanha.com', role: 'teacher', accessLevel: 1, branch: 'Montanha Top Team', password: '123' },
     { id: 'prof-test', name: 'Professor Teste', email: 'prof@montanha.com', role: 'teacher', accessLevel: 1, branch: 'Montanha Top Team - Wagner', password: '123' },
-    { id: 'guardian', name: 'Responsável Silva', email: 'responsavel@montanha.com', role: 'guardian', accessLevel: 0, branch: 'Montanha Top Team', password: '123' },
+    // Guardian role removed, users should be students or staff
     { id: 'ceo-filial', name: 'CEO Filial', email: 'ceo.filial@montanha.com', role: 'ceo-filial', accessLevel: 2, branch: 'Montanha Top Team - Wagner', password: '123' },
     { id: 'ceo-matriz', name: 'CEO Matriz', email: 'fundador@montanha.com', role: 'ceo-matriz', accessLevel: 3, branch: 'Montanha Top Team', password: '123' },
-    { id: 'prof-marcos', name: 'Professor Marcos', email: 'marcos@montanha.com', role: 'teacher', accessLevel: 1, branch: 'Montanha Top Team - Marcos', password: '123' }
+    { id: 'prof-marcos', name: 'Professor Marcos', email: 'marcos@montanha.com', role: 'teacher', accessLevel: 1, branch: 'Montanha Top Team - Marcos', password: '123' },
+    { id: 'carlos-silva', name: 'Carlos Silva', email: 'carlos.silva@montanha.com', role: 'student', accessLevel: 0, branch: 'Montanha Top Team - Marcos', password: '123' },
+    { id: 'ana-souza-silva', name: 'Ana Souza', email: 'ana.souza@montanha.com', role: 'student', accessLevel: 0, branch: 'Montanha Top Team - Wagner', password: '123' }
 ];
 
 // TABLE: STUDENTS
 export const mockStudents = [
     // ADULTOS - Montanha Top Team
-    { id: 1, name: "Carlos Silva", email: "carlos.silva@example.com", phone: "11999991111", belt: "Branca", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-01-15', birthDate: '1995-05-20', cpf: '123.456.789-00' },
-    { id: 2, name: "Ana Souza", email: "ana.souza@example.com", phone: "11999992222", belt: "Azul", stripes: 0, active: 1, branch: 'Montanha Top Team - Wagner', professorName: 'Montanha', registrationDate: '2023-02-10', birthDate: '1998-03-12' },
+    { id: 1, name: "Carlos Silva", email: "carlos.silva@montanha.com", phone: "11999991111", belt: "Branca", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-01-15', birthDate: '1995-05-20', cpf: '123.456.789-00' },
+    { id: 2, name: "Ana Souza", email: "ana.souza@montanha.com", phone: "11999992222", belt: "Azul", stripes: 0, active: 1, branch: 'Montanha Top Team - Wagner', professorName: 'Montanha', registrationDate: '2023-02-10', birthDate: '1998-03-12' },
     { id: 3, name: "Marcos Oliveira", email: "marcos.oli@example.com", phone: "11999993333", belt: "Roxa", stripes: 3, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2022-11-05', birthDate: '1990-07-25' },
     { id: 4, name: "Juliana Santos", email: "ju.santos@example.com", phone: "11999994444", belt: "Marrom", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2021-08-15', birthDate: '1988-12-01' },
     { id: 5, name: "Roberto Almeida", email: "beto.almeida@example.com", phone: "11999995555", belt: "Preta", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2020-03-10', birthDate: '1985-09-18' },
@@ -238,6 +240,24 @@ export const mockRepository = {
             // Remove password before returning
             // eslint-disable-next-line no-unused-vars
             const { password: _, ...userWithoutPass } = user;
+
+            // Se for aluno, enriquece o objeto de usuário com dados do aluno
+            if (user.role === 'student') {
+                const studentData = mockStudents.find(s => s.email === email);
+                if (studentData) {
+                    return {
+                        ...userWithoutPass,
+                        studentId: studentData.id,
+                        belt: studentData.belt,
+                        stripes: studentData.stripes,
+                        professorName: studentData.professorName,
+                        active: studentData.active,
+                        events: studentData.events || [],
+                        attendance: studentData.attendance || []
+                    };
+                }
+            }
+
             return userWithoutPass;
         }
 
