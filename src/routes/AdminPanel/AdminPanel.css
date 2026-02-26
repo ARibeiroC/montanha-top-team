@@ -5,12 +5,13 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column; /* Coluna para mobile */
-    overflow: hidden;
+    overflow-y: hidden; 
+    overflow-x: hidden;
     padding-bottom: 70px; /* Espaço para a barra de navegação inferior */
 }
 
 .admin-container video {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -19,7 +20,7 @@
     z-index: -2;
 }
 .admin-container .admin-bg {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -29,7 +30,7 @@
 }
 
 #video-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -41,9 +42,8 @@
 .content {
     flex: 1;
     padding: 0.75rem;
-    overflow-y: auto;
-    overflow-x: hidden;
     width: 100%;
+    overflow: visible; 
 }
 
 #header-admin {
@@ -143,7 +143,7 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: 1rem;
-    padding: 0.5rem 1rem;
+    padding: 1rem 1rem;
     width: 100%;
     list-style: none;
     -webkit-overflow-scrolling: touch;
@@ -212,6 +212,8 @@
     border-radius: 8px;
     color: white;
     border: 1px solid #444;
+    overflow-y: scroll;
+    height: 45vh;
 }
 
 .dashboard-list-container h2 {
@@ -284,20 +286,26 @@
 .status-text.danger { color: #ef5350; }
 .status-text.muted { color: #888; }
 
-/* Desktop */
+/* Tablet (Sidebar Slim) */
 @media (min-width: 768px) {
     .scroll-indicator {
         display: none;
     }
 
     .admin-container {
-        flex-direction: row; /* Volta para layout lateral */
+        flex-direction: row;
         padding-bottom: 0;
+        align-items: stretch; 
+        max-height: 70vh;
+        overflow: hidden;
     }
 
     .content {
-        padding: 2rem;
-        padding-left: 120px; /* Espaço para o menu lateral */
+        padding-top: 2rem;
+        padding-left: 2rem;
+        margin-left: 0;
+        flex: 1;
+        width: auto;
     }
 
     #header-admin {
@@ -314,25 +322,99 @@
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
     
-    #controllers {
-        position: fixed;
-        left: 0;
-        top: 0;
+    /* Sidebar Content Wrapper for Scroll */
+    .sidebar-content {
         height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        /* Custom Scrollbar for Sidebar Content */
+        scrollbar-width: thin;
+        scrollbar-color: #444 transparent;
+    }
+
+    .sidebar-content::-webkit-scrollbar {
+        width: 4px;
+    }
+    .sidebar-content::-webkit-scrollbar-thumb {
+        background-color: #444;
+        border-radius: 2px;
+    }
+    .sidebar-content::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    /* Toggle Button - Tab Style */
+    .sidebar-toggle {
+        position: absolute;
+        top: 80px; /* Positioned near top */
+        right: -24px; /* Sticking out (24px width) */
+        width: 24px;
+        height: 40px;
+        background-color: #1a1a1a;
+        border: 1px solid #444;
+        border-left: none; /* Merge with sidebar */
+        border-radius: 0 20px 20px 0; /* Semi-circle/Tab shape */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 102;
+        color: var(--color-red);
+        padding: 0;
+        margin: 0;
+        transition: background-color 0.2s;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+    }
+
+    .sidebar-toggle:hover {
+        background-color: #2a2a2a;
+        color: #fff;
+    }
+
+    /* Override #controllers styles to allow tab to stick out */
+    #controllers {
+        position: sticky;
+        top: 0;
+        left: 0;
+        height: 100vh;
         width: 100px;
+        display: flex;
         flex-direction: column;
         border-right: 1px solid #444;
         border-top: none;
-        padding-top: 0;
-        align-items: center;
-        justify-content: center;
+        padding-top: 2rem;
         background-color: #1a1a1a;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+        order: -1;
+        z-index: 100;
+        overflow: visible; /* Important: Allow button to stick out */
+        transition: width 0.3s ease;
+    }
+
+    /* Sidebar Collapsed State */
+    #controllers.collapsed {
+        width: 80px;
+        align-items: center;
+    }
+
+    #controllers.collapsed .link-controller {
+        justify-content: center;
+        padding: 1rem 0;
+    }
+
+    #controllers.collapsed .link-controller .label {
+        display: none;
+    }
+
+    #controllers.collapsed .menu-icon {
+        margin-bottom: 0;
+        font-size: 1.5rem;
     }
     
     #menu-controller {
         flex-direction: column;
-        gap: 2rem;
-        justify-content: center;
+        gap: 1rem;
+        justify-content: flex-start;
         padding: 0;
         overflow-x: visible;
         height: auto;
@@ -347,6 +429,18 @@
         height: auto;
         min-width: auto;
         gap: 0.5rem;
+        border-radius: 0; /* Full width hover */
+    }
+    
+    .link-controller:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-left: 4px solid var(--color-red);
+    }
+
+    .link-controller.active {
+        background-color: rgba(211, 47, 47, 0.1);
+        border-left: 4px solid var(--color-red);
+        color: var(--color-red);
     }
     
     .menu-icon {
@@ -356,9 +450,65 @@
     
     .link-controller .label {
         font-size: 0.7rem;
+        display: block; /* Mostrar label em tablet também, mas pequeno */
     }
 }
 
+/* Desktop (Sidebar Completa & Layout Profissional) */
 @media (min-width: 1024px) {
-    /* Mantendo grid ajustavel do desktop anterior */
+    #controllers {
+        width: 260px;
+        align-items: flex-start; 
+        padding-top: 2rem;
+        /* Em telas grandes, o menu deve ter scroll próprio se necessário */
+        max-height: 100vh; 
+    }
+
+    .content {
+        padding-left: 2rem; /* Padding padrão */
+        padding-right: 2rem;
+        max-width: 100%; /* Flex controla a largura */
+        margin: 0;
+    }
+
+    /* Centralizar o bloco de conteúdo se a tela for muito larga */
+    @media (min-width: 1920px) {
+        .content {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+    }
+
+    .link-controller {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 1rem 2rem;
+        gap: 1rem;
+        text-align: left;
+    }
+
+    .menu-icon {
+        font-size: 1.4rem; /* Ícone um pouco menor para equilibrar com texto */
+        width: 30px; /* Largura fixa para alinhar textos */
+        display: flex;
+        justify-content: center;
+    }
+
+    .link-controller .label {
+        font-size: 1rem;
+        font-weight: 500;
+        white-space: normal; /* Permitir quebra de linha se necessário */
+    }
+
+    /* Melhorar cards para desktop */
+    .card-container {
+        grid-template-columns: repeat(5, 1fr); /* Forçar 5 colunas se couber */
+        gap: 1.5rem;
+    }
+
+    /* Ajustes finos de tipografia */
+    .title-admin h1 {
+        font-size: 2.5rem;
+    }
 }

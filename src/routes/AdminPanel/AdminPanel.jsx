@@ -12,6 +12,7 @@ import { Finance } from './Finance/Finance'
 
 import { UserManagement } from './UserManagement/UserManagement'
 import { ProfessorManagement } from './ProfessorManagement/ProfessorManagement'
+import { EventsManager } from './Events/EventsManager'
 import { AdminProfile } from './Profile/AdminProfile'
 
 // IMPORT VIDEO FOR BACKGROUND
@@ -22,12 +23,13 @@ import backgroundImage from '../../assets/background.jpg'
 import { PiStudentFill } from "react-icons/pi"
 import { LiaCoinsSolid } from "react-icons/lia"
 import { PiUserListBold } from "react-icons/pi"
-import { FaFileAlt, FaCheckSquare, FaSignOutAlt, FaUsersCog, FaChalkboardTeacher, FaChevronLeft, FaChevronRight, FaCheck, FaTimes } from "react-icons/fa"
+import { FaFileAlt, FaCheckSquare, FaSignOutAlt, FaUsersCog, FaChalkboardTeacher, FaChevronLeft, FaChevronRight, FaCheck, FaTimes, FaWhatsapp, FaExclamationTriangle, FaTrophy } from "react-icons/fa"
 import { VscGraph } from "react-icons/vsc"
 
 
 export function AdminPanel(){
     const [activeTab, setActiveTab] = useState('dashboard')
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // New state for sidebar
     const location = useLocation()
     const { students } = useSchool()
     const { user } = useAuth()
@@ -44,7 +46,11 @@ export function AdminPanel(){
         if (location.state?.activeTab) {
             setActiveTab(location.state.activeTab)
         }
-    }, [location])
+    }, [location.state])
+
+    const toggleSidebar = () => {
+        setSidebarCollapsed(!sidebarCollapsed);
+    }
 
     const checkScroll = () => {
         if (!scrollRef.current) return;
@@ -75,8 +81,8 @@ export function AdminPanel(){
     }, [level]);
 
     const allowedTabsByLevel = {
-        3: ['dashboard', 'students', 'attendance', 'finance', 'certificates', 'users', 'professors', 'profile'],
-        2: ['dashboard', 'students', 'attendance', 'finance', 'certificates', 'profile'],
+        3: ['dashboard', 'students', 'attendance', 'finance', 'certificates', 'events', 'users', 'professors', 'profile'],
+        2: ['dashboard', 'students', 'attendance', 'finance', 'certificates', 'events', 'profile'],
         1: ['dashboard', 'attendance', 'profile'],
         0: ['dashboard']
     }
@@ -101,6 +107,58 @@ export function AdminPanel(){
     }
 
     const accessibleStudents = getStudentsByAccessLevel();
+
+    // Helper: Calcular dias desde a última presença
+    const getDaysSinceLastAttendance = (student) => {
+        if (!student.attendance || student.attendance.length === 0) return -1; // Nunca compareceu
+        
+        // Ordenar datas (mais recente primeiro)
+        const dates = student.attendance.map(a => new Date(a.date).getTime()).sort((a, b) => b - a);
+        const lastDate = dates[0];
+        const today = new Date().getTime();
+        
+        const diffTime = Math.abs(today - lastDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        return diffDays;
+    };
+
+    // Helper: Obter telefone de contato (Aluno ou Responsável)
+    const getContactPhone = (student) => {
+        if (student.phone) return student.phone;
+        if (student.guardians && student.guardians.length > 0) {
+            return student.guardians[0].phone;
+        }
+        return null;
+    };
+
+    // Ação: Enviar WhatsApp
+    const sendWhatsApp = (student, type = 'general') => {
+        const phone = getContactPhone(student);
+        if (!phone) {
+            alert("Aluno sem telefone cadastrado.");
+            return;
+        }
+
+        // Limpar formatação do telefone
+        const cleanPhone = phone.replace(/\D/g, '');
+        let message = '';
+
+        if (type === 'absent') {
+            message = `Olá ${student.name}, sentimos sua falta nos treinos! Tudo bem? Estamos aguardando seu retorno! Oss!`;
+        } else {
+            message = `Olá ${student.name}, aqui é da ${user?.branch || 'Montanha Top Team'}. Temos novidades para você!`;
+        }
+
+        const url = `https://wa.me/55${cleanPhone}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    };
+
+    // Lógica de Alerta de Evasão (Ausentes há mais de 14 dias e ativos)
+    const riskStudents = accessibleStudents.filter(s => {
+        if (!s.active) return false;
+        const days = getDaysSinceLastAttendance(s);
+        return days > 14 || days === -1; // Mais de 14 dias ou nunca veio (mas está ativo)
+    });
 
     // Cálculos para o Dashboard (Baseado nos alunos acessíveis)
     const totalStudents = accessibleStudents.length
@@ -135,6 +193,8 @@ export function AdminPanel(){
                 return <Attendance />
             case 'certificates':
                 return <Certificates />
+            case 'events':
+                return <EventsManager />
             case 'finance':
                 return <Finance />
             case 'users':
@@ -210,6 +270,33 @@ export function AdminPanel(){
                                 </div>
                             </div>
                         </div>
+
+                        {/* Alertas de Evasão (Novo) */}
+                        {riskStudents.length > 0 && (
+                            <div className="risk-alert-container" style={{ margin: '20px 0', padding: '15px', backgroundColor: 'rgba(255, 0, 0, 0.1)', borderLeft: '4px solid #ff4444', borderRadius: '4px' }}>
+                                <h3 style={{ color: '#ff4444', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <FaExclamationTriangle /> Alerta de Evasão ({riskStudents.length})
+                                </h3>
+                                <p style={{ color: '#ccc', marginBottom: '10px' }}>Alunos ativos sem presença há mais de 14 dias:</p>
+                                <div className="risk-list" style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '10px' }}>
+                                    {riskStudents.map(student => {
+                                        const days = getDaysSinceLastAttendance(student);
+                                        return (
+                                            <div key={student.id} className="risk-card" style={{ minWidth: '200px', backgroundColor: '#2a2a2a', padding: '10px', borderRadius: '8px', border: '1px solid #444' }}>
+                                                <p style={{ fontWeight: 'bold', color: '#fff' }}>{student.name}</p>
+                                                <p style={{ fontSize: '0.9em', color: '#aaa' }}>{days === -1 ? 'Nunca veio' : `${days} dias ausente`}</p>
+                                                <button 
+                                                    onClick={() => sendWhatsApp(student, 'absent')}
+                                                    style={{ marginTop: '8px', width: '100%', padding: '6px', backgroundColor: '#25D366', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}
+                                                >
+                                                    <FaWhatsapp /> Contatar
+                                                </button>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
                         
                         <div className="dashboard-list-container">
                             <h2>
@@ -228,6 +315,7 @@ export function AdminPanel(){
                                             <th>Status</th>
                                             <th>Pagante</th>
                                             <th>Competidor</th>
+                                            <th>Contato</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -254,6 +342,16 @@ export function AdminPanel(){
                                                     ) : (
                                                         <span className="status-text muted">Não</span>
                                                     )}
+                                                </td>
+                                                <td>
+                                                    <button 
+                                                        className="whatsapp-btn-small" 
+                                                        onClick={() => sendWhatsApp(student)}
+                                                        title="Enviar mensagem"
+                                                        style={{ background: 'none', border: 'none', color: '#25D366', cursor: 'pointer', fontSize: '1.2em' }}
+                                                    >
+                                                        <FaWhatsapp />
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}
@@ -288,72 +386,97 @@ export function AdminPanel(){
                 {renderContent()}
 
             </div>
-            <div id="controllers">
-                {showLeftArrow && <div className="scroll-indicator left"><FaChevronLeft /></div>}
-                <ul id='menu-controller' ref={scrollRef}>
-                    <li 
-                        className={`link-controller ${activeTab === 'dashboard' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('dashboard')}
-                    >
-                        <VscGraph className='menu-icon' />
-                        <p className='label'>Dashboard</p>
-                    </li>
-                    {allowedTabs.includes('students') && (
-                        <li 
-                            className={`link-controller ${activeTab === 'students' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('students')}
-                        >
-                            <PiUserListBold className='menu-icon'/>
-                            <p className='label'>Alunos / Graduação</p>
-                        </li>
-                    )}
-                    {allowedTabs.includes('attendance') && (
-                        <li 
-                            className={`link-controller ${activeTab === 'attendance' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('attendance')}
-                        >
-                            <FaCheckSquare className='menu-icon'/>
-                            <p className='label'>Presença</p>
-                        </li>
-                    )}
-                    {allowedTabs.includes('finance') && (
-                        <li 
-                            className={`link-controller ${activeTab === 'finance' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('finance')}
-                        >
-                            <LiaCoinsSolid className='menu-icon'/>
-                            <p className='label'>Financeiro</p>
-                        </li>
-                    )}
-                    {allowedTabs.includes('certificates') && (
-                        <li 
-                            className={`link-controller ${activeTab === 'certificates' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('certificates')}
-                        >
-                            <FaFileAlt className='menu-icon'/>
-                            <p className='label'>Certificados</p>
-                        </li>
-                    )}
-                    {allowedTabs.includes('users') && (
-                        <li 
-                            className={`link-controller ${activeTab === 'users' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('users')}
-                        >
-                            <FaUsersCog className='menu-icon'/>
-                            <p className='label'>Usuários</p>
-                        </li>
-                    )}
-                    {allowedTabs.includes('professors') && (
-                        <li 
-                            className={`link-controller ${activeTab === 'professors' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('professors')}
-                        >
-                            <FaChalkboardTeacher className='menu-icon'/>
-                            <p className='label'>Professores</p>
-                        </li>
-                    )}
-                </ul>
-                {showRightArrow && <div className="scroll-indicator right"><FaChevronRight /></div>}
+            {/* Menu Lateral / Sidebar */}
+            <div id="controllers" className={sidebarCollapsed ? 'collapsed' : ''}>
+                <div className="sidebar-content">
+                    <ul id="menu-controller">
+                        {allowedTabs.includes('dashboard') && (
+                            <li 
+                                className={`link-controller ${activeTab === 'dashboard' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('dashboard')}
+                                title={sidebarCollapsed ? "Dashboard" : ""}
+                            >
+                                <VscGraph className='menu-icon'/>
+                                <p className='label'>Dashboard</p>
+                            </li>
+                        )}
+                        {allowedTabs.includes('students') && (
+                            <li 
+                                className={`link-controller ${activeTab === 'students' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('students')}
+                                title={sidebarCollapsed ? "Alunos" : ""}
+                            >
+                                <PiUserListBold className='menu-icon'/>
+                                <p className='label'>Alunos / Graduação</p>
+                            </li>
+                        )}
+                        {allowedTabs.includes('attendance') && (
+                            <li 
+                                className={`link-controller ${activeTab === 'attendance' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('attendance')}
+                                title={sidebarCollapsed ? "Presença" : ""}
+                            >
+                                <FaCheckSquare className='menu-icon'/>
+                                <p className='label'>Presença</p>
+                            </li>
+                        )}
+                        {allowedTabs.includes('finance') && (
+                            <li 
+                                className={`link-controller ${activeTab === 'finance' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('finance')}
+                                title={sidebarCollapsed ? "Financeiro" : ""}
+                            >
+                                <LiaCoinsSolid className='menu-icon'/>
+                                <p className='label'>Financeiro</p>
+                            </li>
+                        )}
+                        {allowedTabs.includes('certificates') && (
+                            <li 
+                                className={`link-controller ${activeTab === 'certificates' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('certificates')}
+                                title={sidebarCollapsed ? "Certificados" : ""}
+                            >
+                                <FaFileAlt className='menu-icon'/>
+                                <p className='label'>Certificados</p>
+                            </li>
+                        )}
+                        {allowedTabs.includes('events') && (
+                            <li 
+                                className={`link-controller ${activeTab === 'events' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('events')}
+                                title={sidebarCollapsed ? "Eventos" : ""}
+                            >
+                                <FaTrophy className='menu-icon'/>
+                                <p className='label'>Eventos</p>
+                            </li>
+                        )}
+                        {allowedTabs.includes('users') && (
+                            <li 
+                                className={`link-controller ${activeTab === 'users' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('users')}
+                                title={sidebarCollapsed ? "Usuários" : ""}
+                            >
+                                <FaUsersCog className='menu-icon'/>
+                                <p className='label'>Usuários</p>
+                            </li>
+                        )}
+                        {allowedTabs.includes('professors') && (
+                            <li 
+                                className={`link-controller ${activeTab === 'professors' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('professors')}
+                                title={sidebarCollapsed ? "Professores" : ""}
+                            >
+                                <FaChalkboardTeacher className='menu-icon'/>
+                                <p className='label'>Professores</p>
+                            </li>
+                        )}
+                    </ul>
+                </div>
+                
+                {/* Desktop Toggle Button (Tab style) */}
+                <button className="sidebar-toggle" onClick={toggleSidebar} title={sidebarCollapsed ? "Expandir" : "Recolher"}>
+                   {sidebarCollapsed ? <FaChevronRight /> : <FaChevronLeft />}
+                </button>
             </div>
         </div>
     )

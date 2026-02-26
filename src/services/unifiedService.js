@@ -60,10 +60,13 @@ export const unifiedService = {
                 
                 return { user: userProfile, token: data.session.access_token };
             } catch (error) {
-                // Se falhar no Supabase por credenciais inválidas, tenta o Mock
-                // Isso permite login híbrido (usuários reais e usuários de teste)
-                if (error.message && (error.message.includes("Invalid login credentials") || error.message.includes("user not found"))) {
-                    console.log("Login Supabase falhou/não encontrado, tentando Mock...");
+                // Se falhar no Supabase por credenciais inválidas OU erro de conexão, tenta o Mock
+                // Isso permite login híbrido (usuários reais e usuários de teste) e fallback offline
+                const isAuthError = error.message && (error.message.includes("Invalid login credentials") || error.message.includes("user not found"));
+                const isNetworkError = error.message && (error.message.includes("Failed to fetch") || error.message.includes("Network request failed"));
+
+                if (isAuthError || isNetworkError) {
+                    console.log(`Login Supabase falhou (${isAuthError ? 'Auth' : 'Network'}), tentando Mock...`);
                     try {
                         const mockUser = await mockRepository.login(email, password);
                         if (mockUser) {
@@ -93,6 +96,16 @@ export const unifiedService = {
                 return { user: mappedUser, token: access_token };
             } catch (error) {
                 console.error("Erro no login via API:", error);
+                // Tenta fallback para Mock se for erro de conexão ou credenciais inválidas na API Python também
+                try {
+                    console.log("Tentando fallback para Mock após falha na API Python...");
+                    const mockUser = await mockRepository.login(email, password);
+                    if (mockUser) {
+                         return { user: mockUser, token: 'mock-token-' + Date.now() };
+                    }
+                } catch (mockError) {
+                    // Ignora erro do mock
+                }
                 throw error;
             }
         } else {

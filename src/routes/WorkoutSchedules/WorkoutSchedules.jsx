@@ -6,205 +6,126 @@ export function Schedules() {
             <div id="schedules">
                 <h1>Cronograma de Treinos</h1>
                 <div className="container">
+                    
+                    {/* DOMINGO */}
                     <div className="week">
-                        <h2>DOMINGO</h2>
-                        <div className="container-card-week">
-                            <div className="header">
-                                <div className="hours">
-                                    <h3>Horário</h3>
-                                </div>
-                                <div className="classifications">
-                                    <h3>Classificação</h3>
-                                </div>
-                                <div className="teachers">
-                                    <h3>Professor</h3>
-                                </div>
-                            </div>
-                            <div className="content">
-                                <div className="row">
-                                    <div className="hours">
-                                        <p>09:00 às 10:30</p>
-                                    </div>
-                                    <div className="classifications">
-                                        <p>Adulto</p>
-                                    </div>
-                                    <div className="teachers">
-                                        <p>Prof. Ricardo Santos</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
+                        <h2>Domingo</h2>
+                        <table className="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th className="col-time">Horário</th>
+                                    <th className="col-category">Categoria</th>
+                                    <th className="col-prof">Professor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="col-time">09:00 - 10:30</td>
+                                    <td className="col-category">Adulto</td>
+                                    <td className="col-prof">Prof. Ricardo Santos</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+
+                    {/* SEGUNDA */}
                     <div className="week">
-                        <h2>SEGUNDA</h2>
-                        <div className="container-card-week">
-                            <div className="header">
-                                <div className="hours">
-                                    <h3>Horário</h3>
-                                </div>
-                                <div className="classifications">
-                                    <h3>Classificação</h3>
-                                </div>
-                                <div className="teachers">
-                                    <h3>Professor</h3>
-                                </div>
-                            </div>
-                            <div className="content">
-                                <div className="row">
-                                    <div className="hours">
-                                        <p>07:00 às 08:30</p>
-                                    </div>
-                                    <div className="classifications">
-                                        <p>Adulto</p>
-                                    </div>
-                                    <div className="teachers">
-                                        <p>Prof. Odailton Bezerra</p>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="hours">
-                                        <p>16:00 às 17:30</p>
-                                    </div>
-                                    <div className="classifications">
-                                        <p>Adulto</p>
-                                    </div>
-                                    <div className="teachers">
-                                        <p>Prof. Montanha</p>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="hours">
-                                        <p>19:00 às 20:15</p>
-                                    </div>
-                                    <div className="classifications">
-                                        <p>Kids</p>
-                                    </div>
-                                    <div className="teachers">
-                                        <p>Prof. Montanha</p>
-                                        <p>Prof. Fabiano Andrade</p>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="hours">
-                                        <p>20:15 às 21:45</p>
-                                    </div>
-                                    <div className="classifications">
-                                        <p>Adulto</p>
-                                    </div>
-                                    <div className="teachers">
-                                        <p>Prof. Montanha</p>
-                                        <p>Prof. Fabiano Andrade</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <h2>Segunda</h2>
+                        <table className="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th className="col-time">Horário</th>
+                                    <th className="col-category">Categoria</th>
+                                    <th className="col-prof">Professor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="col-time">07:00 - 08:30</td>
+                                    <td className="col-category">Adulto</td>
+                                    <td className="col-prof">Prof. Odailton Bezerra</td>
+                                </tr>
+                                <tr>
+                                    <td className="col-time">16:00 - 17:30</td>
+                                    <td className="col-category">Adulto</td>
+                                    <td className="col-prof">Prof. Montanha</td>
+                                </tr>
+                                <tr>
+                                    <td className="col-time">19:00 - 20:15</td>
+                                    <td className="col-category">Kids</td>
+                                    <td className="col-prof">Prof. Montanha<br/>Prof. Fabiano Andrade</td>
+                                </tr>
+                                <tr>
+                                    <td className="col-time">20:15 - 21:45</td>
+                                    <td className="col-category">Adulto</td>
+                                    <td className="col-prof">Prof. Montanha<br/>Prof. Fabiano Andrade</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+
+                    {/* TERÇA */}
                     <div className="week">
-                        <h2>TERÇA</h2>
-                        <div className="container-card-week">
-                            <div className="header">
-                                <div className="hours">
-                                    <h3>Horário</h3>
-                                </div>
-                                <div className="classifications">
-                                    <h3>Classificação</h3>
-                                </div>
-                                <div className="teachers">
-                                    <h3>Professor</h3>
-                                </div>
-                            </div>
-                            <div className="content">
-                                <div className="row">
-                                    <div className="hours">
-                                        <p>19:00 às 20:15</p>
-                                    </div>
-                                    <div className="classifications">
-                                        <p>Mirim</p>
-                                    </div>
-                                    <div className="teachers">
-                                        <p>Prof. Montanha</p>
-                                        <p>Prof. Fabiano Andrade</p>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="hours">
-                                        <p>20:15 às 21:30</p>
-                                    </div>
-                                    <div className="classifications">
-                                        <p>Juvenil</p>
-                                    </div>
-                                    <div className="teachers">
-                                        <p>Prof. Montanha</p>
-                                        <p>Prof. Fabiano Andrade</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
+                        <h2>Terça</h2>
+                        <table className="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th className="col-time">Horário</th>
+                                    <th className="col-category">Categoria</th>
+                                    <th className="col-prof">Professor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="col-time">19:00 - 20:15</td>
+                                    <td className="col-category">Mirim</td>
+                                    <td className="col-prof">Prof. Montanha<br/>Prof. Fabiano Andrade</td>
+                                </tr>
+                                <tr>
+                                    <td className="col-time">20:15 - 21:30</td>
+                                    <td className="col-category">Juvenil</td>
+                                    <td className="col-prof">Prof. Montanha<br/>Prof. Fabiano Andrade</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+
+                    {/* QUARTA */}
                     <div className="week">
-                        <h2>QUARTA</h2>
-                        <div className="container-card-week">
-                            <div className="header">
-                                <div className="hours">
-                                    <h3>Horário</h3>
-                                </div>
-                                <div className="classifications">
-                                    <h3>Classificação</h3>
-                                </div>
-                                <div className="teachers">
-                                    <h3>Professor</h3>
-                                </div>
-                            </div>
-                            <div className="content">
-                                <div className="row">
-                                    <div className="hours">
-                                        <p>07:00 às 08:30</p>
-                                    </div>
-                                    <div className="classifications">
-                                        <p>Adulto</p>
-                                    </div>
-                                    <div className="teachers">
-                                        <p>Prof. Odailton Bezerra</p>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="hours">
-                                        <p>16:00 às 17:30</p>
-                                    </div>
-                                    <div className="classifications">
-                                        <p>Adulto</p>
-                                    </div>
-                                    <div className="teachers">
-                                        <p>Prof. Montanha</p>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="hours">
-                                        <p>19:00 às 20:15</p>
-                                    </div>
-                                    <div className="classifications">
-                                        <p>Kids</p>
-                                    </div>
-                                    <div className="teachers">
-                                        <p>Prof. Montanha</p>
-                                        <p>Prof. Fabiano Andrade</p>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="hours">
-                                        <p>20:15 às 21:45</p>
-                                    </div>
-                                    <div className="classifications">
-                                        <p>Adulto</p>
-                                    </div>
-                                    <div className="teachers">
-                                        <p>Prof. Montanha</p>
-                                        <p>Prof. Fabiano Andrade</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
+                        <h2>Quarta</h2>
+                        <table className="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th className="col-time">Horário</th>
+                                    <th className="col-category">Categoria</th>
+                                    <th className="col-prof">Professor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="col-time">07:00 - 08:30</td>
+                                    <td className="col-category">Adulto</td>
+                                    <td className="col-prof">Prof. Odailton Bezerra</td>
+                                </tr>
+                                <tr>
+                                    <td className="col-time">16:00 - 17:30</td>
+                                    <td className="col-category">Adulto</td>
+                                    <td className="col-prof">Prof. Montanha</td>
+                                </tr>
+                                <tr>
+                                    <td className="col-time">19:00 - 20:15</td>
+                                    <td className="col-category">Kids</td>
+                                    <td className="col-prof">Prof. Montanha<br/>Prof. Fabiano Andrade</td>
+                                </tr>
+                                <tr>
+                                    <td className="col-time">20:15 - 21:45</td>
+                                    <td className="col-category">Adulto</td>
+                                    <td className="col-prof">Prof. Montanha<br/>Prof. Fabiano Andrade</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
             </div>
         </div>

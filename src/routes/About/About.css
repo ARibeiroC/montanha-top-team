@@ -1,54 +1,111 @@
 .about-container {
     display: flex;
-
+    align-items: center;
+    justify-content: center;
     min-height: 80vh;
-    padding: 1rem;
-    background: var(--color-darkgray);
+    padding: 4rem 2rem;
+    background: rgba(0, 0, 0, 0.85); /* Fundo escuro profissional */
     color: var(--color-ice);
+    position: relative;
+    z-index: 1;
 }
 
 .about-container .description-about {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-
-    width: 60%;
+    gap: 2rem;
+    max-width: 1000px; /* Limite de largura para leitura confortável */
+    width: 100%;
+    text-align: center; /* Centralizado por padrão */
+    background: rgba(255, 255, 255, 0.05); /* Card sutil */
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .about-container .description-about h2 {
-    font-size: 4rem;
-    color: var(--color-link);
-    text-shadow: 2px 2px 2px var(--color-ice);
+    font-size: 3.5rem;
+    color: var(--color-red);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
 }
 
 .about-container .description-about h3 {
-    font-size: 2rem;
-    color: var(--color-link);
+    font-size: 1.8rem;
+    color: #ddd;
+    font-weight: 300;
+    line-height: 1.4;
 }
 
 .about-container .description-about p {
-    font-size: 1.4rem;
-    line-height: 1.5rem;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #ccc;
+    text-align: justify; /* Texto justificado para bloco limpo */
+    max-width: 800px;
+    margin: 0 auto;
 }
 
+/* Botão de Ação (CTA) */
+.about-container .subscribe {
+    margin-top: 1rem;
+}
+
+.about-container .subscribe #btn-about-message-start {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(135deg, var(--color-red) 0%, #b71c1c 100%);
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+}
+
+.about-container .subscribe #btn-about-message-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(211, 47, 47, 0.6);
+    filter: brightness(1.1);
+}
+
+/* Redes Sociais */
+.about-container .social-media {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.about-container .social-media a {
+    color: #888;
+    font-size: 2rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.about-container .social-media a:hover {
+    color: var(--color-red);
+    transform: scale(1.1);
+}
+
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
     .about-container {
-        background-repeat:  no-repeat;
-        background-position: top;
-        background-size: cover;
-        background-color: Whitesmoke;
-        background-blend-mode: overlay;
-        color: var(--color-black);
+        padding: 2rem 1rem;
     }
     
     .about-container .description-about {
-        width: 100%;
-        text-align: center;
+        padding: 1.5rem;
+        gap: 1.5rem;
     }
 
     .about-container .description-about h2 {
-        font-size: 2.6rem;
-        text-align: start;
+        font-size: 2.5rem;
     }
 
     .about-container .description-about h3 {
@@ -57,46 +114,6 @@
 
     .about-container .description-about p {
         font-size: 1rem;
-    }
-
-    .about-container .school-image {
-        display: none;
-    }
-
-    .about-container .subscribe {
-        padding: 2rem;
-    }
-
-    .about-container .subscribe #btn-about-message-start {
-        padding: .8rem 1.2rem;
-        font-size: 1.2rem;
-        background-color: var(--color-link);
-        border: none;
-        color: var(--color-ice);
-        font-weight: bold;
-        border-radius: .4rem;
-        transition: .2s ease-in-out;
-        display: inline-block;
-        text-decoration: none;
-    }
-
-    .about-container .subscribe #btn-about-message-start:active {
-        transform: translateY(1px) scale(0.99);
-    }
-
-    .about-container .subscribe #btn-about-message-start:hover {
-        cursor: pointer;
-        background-color: var(--color-red);
-    }
-        
-    .about-container .subscribe #btn-about-message-start a {
-        color: var(--color-ice);
-    }
-
-    .about-container .social-media {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        font-size: 2rem;
+        text-align: left; /* Mobile fica melhor alinhado à esquerda geralmente */
     }
 }

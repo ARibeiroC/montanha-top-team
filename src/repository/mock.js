@@ -15,11 +15,11 @@ export const mockUsers = [
 // TABLE: STUDENTS
 export const mockStudents = [
     // ADULTOS - Montanha Top Team
-    { id: 1, name: "Carlos Silva", email: "carlos.silva@example.com", belt: "Branca", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-01-15', birthDate: '1995-05-20', cpf: '123.456.789-00' },
-    { id: 2, name: "Ana Souza", email: "ana.souza@example.com", belt: "Azul", stripes: 0, active: 1, branch: 'Montanha Top Team - Wagner', professorName: 'Montanha', registrationDate: '2023-02-10', birthDate: '1998-03-12' },
-    { id: 3, name: "Marcos Oliveira", email: "marcos.oli@example.com", belt: "Roxa", stripes: 3, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2022-11-05', birthDate: '1990-07-25' },
-    { id: 4, name: "Juliana Santos", email: "ju.santos@example.com", belt: "Marrom", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2021-08-15', birthDate: '1988-12-01' },
-    { id: 5, name: "Roberto Almeida", email: "beto.almeida@example.com", belt: "Preta", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2020-03-10', birthDate: '1985-09-18' },
+    { id: 1, name: "Carlos Silva", email: "carlos.silva@example.com", phone: "11999991111", belt: "Branca", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-01-15', birthDate: '1995-05-20', cpf: '123.456.789-00' },
+    { id: 2, name: "Ana Souza", email: "ana.souza@example.com", phone: "11999992222", belt: "Azul", stripes: 0, active: 1, branch: 'Montanha Top Team - Wagner', professorName: 'Montanha', registrationDate: '2023-02-10', birthDate: '1998-03-12' },
+    { id: 3, name: "Marcos Oliveira", email: "marcos.oli@example.com", phone: "11999993333", belt: "Roxa", stripes: 3, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2022-11-05', birthDate: '1990-07-25' },
+    { id: 4, name: "Juliana Santos", email: "ju.santos@example.com", phone: "11999994444", belt: "Marrom", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2021-08-15', birthDate: '1988-12-01' },
+    { id: 5, name: "Roberto Almeida", email: "beto.almeida@example.com", phone: "11999995555", belt: "Preta", stripes: 0, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2020-03-10', birthDate: '1985-09-18' },
     { id: 6, name: "Fernanda Lima", email: "fe.lima@example.com", belt: "Branca", stripes: 4, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-06-20', birthDate: '1996-02-14' },
     { id: 7, name: "Ricardo Pereira", email: "ricardo.p@example.com", belt: "Azul", stripes: 2, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2023-04-01', birthDate: '1993-11-30' },
     { id: 8, name: "Patrícia Costa", email: "paty.costa@example.com", belt: "Roxa", stripes: 1, active: 1, branch: 'Montanha Top Team', professorName: 'Montanha', registrationDate: '2022-09-12', birthDate: '1991-04-22' },

@@ -4,7 +4,7 @@ import { useAuth } from '@/context/AuthContext'
 import './Belt.css'
 
 // REACT ICONS IMPORT
-import { FaUser, FaHome, FaEdit, FaSignOutAlt, FaTachometerAlt } from "react-icons/fa";
+import { FaUser, FaHome, FaEdit, FaSignOutAlt, FaTachometerAlt, FaEye } from "react-icons/fa";
 // import { FaCartShopping } from "react-icons/fa6"
 
 export function Belt(){
@@ -56,6 +56,13 @@ export function Belt(){
         }
     }
 
+    const handleViewAsStudent = () => {
+        setShowDropdown(false);
+        navigate('/user-area'); // Force navigation to student panel
+    };
+
+    const isAdmin = user?.accessLevel >= 2;
+
     return (
         <div className="belt-container">
             <div id="title-site">
@@ -88,6 +95,11 @@ export function Belt(){
                                 <button onClick={handlePanel} className="dropdown-item">
                                     <FaTachometerAlt /> Painel
                                 </button>
+                                {isAdmin && (
+                                    <button onClick={handleViewAsStudent} className="dropdown-item">
+                                        <FaEye /> Ver como Aluno
+                                    </button>
+                                )}
                                 <button onClick={handleEdit} className="dropdown-item">
                                     <FaEdit /> Editar Perfil
                                 </button>
